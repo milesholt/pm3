@@ -8,9 +8,9 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <ion-item><ion-icon name="home"></ion-icon> &nbsp;&nbsp; Home</ion-item>
-      <ion-item><ion-icon name="person"></ion-icon> &nbsp;&nbsp; My Account</ion-item>
-      <ion-item><ion-icon name="settings"></ion-icon> &nbsp;&nbsp; Settings</ion-item>
+      <ion-item routerLink="/dashboard/(home:home)"><ion-icon name="home"></ion-icon> &nbsp;&nbsp; Home</ion-item>
+      <ion-item routerLink="/account"><ion-icon name="settings"></ion-icon> &nbsp;&nbsp; Settings</ion-item>
+      <ion-item (click)="changeView('account')"><ion-icon name="person"></ion-icon> &nbsp;&nbsp; My Account</ion-item>
       <ion-item><ion-icon name="help-circle-outline"></ion-icon> &nbsp;&nbsp; Help</ion-item>
       <ion-item><ion-icon name="log-out"></ion-icon> &nbsp;&nbsp; Sign Out</ion-item>
     </ion-list>
@@ -30,6 +30,22 @@
   </ion-content>
 </ion-menu>
 
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="openFirstMenu()">
+            <ion-icon name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{title | titlecase}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openSecondMenu()">
+            <ion-icon name="information-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-router-outlet main></ion-router-outlet>
+
+  <ion-router-outlet main (callback)="handleCallback($event)"></ion-router-outlet>
 </ion-app>

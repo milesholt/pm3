@@ -10,6 +10,7 @@ import { takeUntil, filter, tap } from 'rxjs/operators';
 export abstract class RouterPage implements OnDestroy {
 
   private ngUnsubscribe: Subject<void> = new Subject();
+  public activeComp:any;
 
     constructor(router: Router, route: ActivatedRoute) {
         router.events.pipe(
@@ -27,6 +28,7 @@ export abstract class RouterPage implements OnDestroy {
         path.forEach((ss: ActivatedRouteSnapshot) => {
             if (ss.component === component) {
                 isActive = true;
+                this.activeComp = component;
             } else {
                 isActive = this._isComponentActive(ss.children, component);
             }

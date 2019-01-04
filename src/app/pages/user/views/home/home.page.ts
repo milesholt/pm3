@@ -9,12 +9,18 @@ import { RouterPage } from '../../../../classes/router.class'
 })
 export class HomePage extends RouterPage implements OnDestroy {
 
+  params: any = { "title": "test" };
+
   constructor(private router: Router, private route: ActivatedRoute) {
         super(router, route);
     }
 
+    ngOnInit() {
+      // console.log(this.params);
+   }
+
     onEnter() {
-        console.log('Home page');
+      console.log('Home page');
     }
 
    onDestroy() {

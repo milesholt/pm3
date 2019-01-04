@@ -15,7 +15,7 @@ import { PagesModule, UserDashboardPage } from '../../pages.module';
     //ProjectsPageModule
   ],
   declarations: [
-    UserDashboardPage
+    //UserDashboardPage
   ]
 })
 export class UserDashboardPageModule {}

@@ -35,6 +35,7 @@ const routes: Routes = [
         path: '',
         redirectTo: '/dashboard/(home:home)',
         pathMatch: 'full',
+        data: { title: 'Home Page' }
       },
       {
         path: 'home',

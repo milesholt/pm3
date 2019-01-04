@@ -1,26 +1,21 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
-
     <ion-buttons slot="start">
       <ion-button (click)="openFirstMenu()">
             <ion-icon name="menu"></ion-icon>
       </ion-button>
     </ion-buttons>
-
     <ion-title>{{title | titlecase}}</ion-title>
-
     <ion-buttons slot="end">
       <ion-button (click)="openSecondMenu()">
             <ion-icon name="information-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-
-
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
-<ion-tabs #myTabs class="view_container" padding>
-  <ion-tab label="Home" icon="home" href="/dashboard/(home:home)">
+<ion-tabs #myTabs class="view_container">
+  <ion-tab label="Home" icon="home" href="/dashboard/(home:home)" (click)="emit('home')">
     <ion-router-outlet name="home"></ion-router-outlet>
   </ion-tab>
   <ion-tab label="Items" icon="briefcase" href="/dashboard/(items:items)">
