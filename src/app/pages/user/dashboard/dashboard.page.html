@@ -1,6 +1,21 @@
 <ion-header>
   <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-button (click)="openFirstMenu()">
+            <ion-icon name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
     <ion-title>{{title | titlecase}}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="openSecondMenu()">
+            <ion-icon name="information-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+
   </ion-toolbar>
 </ion-header>
 

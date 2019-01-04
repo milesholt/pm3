@@ -1,3 +1,35 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+
+  <ion-menu side="start" menuId="first">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item><ion-icon name="home"></ion-icon> &nbsp;&nbsp; Home</ion-item>
+      <ion-item><ion-icon name="person"></ion-icon> &nbsp;&nbsp; My Account</ion-item>
+      <ion-item><ion-icon name="settings"></ion-icon> &nbsp;&nbsp; Settings</ion-item>
+      <ion-item><ion-icon name="help-circle-outline"></ion-icon> &nbsp;&nbsp; Help</ion-item>
+      <ion-item><ion-icon name="log-out"></ion-icon> &nbsp;&nbsp; Sign Out</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-menu side="end" type="push" menuId="second">
+  <ion-header>
+    <ion-toolbar color="danger">
+      <ion-title>Activity</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content padding>
+    <p>
+      Activity component goes here.
+      </p>
+  </ion-content>
+</ion-menu>
+
+
+  <ion-router-outlet main></ion-router-outlet>
 </ion-app>
