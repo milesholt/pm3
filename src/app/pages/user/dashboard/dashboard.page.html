@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{title | titlecase}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-tabs #myTabs class="view_container" padding>
+  <ion-tab label="Home" icon="home" href="/dashboard/(home:home)">
+    <ion-router-outlet name="home"></ion-router-outlet>
+  </ion-tab>
+  <ion-tab label="Items" icon="briefcase" href="/dashboard/(items:items)">
+    <ion-router-outlet name="items"></ion-router-outlet>
+  </ion-tab>
+  <ion-tab label="News" icon="information-circle" href="/dashboard/(about:about)">
+    <ion-router-outlet name="about"></ion-router-outlet>
+  </ion-tab>
+  <ion-tab label="Services" icon="contacts" href="/dashboard/(contact:contact)">
+    <ion-router-outlet name="contact"></ion-router-outlet>
+  </ion-tab>
+</ion-tabs>

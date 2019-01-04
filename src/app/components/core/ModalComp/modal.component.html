@@ -1,0 +1,19 @@
+<div class="modal-container">
+  <div class="modal-content">
+    <ion-button (click)="closeModal()">Close</ion-button>
+    <ion-list>
+      <ion-item *ngFor="let field of fields">
+        <div [ngSwitch]="params[field].type">
+
+            <!-- text field -->
+           <div *ngSwitchCase="'text'">
+             <ion-label>{{params[field].label}}</ion-label>
+             <ion-input type="text" [(ngModel)]="params[field].value"></ion-input>
+           </div>
+
+        </div>
+      </ion-item>
+    </ion-list>
+    <ion-button (click)="closeModal(params)">Submit</ion-button>
+  </div>
+</div>

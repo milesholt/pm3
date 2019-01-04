@@ -1,0 +1,9 @@
+{
+    "bucketName": "pm3storage1bucket1",
+    "authPolicyName": "s3_amplify_24efc842",
+    "unauthPolicyName": "s3_amplify_24efc842",
+    "authRoleName": "pm3-20181010122203-authRole",
+    "unauthRoleName": "pm3-20181010122203-unauthRole",
+    "authPermissions": "rw",
+    "unauthPermissions": "rw"
+}

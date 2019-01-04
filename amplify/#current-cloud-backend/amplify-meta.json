@@ -1,0 +1,88 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "pm3-20181010122203-authRole",
+			"UnauthRoleArn": "arn:aws:iam::352356241744:role/pm3-20181010122203-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::352356241744:role/pm3-20181010122203-authRole",
+			"Region": "us-west-2",
+			"DeploymentBucketName": "pm3-20181010122203-deployment",
+			"UnauthRoleName": "pm3-20181010122203-unauthRole",
+			"StackName": "pm3-20181010122203",
+			"StackId": "arn:aws:cloudformation:us-west-2:352356241744:stack/pm3-20181010122203/b6da5e30-cc7e-11e8-9358-0a45bad35fbe"
+		}
+	},
+	"auth": {
+		"cognitoa12c5a91": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/pm3-20181010122203-deployment/amplify-cfn-templates/auth/cognitoa12c5a91-cloudformation-template.yml",
+				"logicalId": "authcognitoa12c5a91"
+			},
+			"lastPushTimeStamp": "2018-10-10T14:35:44.909Z",
+			"output": {
+				"AppClientSecret": "19aq6k117kg9cut5c2a5cbtn8nvhblieae9nlni869u8s3qjfnff",
+				"UserPoolId": "us-west-2_q0H74lUL2",
+				"AppClientIDWeb": "1eafgnebde62gpc4vnal8m950s",
+				"AppClientID": "10hro42ubq4trel1nn5er56ak2",
+				"IdentityPoolId": "us-west-2:176f43fe-b2ca-4eb2-90e6-0df4a9ec4360",
+				"IdentityPoolName": "cognitoa12c5a91_identitypool_a12c5a91",
+				"UserPoolName": "cognitoa12c5a91_userpool_a12c5a91",
+				"GoogleWebClient": "7138109007-3o910n721e00re7g9nmo15mbujls944b.apps.google",
+				"FacebookWebClient": "652780208456303"
+			},
+			"lastPushDirHash": "H4xHk7MvX9lnlNzmnn7/4ni6J78=",
+			"[object Object]": {}
+		}
+	},
+	"storage": {
+		"pm3db1": {
+			"service": "DynamoDB",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/pm3-20181010122203-deployment/amplify-cfn-templates/storage/pm3db1-cloudformation-template.json",
+				"logicalId": "storagepm3db1"
+			},
+			"lastPushTimeStamp": "2018-10-10T14:35:44.907Z",
+			"output": {
+				"PartitionKeyName": "n",
+				"Region": "us-west-2",
+				"Arn": "arn:aws:dynamodb:us-west-2:352356241744:table/main",
+				"PartitionKeyType": "S",
+				"Name": "main"
+			},
+			"lastPushDirHash": "K/CMIwpu7DY0nbA/WhhqBzPs0sU="
+		},
+		"pm3storage1": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/pm3-20181010122203-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
+				"logicalId": "storagepm3storage1"
+			},
+			"lastPushTimeStamp": "2018-10-10T14:35:44.908Z",
+			"output": {
+				"BucketName": "pm3storage1bucket1",
+				"Region": "us-west-2"
+			},
+			"lastPushDirHash": "oSLjxkzAlgb6Hor6h5mMmfpakrY="
+		}
+	},
+	"analytics": {
+		"pm3": {
+			"service": "Pinpoint",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/pm3-20181010122203-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+				"logicalId": "analyticspm3"
+			},
+			"lastPushTimeStamp": "2018-10-10T14:35:44.908Z",
+			"output": {
+				"appName": "pm3",
+				"Region": "us-east-1",
+				"Id": "296c28c902ef41f8abefaf990ab3ab09"
+			},
+			"lastPushDirHash": "thud3fuKdufRaBr1iIVCE6wxcDg="
+		}
+	}
+}

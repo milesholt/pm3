@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Welcome</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+Signup page<br /><br />
+
+  <form class="form" [formGroup]="loginForm" (ngSubmit)="tryLogin(loginForm.value)">
+
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="text" formControlName="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+
+    <ion-button full class="submit-button" type="submit">
+      Login
+    </ion-button>
+    
+    <label class="error-message">{{errorMessage}}</label>
+
+    <br>
+    <div>
+      <p>No account yet? <a (click)="registerAccount()">Create an account</a></p>
+    </div>
+    <br>
+
+  </form>
+
+<ion-button full type="submit" class="primary facebook-button" (click)="socialLogin('Facebook')">Facebook Login</ion-button><br />
+<ion-button full type="submit" class="google-button"  (click)="socialLogin('Google')">Google Login</ion-button>
+
+</ion-content>

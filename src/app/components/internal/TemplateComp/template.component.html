@@ -1,0 +1,16 @@
+<p>
+  Internal Component Template
+</p>
+
+<ion-list>
+    <ion-item-sliding #s *ngFor="let item of items | async">
+      <ion-item detail lines="full" (click)="do(item, 'enter')">
+        <ion-icon name="document" slot="start"></ion-icon>
+        {{item.name}}
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="primary" (click)="s.close(); do(item,'edit')">EDIT</ion-item-option>
+        <ion-item-option color="danger"  (click)="s.close(); do(item,'delete')">DELETE</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+</ion-list>

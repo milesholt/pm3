@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Welcome</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+<p>
+  Registration Page
+</p>
+
+<form class="form" [formGroup]="registerForm" (ngSubmit)="tryRegister(registerForm.value)">
+
+  <ion-item>
+    <ion-label floating>Email</ion-label>
+    <ion-input type="text" formControlName="email"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Password</ion-label>
+    <ion-input type="password" formControlName="password"></ion-input>
+  </ion-item>
+
+  <ion-button full class="submit-button" type="submit">
+    Register
+  </ion-button>
+
+  <label class="error-message">{{errorMessage}}</label>
+  <label class="success-message">{{successMessage}}</label>
+
+  <br>
+  <div>
+    <p>Already have an account? <a href="/login">Try to Log in</a></p>
+  </div>
+  <br>
+
+</form>
+</ion-content>

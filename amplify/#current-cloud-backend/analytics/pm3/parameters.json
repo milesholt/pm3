@@ -1,0 +1,11 @@
+{
+    "appName": "pm3",
+    "roleName": "pinpointLambdaRole965ae38e",
+    "cloudWatchPolicyName": "cloudWatchPolicy965ae38e",
+    "pinpointPolicyName": "pinpointPolicy965ae38e",
+    "authPolicyName": "pinpoint_amplify_965ae38e",
+    "unauthPolicyName": "pinpoint_amplify_965ae38e",
+    "authRoleName": "pm3-20181010122203-authRole",
+    "unauthRoleName": "pm3-20181010122203-unauthRole",
+    "IAMPrefix": "352356241744"
+}

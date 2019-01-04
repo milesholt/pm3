@@ -1,0 +1,20 @@
+{
+    "projectName": "pm3",
+    "projectPath": "/Library/Server/Web/Data/Sites/Development/pm3",
+    "defaultEditor": "atom",
+    "frontendHandler": {
+        "javascript": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/amplify-frontend-javascript"
+    },
+    "javascript": {
+        "framework": "ionic",
+        "config": {
+            "SourceDir": "src",
+            "DistributionDir": "www",
+            "BuildCommand": "ionic build",
+            "StartCommand": "ionic serve"
+        }
+    },
+    "providers": {
+        "awscloudformation": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/amplify-provider-awscloudformation"
+    }
+}
