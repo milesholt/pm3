@@ -33,7 +33,7 @@ export class ItemComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if(this.user.authorised){
-      console.log('user has been authorised..');
+      console.log('user has been authorised.');
       this.items = this.service.db.ini(this.collection);
     }
   }
