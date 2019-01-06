@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { AppRoutingModule } from './app-routing.module.ts';
 import { Router, NavigationStart, RoutesRecognized, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 
 import { Subject } from 'rxjs';
@@ -21,7 +20,6 @@ export class AppComponent {
     private menu: MenuController,
     public navCtrl: NavController,
     private router: Router,
-    private routerMod: AppRoutingModule,
     private route: ActivatedRoute,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar
@@ -35,10 +33,6 @@ export class AppComponent {
     this.splashScreen.hide();
     this.detectRoutes();
     });
-  }
-
-  ionViewDidEnter(){
-    console.log('view change');
   }
 
   changeView(alias,dash:boolean = false){
@@ -59,33 +53,15 @@ export class AppComponent {
     this.menu.open('second');
   }
 
-  handleCallback(e){
-    console.log(e);
-  }
-
-  onEnter() {
-    console.log(this.activeComp.name);
-  }
-
   detectRoutes(){
-
     this.router.events.subscribe(val => {
       if (val instanceof RoutesRecognized) {
-        console.log(val.state.root.firstChild.data);
+        const rootData = val.state.root.children[0].firstChild ? val.state.root.children[0].firstChild : val.state.root.children[0];
+        console.log(val.state.root);
+        const title = rootData.data.title === 'Home' && rootData.children.length > 0 ? rootData.children[0].data.title : rootData.data.title;
+        this.title = title;
       }
     });
-
-    // this.route.paramMap.subscribe(params => {
-    //   console.log(params);
-    // });
-
-    // this.router.events.forEach((event) => {
-    //   if(event instanceof NavigationStart) {
-    //     console.log(event);
-    //   }
-    // });
-
   }
-
 
 }

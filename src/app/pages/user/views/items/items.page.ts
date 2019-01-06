@@ -15,7 +15,7 @@ export class ItemsPage extends RouterPage implements OnDestroy {
         super(router, route);
     }
 
-    onEnter(comp) {
+    onEnter() {
       console.log(this.activeComp.name);
     }
 

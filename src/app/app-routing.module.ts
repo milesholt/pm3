@@ -1,14 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+
 
 const routes: Routes = [
-  { path: '', loadChildren: './pages/auth/login/login.module#AuthLoginPageModule', data: { title: 'Test1' }},
-  { path: 'dashboard', loadChildren: './pages/user/dashboard/dashboard.module#UserDashboardPageModule', data: { title: 'Test2' } },
-  { path: 'account', loadChildren: './pages/user/account/account.module#AccountPageModule', data: { title: 'Test3' } },
-  { path: 'dashboard/(home:home)', loadChildren: './pages/user/dashboard/dashboard.module#UserDashboardPageModule', data: { title: 'Test4' } }
+  { path: '', loadChildren: './pages/pages.module#PagesModule' },
+  { path: 'login', loadChildren: './pages/pages.module#PagesModule' },
+  { path: 'logout', loadChildren: './pages/pages.module#PagesModule' },
+  { path: 'register', loadChildren: './pages/pages.module#PagesModule' },
+  { path: 'account', loadChildren: './pages/pages.module#PagesModule' },
+  { path: 'settings', loadChildren: './pages/pages.module#PagesModule' },
+  { path: 'dashboard', loadChildren: './pages/pages.module#PagesModule' }
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),IonicModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
+ 

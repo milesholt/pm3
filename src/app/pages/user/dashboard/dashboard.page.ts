@@ -1,12 +1,13 @@
 import { Component, ViewChild, EventEmitter, Output } from '@angular/core';
 import { NavController, Platform, MenuController } from '@ionic/angular';
 import { CoreService } from '../../../services/core.service';
+import { Library } from '../../../app.library';
 
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: 'dashboard.page.html',
   styleUrls: ['dashboard.page.scss'],
-  providers: [CoreService]
+  providers: [CoreService, Library]
 })
 export class UserDashboardPage {
 

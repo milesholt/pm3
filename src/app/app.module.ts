@@ -11,12 +11,12 @@ import { AppComponent } from './app.component';
 
 import { environment } from '../environments/environment';
 
-//Social Login services
+//Social Login imports
 import { Facebook } from '@ionic-native/facebook/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { TwitterConnect } from '@ionic-native/twitter-connect/ngx';
 
-//BaaS provider services
+//BaaS provider imports
 import { Firebase } from '@ionic-native/firebase/ngx';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -25,7 +25,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { AngularFireFunctions } from '@angular/fire/functions';
 
-
+//Main Services
 import { AuthService } from './services/external/firebase/AuthService/auth.service';
 import { UserService } from './services/external/firebase/UserService/user.service';
 import { DatabaseService } from './services/external/firebase/DatabaseService/database.service';
@@ -34,24 +34,8 @@ import { ToastService } from './services/internal/ToastService/toast.service';
 import { ModalService } from './services/internal/ModalService/modal.service';
 import { NotificationService } from './services/internal/NotificationService/notification.service';
 
-// import { ModalComponent } from './components/core/ModalComp/modal.component';
-// import { ModalComponentModule } from './components/core/ModalComp/modal.module';
-
-// import { Observable } from 'rxjs-compat';
-// import { map } from 'rxjs-compat/operators';
-
+//Library Service
 import { Library } from './app.library';
-//import { TemplateComponent } from './components/TemplateComp/template.component';
-
-// const firebase = {
-//      apiKey: "AIzaSyBAhZc4AJgvSwMyEyQH04q3DRa8tuJK9mU",
-//      authDomain: "project-manager-2045e.firebaseapp.com",
-//      databaseURL: "https://project-manager-2045e.firebaseio.com",
-//      projectId: "project-manager-2045e",
-//      storageBucket: "project-manager-2045e.appspot.com",
-//      messagingSenderId: "1026315619936"
-//    }
-
 
 @NgModule({
   declarations: [AppComponent],

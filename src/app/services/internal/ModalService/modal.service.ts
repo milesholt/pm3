@@ -9,7 +9,7 @@ export class ModalService {
   constructor(private modalCtrl:ModalController) {}
 
   //launches Modal Component and passes / returns data
-  async openModal(params,comp)
+  async openModal(params)
   {
     console.log('modal test');
     const modal = await this.modalCtrl.create({

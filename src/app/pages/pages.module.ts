@@ -1,76 +1,89 @@
-import { forwardRef, NgModule } from '@angular/core';
-
+import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { Routes, RouterModule, RouteReuseStrategy } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { UserDashboardPage } from './user/dashboard/dashboard.page';
 
+//Main pages
 import { HomePage } from './user/views/home/home.page';
 import { AboutPage } from './user/views/about/about.page';
-
-import { CollectionsPage } from './user/views/collections/collections.page';
-import { CollectionPage } from './user/views/collection/collection.page';
-import { DocumentPage } from './user/views/document/document.page';
 import { ItemsPage } from './user/views/items/items.page';
-
 import { ContactPage } from './user/views/contact/contact.page';
 import { AuthLoginPage } from './auth/login/login.page';
 import { AuthLogoutPage } from './auth/logout/logout.page';
 import { AuthRegisterPage } from './auth/register/register.page';
-import { AuthService } from '../services/external/firebase/AuthService/auth.service';
+import { UserSettingsPage } from './user/settings/settings.page';
+import { UserAccountPage } from './user/account/account.page';
 
+//Main components
 import { ItemComponent } from '../components/core/ItemComp/item.component';
 import { ModalComponent } from '../components/core/ModalComp/modal.component';
-
 import { TemplateComponent } from '../components/internal/TemplateComp/template.component';
 
 const routes: Routes = [
-  {
+   {
     path: 'dashboard',
     component: UserDashboardPage,
+    data: { title: 'Home' },
     children: [
       {
         path: '',
         redirectTo: '/dashboard/(home:home)',
         pathMatch: 'full',
-        data: { title: 'Home Page' }
+        data: { title: 'Home' }
       },
       {
         path: 'home',
         outlet: 'home',
-        component: HomePage
+        component: HomePage,
+        data: { title: 'Home' }
       },
       {
         path: 'items',
         outlet: 'items',
         component: ItemsPage,
-        //loadChildren: './user/views/collections/collections.module#collectionsPageModule'
+        data: { title: 'Items' }
       },
       {
         path: 'about',
         outlet: 'about',
-        component: AboutPage
+        component: AboutPage,
+        data: { title: 'About' }
       },
       {
         path: 'contact',
         outlet: 'contact',
-        component: ContactPage
+        component: ContactPage,
+        data: { title: 'Contact' }
       }
     ]
   },
   {
+    path: 'account',
+    component: UserAccountPage,
+    data: { title: 'Account' }
+  },
+  {
+    path: 'settings',
+    component: UserSettingsPage,
+    data: { title: 'Settings' }
+  },
+  {
     path: 'register',
-    component: AuthRegisterPage
+    component: AuthRegisterPage,
+    data: { title: 'Register' }
   },
   {
     path: 'login',
-    component: AuthLoginPage
+    component: AuthLoginPage,
+    data: { title: 'Login' }
   },
   {
     path: 'logout',
-    component: AuthLogoutPage
+    component: AuthLogoutPage,
+    data: { title: 'Logout' }
   },
   {
     path: '',
@@ -84,15 +97,16 @@ const routes: Routes = [
     HomePage,
     AboutPage,
     ContactPage,
-    CollectionsPage,
     UserDashboardPage,
+    UserSettingsPage,
+    UserAccountPage,
     AuthLoginPage,
     AuthLogoutPage,
-    ItemsPage,
     AuthRegisterPage,
+    ItemsPage,
     ItemComponent,
     ModalComponent,
-    TemplateComponent
+    TemplateComponent,
   ],
   entryComponents: [ModalComponent],
   imports: [
@@ -107,5 +121,3 @@ const routes: Routes = [
   bootstrap: []
 })
 export class PagesModule {}
-export { UserDashboardPage }
-export { AuthService }

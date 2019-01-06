@@ -19,6 +19,6 @@ export class ModalComponent implements OnInit {
 
   closeModal(d){
     this.modalCtrl.dismiss(d);
-  }
+  } 
 
 }

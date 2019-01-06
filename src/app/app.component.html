@@ -8,11 +8,11 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <ion-item routerLink="/dashboard/(home:home)"><ion-icon name="home"></ion-icon> &nbsp;&nbsp; Home</ion-item>
-      <ion-item routerLink="/account"><ion-icon name="settings"></ion-icon> &nbsp;&nbsp; Settings</ion-item>
-      <ion-item (click)="changeView('account')"><ion-icon name="person"></ion-icon> &nbsp;&nbsp; My Account</ion-item>
+      <ion-item routerLink="/dashboard"><ion-icon name="home"></ion-icon> &nbsp;&nbsp; Home</ion-item>
+      <ion-item routerLink="/settings"><ion-icon name="settings"></ion-icon> &nbsp;&nbsp; Settings</ion-item>
+      <ion-item routerLink="/account"><ion-icon name="person"></ion-icon> &nbsp;&nbsp; My Account</ion-item>
       <ion-item><ion-icon name="help-circle-outline"></ion-icon> &nbsp;&nbsp; Help</ion-item>
-      <ion-item><ion-icon name="log-out"></ion-icon> &nbsp;&nbsp; Sign Out</ion-item>
+      <ion-item routerLink="/logout"><ion-icon name="log-out"></ion-icon> &nbsp;&nbsp; Logout</ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>
@@ -40,7 +40,7 @@
     <ion-title>{{title | titlecase}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="openSecondMenu()">
-            <ion-icon name="information-circle-outline"></ion-icon>
+            <ion-icon name="notifications"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
