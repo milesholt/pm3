@@ -1,9 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 import { Library } from '../../../app.library';
 import { CoreService } from '../../../services/core.service';
-import { of } from 'rxjs';
 
 
 @Component({
@@ -32,34 +31,40 @@ export class WritingComponent implements OnInit, OnChanges {
   };
   character:any = {
     key: "character",
-    name:{value:"",type:"string"},
-    desc:{value:"",type:"string"},
-    dialogue:{value:"",type:"textarea"}
+    value:"",
+    type:"string"
+  };
+  description:any = {
+    key: "description",
+    value:"",
+    type:"string"
+  };
+  dialogue:any = {
+    key: "dialogue",
+    value:"",
+    type:"textarea"
   };
 
   constructor(private lib: Library, private service: CoreService) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    // changes.prop contains the old and the new value...
-    console.log('change');
-    console.log(changes);
   }
 
   ngOnInit() {}
 
   createElement(el:string){
-    //this.markup.push({ key: el, val : this.lib.deepCopy(this[el]) });
     this.markup.push(this.lib.deepCopy(this[el]));
   }
 
-  storeElement(val:string,type:string){
-    this[type].push(val);
+  storeElement(elkey){
+    this[elkey+'s'] = this.markup.filter(el => el.key == elkey).map(el => el.value);
   }
 
-  updateElement(val, el, prop, idx){
-    let mu = this.markup;
-    let ref = mu[idx].value ? mu[idx] : mu[idx][prop.key];
-    ref.value = val;
+  updateElement(el){
+    if(['heading','character'].includes(el.key)) this.storeElement(el.key);
+  }
+
+  checkForSmartSuggest(){
   }
 
 

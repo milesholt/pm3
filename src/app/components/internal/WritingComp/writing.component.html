@@ -6,6 +6,8 @@
 
 {{markup | json}}
 
+{{ characters | json}}
+
 <p>Markup</p>
 
 <div class="markup_container">
@@ -13,21 +15,21 @@
 
     {{ el.key }}
 
-      <div *ngFor="let e of el | keys : [] : changed" class="element">
-        {{e | json}}
-        <div [ngSwitch]="e.key == 'type' ? e.value : e.value.type">
-          <ion-item *ngSwitchCase="'string'">
-              <ion-input type="text" placeholder="text" [(ngModel)]="newvalues[e.key]" (ngModelChange)="updateElement($event, el, e, idx)"></ion-input>
-          </ion-item>
-          <ion-item *ngSwitchCase="'textarea'">
-              <!-- <ion-textarea class=""
-                            contenteditable="true"
-                            (input)=""
-                            (click)="">
-              </ion-textarea> -->
-          </ion-item>
-        </div>
-      </div>
+    <div [ngSwitch]="el.type">
+      <ion-item *ngSwitchCase="'string'">
+          <ion-input autocomplete="on" type="text" placeholder="{{el.key}}" [(ngModel)]="el.value" (ngModelChange)="updateElement(el,idx)"></ion-input>
+      </ion-item>
+      <ion-item *ngSwitchCase="'textarea'">
+          <ion-textarea class="markup_textarea"
+                        contenteditable="true"
+                        autocorrect="on"
+                        rows="10"
+                        (input)="updateElement(el,idx)"
+                        (click)="checkForSmartSuggest($event)">
+          </ion-textarea>
+      </ion-item>
+    </div>
+
   </div>
 </div>
 
@@ -35,4 +37,5 @@
   <ion-button (click)="createElement('heading')">H</ion-button>
   <ion-button (click)="createElement('character')">C</ion-button>
   <ion-button (click)="createElement('body')">B</ion-button>
+  <ion-button (click)="createElement('dialogue')">D</ion-button>
 </div>
