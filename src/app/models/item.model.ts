@@ -6,6 +6,7 @@ export class ItemModel {
      research:{}
      messages:{}
      calendar:{}
+     work:{}
    }
  }
 
@@ -25,6 +26,10 @@ export class ItemModel {
    enddate:string
  };
 
+ work:{
+   content:string
+ };
+
  messageGroup:{
     messages:{}
  };
@@ -35,8 +40,8 @@ export class ItemModel {
    content:string
  }
 
- params:{
- }
+
+ params:{}
 
 
   constructor(){
@@ -44,6 +49,10 @@ export class ItemModel {
     this.event = {
       startdate: "",
       enddate: ""
+    }
+
+    this.work = {
+      content: ""
     }
 
     this.document = {
@@ -75,7 +84,8 @@ export class ItemModel {
       ideas: { "idea1" : this.document, "params": Object.assign({}, this.params, this.collection) },
       research: { "board1" : this.document, "params": Object.assign({}, this.params, this.collection) },
       messages: { "group1" : Object.assign({}, this.document, this.messageGroup), "params": Object.assign({}, this.params, this.collection) },
-      calendar: { "event1" : Object.assign({}, this.document, this.event), "params": Object.assign({}, this.params, this.collection) }
+      calendar: { "event1" : Object.assign({}, this.document, this.event), "params": Object.assign({}, this.params, this.collection) },
+      work: { "work1" : Object.assign({}, this.document, this.work), "params": Object.assign({}, this.params, this.collection) }
     }
 
     this.item = {

@@ -37,6 +37,13 @@ import { NotificationService } from './services/internal/NotificationService/not
 //Library Service
 import { Library } from './app.library';
 
+/* Pipes */
+// import { KeysPipe } from './pipes/keys.pipe/keys.pipe';
+// import { SafeHtmlPipe } from './pipes/safehtml.pipe/safehtml.pipe';
+//import { TestPipe } from './test.pipe';
+
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],

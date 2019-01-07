@@ -43,5 +43,6 @@
 
 <!-- components -->
 <comp-template *ngIf="comp == 'calendar'" [items]="items" (callback)="handleCallback($event)"></comp-template>
+<comp-writing *ngIf="comp == 'work'" [items]="item" (callback)="handleCallback($event)"></comp-writing>
 
 </ion-content>

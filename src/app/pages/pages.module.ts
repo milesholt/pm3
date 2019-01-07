@@ -17,10 +17,17 @@ import { AuthRegisterPage } from './auth/register/register.page';
 import { UserSettingsPage } from './user/settings/settings.page';
 import { UserAccountPage } from './user/account/account.page';
 
-//Main components
+//Core components
 import { ItemComponent } from '../components/core/ItemComp/item.component';
 import { ModalComponent } from '../components/core/ModalComp/modal.component';
+
+//Internal components
 import { TemplateComponent } from '../components/internal/TemplateComp/template.component';
+import { WritingComponent } from '../components/internal/WritingComp/writing.component';
+
+//pipes
+import { KeysPipe } from '../pipes/keys.pipe/keys.pipe';
+import { SafeHtmlPipe } from '../pipes/safehtml.pipe/safehtml.pipe';
 
 const routes: Routes = [
    {
@@ -107,6 +114,9 @@ const routes: Routes = [
     ItemComponent,
     ModalComponent,
     TemplateComponent,
+    WritingComponent,
+    KeysPipe,
+    SafeHtmlPipe
   ],
   entryComponents: [ModalComponent],
   imports: [

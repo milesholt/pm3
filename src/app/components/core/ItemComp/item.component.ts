@@ -16,6 +16,7 @@ export class ItemComponent implements OnInit, OnChanges {
   @Input() collection: string;
   @Input() user: any;
   items: Observable<Object[]>;
+  item: Observable<Object[]>;
   //items:any;
   def:any;
   nestindex:number = -1;
@@ -60,6 +61,7 @@ export class ItemComponent implements OnInit, OnChanges {
 
   async enterItem(item){
     this.nestindex++;
+    this.item =  item;
     let itms = await this.service.db.select(item);
     this.items = of(itms.value.data);
     this.type = itms.value.type;

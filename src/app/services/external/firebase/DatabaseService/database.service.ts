@@ -21,7 +21,7 @@ export class DatabaseService {
   itemModel: ItemModel = new ItemModel();
   user: FirebaseUserModel = new FirebaseUserModel();
   collection:string;
-  root:any; 
+  root:any;
   modelPosRef:any;
   constructor(private db: AngularFirestore, private userService: UserService, private lib: Library){
   }
@@ -54,6 +54,7 @@ export class DatabaseService {
    let root  = this.root.ref;
    this.modelPosRef = this.modelPosRef[(root.parent === null ? this.collection : item.id)];
    if(root.parent === null || root.constructor.name === 'CollectionReference'){
+     console.log(root.constructor.name);
      return this.listCollections(item);
    } else{
      return this.listDocuments(item);
@@ -66,6 +67,7 @@ export class DatabaseService {
    //return observable array of collections
    //you could also append property to data - 'grid' to show as grid rather than list
    console.log('here');
+   console.log(item);
    this.root = this.root.doc(item.id);
    let cols = [];
    Object.keys(this.modelPosRef).forEach(r=>{
@@ -85,11 +87,12 @@ export class DatabaseService {
    if(item !== false) this.root = this.root.collection(item.id);
    let docs = [];
    return await this.root.ref.get().then(querySnapshot =>{
-     querySnapshot.forEach(function(doc) {
+      querySnapshot.forEach(function(doc) {
           const docName = doc.data().name && doc.data().name !== '' ? doc.data().name : doc.id;
           docs.push({"id":doc.id, "name": docName, "data":doc.data()});
       });
       let res = { "data":docs, "type":"documents", "layout": "list" }
+      console.log(res);
       return of(res);
    });
  }

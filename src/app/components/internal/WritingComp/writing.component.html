@@ -1,0 +1,38 @@
+<p>
+  Internal Component Template
+</p>
+
+{{items.data.content | json}}
+
+{{markup | json}}
+
+<p>Markup</p>
+
+<div class="markup_container">
+  <div *ngFor="let el of markup; let idx = index">
+
+    {{ el.key }}
+
+      <div *ngFor="let e of el | keys : [] : changed" class="element">
+        {{e | json}}
+        <div [ngSwitch]="e.key == 'type' ? e.value : e.value.type">
+          <ion-item *ngSwitchCase="'string'">
+              <ion-input type="text" placeholder="text" [(ngModel)]="newvalues[e.key]" (ngModelChange)="updateElement($event, el, e, idx)"></ion-input>
+          </ion-item>
+          <ion-item *ngSwitchCase="'textarea'">
+              <!-- <ion-textarea class=""
+                            contenteditable="true"
+                            (input)=""
+                            (click)="">
+              </ion-textarea> -->
+          </ion-item>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="markup_create">
+  <ion-button (click)="createElement('heading')">H</ion-button>
+  <ion-button (click)="createElement('character')">C</ion-button>
+  <ion-button (click)="createElement('body')">B</ion-button>
+</div>

@@ -41,6 +41,11 @@ export class Library{
         return Object.keys(object).length;
       }
 
+      //returns keys
+      keys(object){
+        return Object.keys(object);
+      }
+
       //returns if object is empty, the one above is 10 times slower if there are properties
       isEmpty(obj) {
           for(var prop in obj) {
