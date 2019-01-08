@@ -28,6 +28,7 @@ import { WritingComponent } from '../components/internal/WritingComp/writing.com
 //pipes
 import { KeysPipe } from '../pipes/keys.pipe/keys.pipe';
 import { SafeHtmlPipe } from '../pipes/safehtml.pipe/safehtml.pipe';
+import { ElFormatPipe } from '../pipes/elformatter.pipe/elformatter.pipe';
 
 const routes: Routes = [
    {
@@ -116,7 +117,8 @@ const routes: Routes = [
     TemplateComponent,
     WritingComponent,
     KeysPipe,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    ElFormatPipe
   ],
   entryComponents: [ModalComponent],
   imports: [
@@ -127,7 +129,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   exports: [RouterModule],
-  providers: [],
+  providers: [ElFormatPipe],
   bootstrap: []
 })
 export class PagesModule {}

@@ -1,14 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { Library } from '../../../app.library';
 import { CoreService } from '../../../services/core.service';
 
-
 @Component({
   selector: 'comp-writing',
   templateUrl: './writing.component.html',
-  styleUrls: ['./writing.component.scss']
+  styleUrls: ['./writing.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class WritingComponent implements OnInit, OnChanges {
 
@@ -17,8 +17,10 @@ export class WritingComponent implements OnInit, OnChanges {
 
   headings:any = [];
   characters:any = [];
+  groups:any = ['headings','characters']
   markup:any = [];
   newvalues:any = {};
+  newvalue:string = '';
   heading:any = {
     key: "heading",
     value:"",
@@ -34,8 +36,8 @@ export class WritingComponent implements OnInit, OnChanges {
     value:"",
     type:"string"
   };
-  description:any = {
-    key: "description",
+  parenthetical:any = {
+    key: "parenthetical",
     value:"",
     type:"string"
   };
@@ -45,28 +47,34 @@ export class WritingComponent implements OnInit, OnChanges {
     type:"textarea"
   };
 
-  constructor(private lib: Library, private service: CoreService) { }
+  private el: HTMLInputElement;
 
-  ngOnChanges(changes: SimpleChanges) {
-  }
+  constructor(private lib: Library, private service: CoreService) {}
 
+  ngOnChanges(changes: SimpleChanges) {}
   ngOnInit() {}
 
   createElement(el:string){
     this.markup.push(this.lib.deepCopy(this[el]));
   }
 
-  storeElement(elkey){
-    this[elkey+'s'] = this.markup.filter(el => el.key == elkey).map(el => el.value);
+  updateGroups(){
+    this.groups.forEach(group=>{
+      this[group] = this.markup.filter(el => el.key == group.slice(0, -1)).map(el => el.value);
+    });
   }
 
-  updateElement(el){
-    if(['heading','character'].includes(el.key)) this.storeElement(el.key);
+  updateElement(el,idx,val){
+    if(['heading','character'].includes(el.key)) this.updateGroups();
   }
 
-  checkForSmartSuggest(){
+  editElement(action,el,idx){
+    switch(action){
+      case 'copy': this.markup.push(this.lib.deepCopy(el)); break;
+      case 'delete': this.lib.delete(idx,this.markup);
+    }
+    this.updateGroups();
   }
-
 
   /* Key internal component functions */
 

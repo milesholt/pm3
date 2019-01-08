@@ -11,19 +11,33 @@
 <p>Markup</p>
 
 <div class="markup_container">
-  <div *ngFor="let el of markup; let idx = index">
+  <div *ngFor="let el of markup; let idx = index" class="el_container">
+
+    <div class="el_options">
+      <ion-button (click)="editElement('copy',el,idx)">C</ion-button>
+      <ion-button (click)="editElement('delete',el,idx)">X</ion-button>
+    </div>
+
 
     {{ el.key }}
 
     <div [ngSwitch]="el.type">
       <ion-item *ngSwitchCase="'string'">
-          <ion-input autocomplete="on" type="text" placeholder="{{el.key}}" [(ngModel)]="el.value" (ngModelChange)="updateElement(el,idx)"></ion-input>
+          <ion-input class="markup_text input el_{{el.key}}"
+                     autocomplete="on"
+                     type="text"
+                     placeholder="{{el.key}}"
+                     [ngModel]="el.value | elformat : el.key : false"
+                     (ngModelChange)="el.value = $event; updateElement(el,idx,$event)">
+         </ion-input>
       </ion-item>
       <ion-item *ngSwitchCase="'textarea'">
-          <ion-textarea class="markup_textarea"
+          <ion-textarea class="markup_textarea input el_{{el.key}}"
                         contenteditable="true"
                         autocorrect="on"
                         rows="10"
+                        [ngModel]="el.value | elformat : el.key : false"
+                        (ngModelChange)="el.value = $event; updateElement(el,idx,$event)"
                         (input)="updateElement(el,idx)"
                         (click)="checkForSmartSuggest($event)">
           </ion-textarea>
@@ -38,4 +52,5 @@
   <ion-button (click)="createElement('character')">C</ion-button>
   <ion-button (click)="createElement('body')">B</ion-button>
   <ion-button (click)="createElement('dialogue')">D</ion-button>
+  <ion-button (click)="createElement('parenthetical')">P</ion-button>
 </div>
