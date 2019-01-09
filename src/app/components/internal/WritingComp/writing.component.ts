@@ -60,12 +60,18 @@ export class WritingComponent implements OnInit, OnChanges {
 
   updateGroups(){
     this.groups.forEach(group=>{
-      this[group] = this.markup.filter(el => el.key == group.slice(0, -1)).map(el => el.value);
+      this[group] = this.markup.filter((el) => el.key == group.slice(0, -1)).map(el => el.value);
+      let unique = new Set(this[group]);
+      console.log(unique);
+      this[group] = unique;
+      //this[group] = new Set(this[group]);
     });
   }
 
   updateElement(el,idx,val){
-    if(['heading','character'].includes(el.key)) this.updateGroups();
+    setTimeout(()=>{
+      if(['heading','character'].includes(el.key)) this.updateGroups();
+    },2000);
   }
 
   editElement(action,el,idx){

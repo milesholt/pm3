@@ -29,6 +29,7 @@ import { WritingComponent } from '../components/internal/WritingComp/writing.com
 import { KeysPipe } from '../pipes/keys.pipe/keys.pipe';
 import { SafeHtmlPipe } from '../pipes/safehtml.pipe/safehtml.pipe';
 import { ElFormatPipe } from '../pipes/elformatter.pipe/elformatter.pipe';
+import { SearchPipe } from '../pipes/search.pipe/search.pipe';
 
 const routes: Routes = [
    {
@@ -118,7 +119,8 @@ const routes: Routes = [
     WritingComponent,
     KeysPipe,
     SafeHtmlPipe,
-    ElFormatPipe
+    ElFormatPipe,
+    SearchPipe
   ],
   entryComponents: [ModalComponent],
   imports: [
