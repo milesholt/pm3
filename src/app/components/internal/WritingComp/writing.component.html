@@ -23,6 +23,8 @@
 
     <div [ngSwitch]="el.type">
       <ion-item *ngSwitchCase="'string'">
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
           <input matInput
                  class="markup_text input el_{{el.key}}"
                  type="text"
@@ -36,6 +38,8 @@
               {{n}}
             </mat-option>
           </mat-autocomplete>
+        </mat-form-field>
+      </form>
 
       </ion-item>
       <ion-item *ngSwitchCase="'textarea'">
