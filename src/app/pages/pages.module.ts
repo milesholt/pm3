@@ -31,6 +31,10 @@ import { SafeHtmlPipe } from '../pipes/safehtml.pipe/safehtml.pipe';
 import { ElFormatPipe } from '../pipes/elformatter.pipe/elformatter.pipe';
 import { SearchPipe } from '../pipes/search.pipe/search.pipe';
 
+
+import {MatSelectModule} from '@angular/material/select';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
 const routes: Routes = [
    {
     path: 'dashboard',
@@ -128,7 +132,9 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MatSelectModule,
+    MatAutocompleteModule
   ],
   exports: [RouterModule],
   providers: [ElFormatPipe],

@@ -15,9 +15,10 @@ export class WritingComponent implements OnInit, OnChanges {
   @Input() items: any = {};
   @Output() callback = new EventEmitter();
 
-  headings:any = [];
-  characters:any = [];
-  groups:any = ['headings','characters']
+  groups:any = {
+    'heading' : [],
+    'character':[]
+  };
   markup:any = [];
   newvalues:any = {};
   newvalue:string = '';
@@ -59,22 +60,19 @@ export class WritingComponent implements OnInit, OnChanges {
   }
 
   updateGroups(){
-    this.groups.forEach(group=>{
-
+    Object.keys(this.groups).forEach(group=>{
       //this doesnt work for some reason
       //this[group] = this.markup.filter((el) => el.key == group.slice(0, -1) && this[group].indexOf(el.value) === -1).map(el => el.value);
-
-      this[group]=[];
+      let g = this.groups[group] = [];
       this.markup.forEach(el =>{
-        if(el.key == group.slice(0, -1) && this[group].indexOf(el.value) === -1) this[group].push(el.value);
+        if(el.key == group && g.indexOf(el.value) === -1) g.push(el.value);
       });
-
     });
   }
 
   updateElement(el,idx,val){
     setTimeout(()=>{
-      if(['heading','character'].includes(el.key)) this.updateGroups();
+      if(Object.keys(this.groups).includes(el.key)) this.updateGroups();
     },2000);
   }
 

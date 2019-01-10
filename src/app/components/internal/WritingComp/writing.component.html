@@ -6,7 +6,7 @@
 
 {{markup | json}}
 
-{{ characters | json}}
+{{ groups.character | json}}
 
 <p>Markup</p>
 
@@ -23,18 +23,20 @@
 
     <div [ngSwitch]="el.type">
       <ion-item *ngSwitchCase="'string'">
-          <ion-input class="markup_text input el_{{el.key}}"
-                     autocomplete="on"
-                     type="text"
-                     placeholder="{{el.key}}"
-                     [ngModel]="el.value | elformat : el.key : false"
-                     (ngModelChange)="el.value = $event; updateElement(el,idx,$event)">
-         </ion-input>
-         <ul>
-            <li *ngFor="let n of characters | search: el.value">
+          <input matInput
+                 class="markup_text input el_{{el.key}}"
+                 type="text"
+                 placeholder="{{el.key}}"
+                 [ngModel]="el.value | elformat : el.key : false"
+                 [matAutocomplete]="auto"
+                 (ngModelChange)="el.value = $event; updateElement(el,idx,$event)" />
+
+         <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let n of groups[el.key] | search: el.value" [value]="n">
               {{n}}
-            </li>
-          </ul>
+            </mat-option>
+          </mat-autocomplete>
+
       </ion-item>
       <ion-item *ngSwitchCase="'textarea'">
           <ion-textarea class="markup_textarea input el_{{el.key}}"
