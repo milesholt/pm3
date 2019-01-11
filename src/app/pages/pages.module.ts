@@ -35,6 +35,8 @@ import { SearchPipe } from '../pipes/search.pipe/search.pipe';
 import {MatSelectModule} from '@angular/material/select';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
+import {DragDropModule} from '@angular/cdk/drag-drop';
+
 const routes: Routes = [
    {
     path: 'dashboard',
@@ -134,7 +136,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    DragDropModule
   ],
   exports: [RouterModule],
   providers: [ElFormatPipe],

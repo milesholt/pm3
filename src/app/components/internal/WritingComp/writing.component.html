@@ -9,9 +9,11 @@
 {{ groups.character | json}}
 
 <p>Markup</p>
+<div>
 
-<div class="markup_container">
-  <div *ngFor="let el of markup; let idx = index" class="el_container">
+
+<div cdkDropList class="markup_container" (CdkDragStart)="$event" (cdkDropListDropped)="dragElement($event)">
+  <div cdkDrag *ngFor="let el of markup; let idx = index" class="el_container">
 
     <div class="el_options">
       <ion-button (click)="editElement('copy',el,idx)">C</ion-button>
@@ -23,8 +25,8 @@
 
     <div [ngSwitch]="el.type">
       <ion-item *ngSwitchCase="'string'">
-        <form class="example-form">
-          <mat-form-field class="example-full-width">
+        <!-- <form class="example-form">
+          <mat-form-field class="example-full-width"> -->
           <input matInput
                  class="markup_text input el_{{el.key}}"
                  type="text"
@@ -38,8 +40,8 @@
               {{n}}
             </mat-option>
           </mat-autocomplete>
-        </mat-form-field>
-      </form>
+        <!-- </mat-form-field>
+      </form> -->
 
       </ion-item>
       <ion-item *ngSwitchCase="'textarea'">
@@ -56,6 +58,7 @@
     </div>
 
   </div>
+</div>
 </div>
 
 <div class="markup_create">

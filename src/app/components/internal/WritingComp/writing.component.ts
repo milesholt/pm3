@@ -4,6 +4,8 @@ import { map, filter } from 'rxjs/operators';
 import { Library } from '../../../app.library';
 import { CoreService } from '../../../services/core.service';
 
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+
 @Component({
   selector: 'comp-writing',
   templateUrl: './writing.component.html',
@@ -16,14 +18,14 @@ export class WritingComponent implements OnInit, OnChanges {
   @Output() callback = new EventEmitter();
 
   groups:any = {
-    'heading' : [],
+    'scene' : [],
     'character':[]
   };
   markup:any = [];
   newvalues:any = {};
   newvalue:string = '';
   heading:any = {
-    key: "heading",
+    key: "scene",
     value:"",
     type:"string"
   };
@@ -55,14 +57,14 @@ export class WritingComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {}
   ngOnInit() {}
 
+  /* Specific component functions */
+
   createElement(el:string){
     this.markup.push(this.lib.deepCopy(this[el]));
   }
 
   updateGroups(){
     Object.keys(this.groups).forEach(group=>{
-      //this doesnt work for some reason
-      //this[group] = this.markup.filter((el) => el.key == group.slice(0, -1) && this[group].indexOf(el.value) === -1).map(el => el.value);
       let g = this.groups[group] = [];
       this.markup.forEach(el =>{
         if(el.key == group && g.indexOf(el.value) === -1) g.push(el.value);
@@ -82,6 +84,10 @@ export class WritingComponent implements OnInit, OnChanges {
       case 'delete': this.lib.delete(idx,this.markup);
     }
     this.updateGroups();
+  }
+
+  dragElement(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.markup, event.previousIndex, event.currentIndex);
   }
 
   /* Key internal component functions */
