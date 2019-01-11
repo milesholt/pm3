@@ -1,21 +1,18 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
-import { Library } from '../../../app.library';
-import { CoreService } from '../../../services/core.service';
+import { Library } from '../../../../app.library';
+import { CoreService } from '../../../../services/core.service';
 
-import {MarkupWritingComponent} from './markup/markup.writing.component';
-import {ItemsWritingComponent} from './items/items.writing.component';
-import {GroupsWritingComponent} from './groups/groups.writing.component';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: 'comp-writing',
-  templateUrl: './writing.component.html',
-  styleUrls: ['./writing.component.scss'],
-  providers: [MarkupWritingComponent],
+  selector: 'comp-writing-markup',
+  templateUrl: './markup.writing.component.html',
+  styleUrls: ['./markup.writing.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class WritingComponent implements OnInit, OnChanges {
+export class MarkupWritingComponent implements OnInit, OnChanges {
 
   @Input() items: any = {};
   @Output() callback = new EventEmitter();
@@ -62,6 +59,36 @@ export class WritingComponent implements OnInit, OnChanges {
 
   /* Specific component functions */
 
+  createElement(el:string){
+    this.markup.push(this.lib.deepCopy(this[el]));
+  }
+
+  updateGroups(){
+    Object.keys(this.groups).forEach(group=>{
+      let g = this.groups[group] = [];
+      this.markup.forEach(el =>{
+        if(el.key == group && g.indexOf(el.value) === -1) g.push(el.value);
+      });
+    });
+  }
+
+  updateElement(el,idx,val){
+    setTimeout(()=>{
+      if(Object.keys(this.groups).includes(el.key)) this.updateGroups();
+    },2000);
+  }
+
+  editElement(action,el,idx){
+    switch(action){
+      case 'copy': this.markup.push(this.lib.deepCopy(el)); break;
+      case 'delete': this.lib.delete(idx,this.markup);
+    }
+    this.updateGroups();
+  }
+
+  dragElement(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.markup, event.previousIndex, event.currentIndex);
+  }
 
   /* Key internal component functions */
 
@@ -76,4 +103,3 @@ export class WritingComponent implements OnInit, OnChanges {
     this.callback.emit(params);
   }
 }
-export { MarkupWritingComponent, GroupsWritingComponent, ItemsWritingComponent }

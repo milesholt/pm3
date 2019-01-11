@@ -23,7 +23,7 @@ import { ModalComponent } from '../components/core/ModalComp/modal.component';
 
 //Internal components
 import { TemplateComponent } from '../components/internal/TemplateComp/template.component';
-import { WritingComponent } from '../components/internal/WritingComp/writing.component';
+import { WritingComponent, MarkupWritingComponent, GroupsWritingComponent, ItemsWritingComponent } from '../components/internal/WritingComp/writing.component';
 
 //pipes
 import { KeysPipe } from '../pipes/keys.pipe/keys.pipe';
@@ -123,6 +123,9 @@ const routes: Routes = [
     ModalComponent,
     TemplateComponent,
     WritingComponent,
+    MarkupWritingComponent,
+    GroupsWritingComponent,
+    ItemsWritingComponent,
     KeysPipe,
     SafeHtmlPipe,
     ElFormatPipe,

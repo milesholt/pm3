@@ -2,69 +2,18 @@
   Internal Component Template
 </p>
 
-{{items.data.content | json}}
 
-{{markup | json}}
-
-{{ groups.character | json}}
-
-<p>Markup</p>
-<div>
+<div class="component_container">
 
 
-<div cdkDropList class="markup_container" (CdkDragStart)="$event" (cdkDropListDropped)="dragElement($event)">
-  <div cdkDrag *ngFor="let el of markup; let idx = index" class="el_container">
+<!-- Main -->
+<comp-writing-markup></comp-writing-markup>
 
-    <div class="el_options">
-      <ion-button (click)="editElement('copy',el,idx)">C</ion-button>
-      <ion-button (click)="editElement('delete',el,idx)">X</ion-button>
-    </div>
+<!-- Groups -->
+<comp-writing-groups></comp-writing-groups>
+
+<!-- Items -->
+<comp-writing-items></comp-writing-items>
 
 
-    {{ el.key }}
-
-    <div [ngSwitch]="el.type">
-      <ion-item *ngSwitchCase="'string'">
-        <!-- <form class="example-form">
-          <mat-form-field class="example-full-width"> -->
-          <input matInput
-                 class="markup_text input el_{{el.key}}"
-                 type="text"
-                 placeholder="{{el.key}}"
-                 [ngModel]="el.value | elformat : el.key : false"
-                 [matAutocomplete]="auto"
-                 (ngModelChange)="el.value = $event; updateElement(el,idx,$event)" />
-
-         <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let n of groups[el.key] | search: el.value" [value]="n">
-              {{n}}
-            </mat-option>
-          </mat-autocomplete>
-        <!-- </mat-form-field>
-      </form> -->
-
-      </ion-item>
-      <ion-item *ngSwitchCase="'textarea'">
-          <ion-textarea class="markup_textarea input el_{{el.key}}"
-                        contenteditable="true"
-                        autocorrect="on"
-                        rows="10"
-                        [ngModel]="el.value | elformat : el.key : false"
-                        (ngModelChange)="el.value = $event; updateElement(el,idx,$event)"
-                        (input)="updateElement(el,idx)"
-                        (click)="checkForSmartSuggest($event)">
-          </ion-textarea>
-      </ion-item>
-    </div>
-
-  </div>
-</div>
-</div>
-
-<div class="markup_create">
-  <ion-button (click)="createElement('heading')">H</ion-button>
-  <ion-button (click)="createElement('character')">C</ion-button>
-  <ion-button (click)="createElement('body')">B</ion-button>
-  <ion-button (click)="createElement('dialogue')">D</ion-button>
-  <ion-button (click)="createElement('parenthetical')">P</ion-button>
 </div>
