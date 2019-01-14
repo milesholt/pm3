@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import * as firebase from 'firebase';
 
-import { UserService } from '../UserService/user.service';
+import { UserServiceFirebase } from '../UserService/user.service';
 import { FirebaseUserModel } from '../../../../models/providers/firebase/user.model';
 
 import { ItemModel } from '../../../../models/item.model';
@@ -14,7 +14,7 @@ import { ItemModel } from '../../../../models/item.model';
 import { Library } from '../../../../app.library';
 
 @Injectable()
-export class DatabaseService {
+export class DatabaseServiceFirebase {
 
   private itemsCollection: AngularFirestoreCollection;
   items: Observable<Object[]>;
@@ -23,7 +23,7 @@ export class DatabaseService {
   collection:string;
   root:any;
   modelPosRef:any;
-  constructor(private db: AngularFirestore, private userService: UserService, private lib: Library){
+  constructor(private db: AngularFirestore, private userService: UserServiceFirebase, private lib: Library){
   }
 
  ini(collection){

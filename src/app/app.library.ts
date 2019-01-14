@@ -117,5 +117,10 @@ export class Library{
         return event.target.localName;
       }
 
+      //capitalise
+      capitalise(string){
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
+
 
 }

@@ -14,6 +14,7 @@ import { of } from 'rxjs';
 export class ItemComponent implements OnInit, OnChanges {
 
   @Input() collection: string;
+  @Input() connection: any = [];
   @Input() user: any;
   items: Observable<Object[]>;
   item: Observable<Object[]>;
@@ -35,34 +36,41 @@ export class ItemComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if(this.user.authorised){
       console.log('user has been authorised.');
-      this.items = this.service.db.ini(this.collection);
+      //set connection to service
+      this.setConnection(this.connection);
+      //call service
+      this.items = this.service.items.ini(this.collection);
     }
+  }
+
+  async setConnection(connection){
+   await this.service.connectTo(connection,'items');
   }
 
   async setItem(item:any = {}){
     const isNew : boolean = this.lib.isEmpty(item) ? true : false;
     const params = isNew ? this.def.item : this.lib.prepareData(this.def[this.collection],(item.data ? item.data : item));
     const res:any = await this.service.modal.openModal(params);
-    if(res.data) this.service.db.set(this.lib.compileData(res.data),item);
+    if(res.data) this.service.items.set(this.lib.compileData(res.data),item);
     this.refreshItems();
   }
 
   async refreshItems(){
-    let itms = await this.service.db.listDocuments(false);
+    let itms = await this.service.items.listDocuments(false);
     console.log(itms);
     this.items = of(itms.value.data);
   }
 
   async deleteItem(item){
     const id = item.id;
-    this.service.db.delete(id);
+    this.service.items.delete(id);
     this.refreshItems();
   }
 
   async enterItem(item){
     this.nestindex++;
     this.item =  item;
-    let itms = await this.service.db.select(item);
+    let itms = await this.service.items.select(item);
     this.items = of(itms.value.data);
     this.type = itms.value.type;
     this.layout = itms.value.layout;

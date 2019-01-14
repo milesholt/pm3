@@ -15,18 +15,18 @@ import { ToastController } from '@ionic/angular';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-//user auth - to clean up - should only need to authorise on login and then call uid from user service
-import { UserService } from '../UserService/user.service';
+//user auth - to get user data
+import { UserServiceFirebase } from '../UserService/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class NotificationServiceExt {
+export class NotificationServiceFirebase {
   token;
   type;
   constructor(private nativeFirebase: Firebase,
               private afs: AngularFirestore,
-              private userService: UserService,
+              private userService: UserServiceFirebase,
               private afMessaging: AngularFireMessaging,
               private fun: AngularFireFunctions,
               private toastController: ToastController,

@@ -16,7 +16,7 @@ import { Observable } from 'rxjs-compat';
 import { map } from 'rxjs/operators';
 
 @Injectable()
-export class AuthService {
+export class AuthServiceFirebase {
 
   public userCollection: AngularFirestoreCollection
 

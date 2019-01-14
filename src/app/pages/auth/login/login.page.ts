@@ -1,5 +1,6 @@
 import { forwardRef, Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Library } from '../../../app.library';
 import { CoreService } from '../../../services/core.service';
@@ -20,6 +21,8 @@ export class AuthLoginPage {
 
   constructor(
     public navCtrl: NavController,
+    private router: Router,
+    private route:ActivatedRoute,
     public service: CoreService,
     public formBuilder: FormBuilder
   ) {}
@@ -32,14 +35,16 @@ export class AuthLoginPage {
   }
 
   registerAccount(){
-     this.navCtrl.navigateForward('/register');
+     this.router.navigate(['/register']);
   }
 
   tryLogin(value){
     this.service.auth.doLogin(value)
-    .then(res => {
+    .then(async res => {
       console.log(res);
-      this.navCtrl.navigateForward('/dashboard');
+      await this.service.user.authenticate();
+      let test:any = {'data': 'test'};
+      this.router.navigate(['/dashboard'],{queryParams:{ page: 1}, relativeTo: this.route});
     }, err => {
       console.log(err);
       this.errorMessage = err.message;
@@ -50,7 +55,7 @@ export class AuthLoginPage {
     eval('this.service.auth.do' + social + 'Login()')
     .then((res) => {
       console.log('logged in');
-      this.navCtrl.navigateForward('/dashboard');
+      this.router.navigate(['/dashboard']);
     }, (err) => {
       this.errorMessage = err.message;
     });

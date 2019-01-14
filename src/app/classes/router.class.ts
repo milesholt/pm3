@@ -21,6 +21,11 @@ export abstract class RouterPage implements OnDestroy {
                 route.snapshot.component
             ))
         ).subscribe(_ => this.onEnter());
+
+        // route.queryParams.subscribe(params => {
+        //     console.log(params);
+        // });
+        //console.log(router);
     }
 
     private _isComponentActive(path: ActivatedRouteSnapshot[], component: any): boolean {

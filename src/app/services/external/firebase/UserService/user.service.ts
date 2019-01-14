@@ -4,7 +4,7 @@ import * as firebase from 'firebase/app';
 import { FirebaseUserModel } from '../../../../models/providers/firebase/user.model';
 
 @Injectable()
-export class UserService {
+export class UserServiceFirebase {
 
   user: FirebaseUserModel = new FirebaseUserModel();
 
@@ -32,8 +32,8 @@ export class UserService {
     })
   }
 
-  authenticate(){
-    this.getCurrentUser().then(user => {
+  async authenticate(){
+    await this.getCurrentUser().then(user => {
       this.user = user;
       console.log(this.user);
       return true;

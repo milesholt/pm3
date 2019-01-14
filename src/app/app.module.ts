@@ -28,14 +28,11 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { AngularFireFunctions } from '@angular/fire/functions';
 
-//Main Services
-import { AuthService } from './services/external/firebase/AuthService/auth.service';
-import { UserService } from './services/external/firebase/UserService/user.service';
-import { DatabaseService } from './services/external/firebase/DatabaseService/database.service';
-import { NotificationServiceExt } from './services/external/firebase/NotificationService/notification.service';
-import { ToastService } from './services/internal/ToastService/toast.service';
-import { ModalService } from './services/internal/ModalService/modal.service';
-import { NotificationService } from './services/internal/NotificationService/notification.service';
+//Internal Services
+import { InternalService, ItemsService, ToastService, ModalService, NotificationService } from './services/internal/internal.service';
+
+//External Services
+import { ExternalService, AuthServiceFirebase, DatabaseServiceFirebase, NotificationServiceFirebase, UserServiceFirebase } from './services/external/external.service';
 
 //Library Service
 import { Library } from './app.library';
@@ -69,11 +66,14 @@ import { Library } from './app.library';
     Facebook,
     GooglePlus,
     TwitterConnect,
+    InternalService,
+    ExternalService,
+    ItemsService,
     ToastService,
-    AuthService,
-    UserService,
-    DatabaseService,
-    NotificationServiceExt,
+    AuthServiceFirebase,
+    UserServiceFirebase,
+    DatabaseServiceFirebase,
+    NotificationServiceFirebase,
     NotificationService,
     ModalService,
     AngularFirestore,
