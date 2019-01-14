@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule } from '@angul
 import { Library } from '../../../app.library';
 import { CoreService } from '../../../services/core.service';
 
+//import { switchMap } from 'rxjs/operators';
+
 @Component({
   selector: 'app-auth-login',
   templateUrl: 'login.page.html',
@@ -38,13 +40,12 @@ export class AuthLoginPage {
      this.router.navigate(['/register']);
   }
 
+
   tryLogin(value){
     this.service.auth.doLogin(value)
-    .then(async res => {
+    .then(res => {
       console.log(res);
-      await this.service.user.authenticate();
-      let test:any = {'data': 'test'};
-      this.router.navigate(['/dashboard'],{queryParams:{ page: 1}, relativeTo: this.route});
+      this.router.navigate(['/dashboard']);
     }, err => {
       console.log(err);
       this.errorMessage = err.message;

@@ -14,15 +14,10 @@ export class HomePage extends RouterPage implements OnDestroy {
     }
 
     ngOnInit() {
-      //console.log(this.route);
-
    }
 
     onEnter() {
       console.log('Home page');
-      this.route.queryParams.subscribe(params => {
-        //  console.log(params);
-      });
     }
 
    onDestroy() {

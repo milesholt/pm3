@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { RouterPage } from '../../../../classes/router.class';
 import { CoreService } from '../../../../services/core.service';
 
+
 @Component({
   selector: 'app-collections',
   templateUrl: './items.page.html',

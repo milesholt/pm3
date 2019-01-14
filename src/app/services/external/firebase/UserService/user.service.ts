@@ -8,9 +8,7 @@ export class UserServiceFirebase {
 
   user: FirebaseUserModel = new FirebaseUserModel();
 
-  constructor(){
-    this.authenticate();
-  }
+  constructor(){}
 
   getCurrentUser(){
     return new Promise<any>((resolve, reject) => {

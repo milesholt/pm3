@@ -30,18 +30,16 @@ export class ItemComponent implements OnInit, OnChanges {
     this.def = service.getDefinitions();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    //set connection to service
+    await this.setConnection(this.connection);
+    //call service
+    this.items = await this.service.items.ini(this.collection);
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if(this.user.authorised){
-      console.log('user has been authorised.');
-      //set connection to service
-      this.setConnection(this.connection);
-      //call service
-      this.items = this.service.items.ini(this.collection);
-    }
-  }
+  ngAfterViewInit(){}
+
+  ngOnChanges(changes: SimpleChanges) {}
 
   async setConnection(connection){
    await this.service.connectTo(connection,'items');

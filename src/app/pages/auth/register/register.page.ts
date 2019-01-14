@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule } from '@angul
 import { Library } from '../../../app.library';
 import { CoreService } from '../../../services/core.service';
 
+import { Router, NavigationStart, RoutesRecognized, ActivatedRouteSnapshot, ActivatedRoute, ParamMap } from '@angular/router';
+
 @Component({
   selector: 'app-auth-register',
   templateUrl: 'register.page.html',
@@ -19,7 +21,9 @@ export class AuthRegisterPage {
   constructor(
     public navCtrl: NavController,
     public service: CoreService,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
    ngOnInit() {

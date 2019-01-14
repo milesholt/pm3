@@ -26,11 +26,12 @@ export class DatabaseServiceFirebase {
   constructor(private db: AngularFirestore, private userService: UserServiceFirebase, private lib: Library){
   }
 
- ini(collection){
+ async ini(collection){
      this.itemsCollection = this.db.collection(collection);
      this.collection = collection;
      this.root = this.itemsCollection;
      this.modelPosRef = this.itemModel.item;
+     await this.userService.authenticate();
      this.user = this.userService.user;
      return this.itemsCollection
            .snapshotChanges()
@@ -43,6 +44,8 @@ export class DatabaseServiceFirebase {
                });
              })
       );
+
+
  }
 
  async select(item){

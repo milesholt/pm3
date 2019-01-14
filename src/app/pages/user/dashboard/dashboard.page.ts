@@ -3,7 +3,10 @@ import { NavController, Platform, MenuController } from '@ionic/angular';
 import { CoreService } from '../../../services/core.service';
 import { Library } from '../../../app.library';
 //import { ActivatedRoute } from '@angular/router';
-import { Router, NavigationStart, RoutesRecognized, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
+import { Router, NavigationStart, RoutesRecognized, ActivatedRouteSnapshot, ActivatedRoute, ParamMap } from '@angular/router';
+
+import { switchMap } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-user-dashboard',
@@ -26,30 +29,8 @@ export class UserDashboardPage implements OnChanges  {
     this.service.notification.notificationService(this.service);
   }
 
-  ngOnInit() {
-    //console.log(this.route);
-    this.route.queryParams.subscribe(params => {
-        console.log(params);
-    });
-    console.log(this.route.snapshot);
-    //this.params = this.route.snapshot.paramMap.get('id');
-
-
-      this.router.events.subscribe(val => {
-        // if (val instanceof RoutesRecognized) {
-        //   const rootData = val.state.root;
-        //   console.log(rootData);
-        // }
-        if (val instanceof ActivatedRoute) {
-          const rootData = val;
-          console.log(rootData);
-        }
-        console.log(val);
-      });
-
-  }
-
-  ngAfterContentInit(){
+  async ngOnInit(){
+    await this.service.user.authenticate();
     if(this.service.user.user.authorised){
       console.log('user has been authorised.');
     } else{
