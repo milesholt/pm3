@@ -1,19 +1,35 @@
-<p>
-  Internal Component Template
-</p>
-
-
 <div class="component_container">
 
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="section" (ionChange)="changeSection($event)">
+      <ion-segment-button value="markup">
+        <!-- <ion-icon name="camera"></ion-icon> -->
+        Markup
+      </ion-segment-button>
+      <ion-segment-button value="groups">
+        <!-- <ion-icon name="bookmark"></ion-icon> -->
+        Groups
+      </ion-segment-button>
+      <!-- <ion-segment-button value="items">
+        <ion-icon name="bookmark"></ion-icon>
+        Items
+      </ion-segment-button> -->
+    </ion-segment>
+  </ion-toolbar>
 
-<!-- Main -->
-<comp-writing-markup></comp-writing-markup>
+{{section}}
 
-<!-- Groups -->
-<comp-writing-groups></comp-writing-groups>
 
-<!-- Items -->
-<comp-writing-items></comp-writing-items>
+<div [ngSwitch]="section">
+  <!-- Main -->
+  <comp-writing-markup *ngSwitchCase="'markup'" [master]="master"></comp-writing-markup>
+  <!-- Groups -->
+  <comp-writing-groups *ngSwitchCase="'groups'" [items]="master.groups"></comp-writing-groups>
+
+</div>
+
+
+
 
 
 </div>

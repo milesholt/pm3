@@ -20,38 +20,74 @@ export class WritingComponent implements OnInit, OnChanges {
   @Input() items: any = {};
   @Output() callback = new EventEmitter();
 
-  groups:any = {
-    'scene' : [],
-    'character':[]
-  };
-  markup:any = [];
-  newvalues:any = {};
-  newvalue:string = '';
-  heading:any = {
-    key: "scene",
-    value:"",
-    type:"string"
-  };
-  body:any = {
-    key: "body",
-    value:"",
-    type:"textarea"
-  };
-  character:any = {
-    key: "character",
-    value:"",
-    type:"string"
-  };
-  parenthetical:any = {
-    key: "parenthetical",
-    value:"",
-    type:"string"
-  };
-  dialogue:any = {
-    key: "dialogue",
-    value:"",
-    type:"textarea"
-  };
+  section: string = 'markup';
+  // groups:any = {
+  //   'scene' : [],
+  //   'character':[]
+  // };
+  // markup:any = [];
+  // newvalues:any = {};
+  // newvalue:string = '';
+  // heading:any = {
+  //   key: "scene",
+  //   value:"",
+  //   type:"string"
+  // };
+  // body:any = {
+  //   key: "body",
+  //   value:"",
+  //   type:"textarea"
+  // };
+  // character:any = {
+  //   key: "character",
+  //   value:"",
+  //   type:"string"
+  // };
+  // parenthetical:any = {
+  //   key: "parenthetical",
+  //   value:"",
+  //   type:"string"
+  // };
+  // dialogue:any = {
+  //   key: "dialogue",
+  //   value:"",
+  //   type:"textarea"
+  // };
+
+  master:any = {
+    groups: {
+      'scene' : [],
+      'character':[]
+    },
+    markup: [],
+    newvalues: {},
+    newvalue: '',
+    heading: {
+      key: "scene",
+      value:"",
+      type:"string"
+    },
+    body: {
+      key: "body",
+      value:"",
+      type:"textarea"
+    },
+    character: {
+      key: "character",
+      value:"",
+      type:"string"
+    },
+    parenthetical:{
+      key: "parenthetical",
+      value:"",
+      type:"string"
+    },
+    dialogue:{
+      key: "dialogue",
+      value:"",
+      type:"textarea"
+    }
+  }
 
   private el: HTMLInputElement;
 
@@ -61,6 +97,9 @@ export class WritingComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   /* Specific component functions */
+  changeSection(e){
+    console.log(e);
+  }
 
 
   /* Key internal component functions */

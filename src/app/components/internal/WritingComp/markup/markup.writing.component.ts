@@ -14,59 +14,34 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 })
 export class MarkupWritingComponent implements OnInit, OnChanges {
 
-  @Input() items: any = {};
+  @Input() master: any = {};
   @Output() callback = new EventEmitter();
-
-  groups:any = {
-    'scene' : [],
-    'character':[]
-  };
-  markup:any = [];
-  newvalues:any = {};
-  newvalue:string = '';
-  heading:any = {
-    key: "scene",
-    value:"",
-    type:"string"
-  };
-  body:any = {
-    key: "body",
-    value:"",
-    type:"textarea"
-  };
-  character:any = {
-    key: "character",
-    value:"",
-    type:"string"
-  };
-  parenthetical:any = {
-    key: "parenthetical",
-    value:"",
-    type:"string"
-  };
-  dialogue:any = {
-    key: "dialogue",
-    value:"",
-    type:"textarea"
-  };
 
   private el: HTMLInputElement;
 
   constructor(private lib: Library, private service: CoreService) {}
 
-  ngOnChanges(changes: SimpleChanges) {}
-  ngOnInit() {}
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('change');
+    console.log(this.master);
+
+  }
+  ngOnInit() {
+    console.log('here');
+    console.log(this.master);
+  }
 
   /* Specific component functions */
 
   createElement(el:string){
-    this.markup.push(this.lib.deepCopy(this[el]));
+    console.log(this.master);
+    this.master.markup.push(this.lib.deepCopy(this.master[el]));
   }
 
   updateGroups(){
-    Object.keys(this.groups).forEach(group=>{
-      let g = this.groups[group] = [];
-      this.markup.forEach(el =>{
+    Object.keys(this.master.groups).forEach(group=>{
+      let g = this.master.groups[group] = [];
+      this.master.markup.forEach(el =>{
         if(el.key == group && g.indexOf(el.value) === -1) g.push(el.value);
       });
     });
@@ -74,20 +49,20 @@ export class MarkupWritingComponent implements OnInit, OnChanges {
 
   updateElement(el,idx,val){
     setTimeout(()=>{
-      if(Object.keys(this.groups).includes(el.key)) this.updateGroups();
+      if(Object.keys(this.master.groups).includes(el.key)) this.updateGroups();
     },2000);
   }
 
   editElement(action,el,idx){
     switch(action){
-      case 'copy': this.markup.push(this.lib.deepCopy(el)); break;
-      case 'delete': this.lib.delete(idx,this.markup);
+      case 'copy': this.master.markup.push(this.lib.deepCopy(el)); break;
+      case 'delete': this.lib.delete(idx,this.master.markup);
     }
     this.updateGroups();
   }
 
   dragElement(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.markup, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.master.markup, event.previousIndex, event.currentIndex);
   }
 
   /* Key internal component functions */

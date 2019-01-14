@@ -15,11 +15,14 @@ export class GroupsWritingComponent implements OnInit, OnChanges {
 
   @Input() items: any = {};
   @Output() callback = new EventEmitter();
+  group: string = 'scene'
 
   constructor(private lib: Library, private service: CoreService) {}
 
   ngOnChanges(changes: SimpleChanges) {}
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 
   /* Specific component functions */
 

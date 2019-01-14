@@ -69,7 +69,6 @@ export class DatabaseServiceFirebase {
    //if property isCollection exists and is true, push to collections array
    //return observable array of collections
    //you could also append property to data - 'grid' to show as grid rather than list
-   console.log('here');
    console.log(item);
    this.root = this.root.doc(item.id);
    let cols = [];

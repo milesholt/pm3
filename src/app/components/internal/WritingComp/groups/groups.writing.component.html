@@ -1,8 +1,17 @@
-<p>
-  Groups
-</p>
-
-
 <div class="groups_container">
+  <!-- <comp-item [collection]="items" [connection]="['internal','items']" (callback)="handleCallback($event)"></comp-item> -->
+
+
+<ion-toolbar>
+  <ion-segment [(ngModel)]="group">
+    <ion-segment-button *ngFor="let item of items | keys : [] : change; let idx = index" value="{{item.key}}">
+      {{lib.capitalise(item.key + 's')}}
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+
+<ion-list>
+  <ion-item *ngFor="let item of items[group]; let idx = index">{{item}}</ion-item>
+</ion-list>
 
 </div>

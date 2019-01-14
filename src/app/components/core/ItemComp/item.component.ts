@@ -13,9 +13,9 @@ import { of } from 'rxjs';
 })
 export class ItemComponent implements OnInit, OnChanges {
 
-  @Input() collection: string;
+  @Input() collection: any;
   @Input() connection: any = [];
-  @Input() user: any;
+  @Input() user: any = {};
   items: Observable<Object[]>;
   item: Observable<Object[]>;
   //items:any;
