@@ -28,6 +28,7 @@ export class ItemModel {
 
  work:{
    content:string
+   component:string
  };
 
  messageGroup:{
@@ -52,7 +53,8 @@ export class ItemModel {
     }
 
     this.work = {
-      content: ""
+      content: "",
+      component: "work"
     }
 
     this.document = {

@@ -60,6 +60,14 @@ const routes: Routes = [
         outlet: 'items',
         component: ItemsPage,
         data: { title: 'Items' },
+        children: [
+          {
+            path: 'work',
+            outlet: 'work',
+            component: WritingComponent,
+            data: { title: 'Work' }
+          }
+        ]
       },
       {
         path: 'about',
@@ -72,12 +80,6 @@ const routes: Routes = [
         outlet: 'contact',
         component: ContactPage,
         data: { title: 'Contact' }
-      },
-      {
-        path: 'work',
-        redirectTo: '/dashboard/work',
-        pathMatch: 'full',
-        data: { title: 'Work' }
       }
     ]
   },
@@ -110,11 +112,6 @@ const routes: Routes = [
     path: '',
     redirectTo: '/login',
     pathMatch: 'full'
-  },
-  {
-    path: 'dashboard/work/:id',
-    component: WritingComponent,
-    data: { title: 'Work' },
   }
 ];
 

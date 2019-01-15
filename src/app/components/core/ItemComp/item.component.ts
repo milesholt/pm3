@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Library } from '../../../app.library';
@@ -16,6 +16,7 @@ export class ItemComponent implements OnInit, OnChanges {
   @Input() collection: any;
   @Input() connection: any = [];
   @Input() user: any = {};
+  @Output() callback = new EventEmitter();
   items: Observable<Object[]>;
   item: Observable<Object[]>;
   //items:any;
@@ -72,7 +73,8 @@ export class ItemComponent implements OnInit, OnChanges {
     this.items = of(itms.value.data);
     this.type = itms.value.type;
     this.layout = itms.value.layout;
-    if(this.type == 'documents') this.comp = item.name;
+    //if(this.type == 'documents') this.comp = item.name;
+    if(this.lib.isProperty(item,'data') && this.lib.isProperty(item.data,'component')) this.callback.emit({'item':item, 'action':'component'});
   }
 
   handleCallback(event){

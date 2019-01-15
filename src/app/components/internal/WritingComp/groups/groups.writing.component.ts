@@ -9,7 +9,8 @@ import { CoreService } from '../../../../services/core.service';
   selector: 'comp-writing-groups',
   templateUrl: './groups.writing.component.html',
   styleUrls: ['./groups.writing.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers:[CoreService]
 })
 export class GroupsWritingComponent implements OnInit, OnChanges {
 

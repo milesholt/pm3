@@ -4,6 +4,8 @@ import { map, filter } from 'rxjs/operators';
 import { Library } from '../../../app.library';
 import { CoreService } from '../../../services/core.service';
 
+import { Router, ActivatedRoute } from '@angular/router';
+
 import {MarkupWritingComponent} from './markup/markup.writing.component';
 import {ItemsWritingComponent} from './items/items.writing.component';
 import {GroupsWritingComponent} from './groups/groups.writing.component';
@@ -21,6 +23,7 @@ export class WritingComponent implements OnInit, OnChanges {
   @Output() callback = new EventEmitter();
 
   section: string = 'markup';
+  id:number;
   // groups:any = {
   //   'scene' : [],
   //   'character':[]
@@ -91,10 +94,20 @@ export class WritingComponent implements OnInit, OnChanges {
 
   private el: HTMLInputElement;
 
-  constructor(private lib: Library, private service: CoreService) {}
+  constructor(private lib: Library, private service: CoreService, private router: Router, private route: ActivatedRoute) {
+
+    route.params.subscribe(
+        params =>{
+          const id = params['id'];
+        }
+    );
+
+  }
 
   ngOnChanges(changes: SimpleChanges) {}
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('writing component');
+  }
 
   /* Specific component functions */
   changeSection(e){

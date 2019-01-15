@@ -45,39 +45,36 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/dashboard/(home:home)',
+        redirectTo: '/dashboard/home',
         pathMatch: 'full',
         data: { title: 'Home' }
       },
       {
         path: 'home',
-        outlet: 'home',
         component: HomePage,
         data: { title: 'Home' }
       },
       {
         path: 'items',
-        outlet: 'items',
         component: ItemsPage,
         data: { title: 'Items' },
+        children: [
+          {
+            path: 'work',
+            component: WritingComponent,
+            data: { title: 'Work' }
+          }
+        ]
       },
       {
         path: 'about',
-        outlet: 'about',
         component: AboutPage,
         data: { title: 'About' }
       },
       {
         path: 'contact',
-        outlet: 'contact',
         component: ContactPage,
         data: { title: 'Contact' }
-      },
-      {
-        path: 'work',
-        redirectTo: '/dashboard/work',
-        pathMatch: 'full',
-        data: { title: 'Work' }
       }
     ]
   },
@@ -110,11 +107,6 @@ const routes: Routes = [
     path: '',
     redirectTo: '/login',
     pathMatch: 'full'
-  },
-  {
-    path: 'dashboard/work/:id',
-    component: WritingComponent,
-    data: { title: 'Work' },
   }
 ];
 

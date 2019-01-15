@@ -24,4 +24,15 @@ export class ItemsPage extends RouterPage implements OnDestroy {
       super.ngOnDestroy();
    }
 
+   handleCallback(e){
+     const action = e.action;
+     let item = e.item;
+     console.log(item);
+     switch(action){
+       case 'component':
+        this.router.navigateByUrl(`/dashboard/${item.data.component}/${item.id}`)
+       break;
+     }
+   }
+
 }

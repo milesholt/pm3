@@ -28,6 +28,9 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { AngularFireFunctions } from '@angular/fire/functions';
 
+//Core Services
+import { CoreService } from './services/core.service';
+
 //Internal Services
 import { InternalService, ItemsService, ToastService, ModalService, NotificationService } from './services/internal/internal.service';
 
@@ -66,6 +69,7 @@ import { Library } from './app.library';
     Facebook,
     GooglePlus,
     TwitterConnect,
+    CoreService,
     InternalService,
     ExternalService,
     ItemsService,
