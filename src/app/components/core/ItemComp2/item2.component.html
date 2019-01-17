@@ -1,0 +1,47 @@
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="setItem()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content>
+
+  <!-- {{items | json}} -->
+<!-- items as list-->
+
+
+
+<div *ngIf="layout == 'list'">
+  <ion-list>
+      <ion-item-sliding #s *ngFor="let item of items">
+        <ion-item detail lines="full" (click)="enterItem(item)">
+          <ion-icon name="document" slot="start"></ion-icon>
+          {{item.name}}
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="primary" (click)="s.close();setItem(item)">EDIT</ion-item-option>
+          <ion-item-option color="danger"  (click)="s.close();deleteItem(item)">DELETE</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+  </ion-list>
+</div>
+
+
+<!-- items as grid-->
+<!-- <div *ngIf="layout == 'grid'">
+  <ion-grid>
+    <ion-row>
+      <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="2.4" #g *ngFor="let item of items | async" (click)="enterItem(item)">
+        <ion-item detail lines="full">
+          <ion-icon name="folder" slot="start"></ion-icon>
+          {{item.name}}
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</div> -->
+
+
+</ion-content>

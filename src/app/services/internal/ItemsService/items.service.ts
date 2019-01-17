@@ -7,4 +7,23 @@ export class ItemsService {
 
   constructor() {}
 
+  ini(collection){
+    console.log(collection);
+  }
+
+  delete(id){
+
+  }
+
+  set(){
+  }
+
+  add(){
+
+  }
+
+  list(){
+    
+  }
+
 }

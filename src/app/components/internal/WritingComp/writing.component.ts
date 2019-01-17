@@ -10,6 +10,8 @@ import {MarkupWritingComponent} from './markup/markup.writing.component';
 import {ItemsWritingComponent} from './items/items.writing.component';
 import {GroupsWritingComponent} from './groups/groups.writing.component';
 
+import { ItemModel } from '../../../models/item.model';
+
 @Component({
   selector: 'comp-writing',
   templateUrl: './writing.component.html',
@@ -21,41 +23,10 @@ export class WritingComponent implements OnInit, OnChanges {
 
   @Input() items: any = {};
   @Output() callback = new EventEmitter();
+  itemModel: ItemModel = new ItemModel();
 
   section: string = 'markup';
   id:number;
-  // groups:any = {
-  //   'scene' : [],
-  //   'character':[]
-  // };
-  // markup:any = [];
-  // newvalues:any = {};
-  // newvalue:string = '';
-  // heading:any = {
-  //   key: "scene",
-  //   value:"",
-  //   type:"string"
-  // };
-  // body:any = {
-  //   key: "body",
-  //   value:"",
-  //   type:"textarea"
-  // };
-  // character:any = {
-  //   key: "character",
-  //   value:"",
-  //   type:"string"
-  // };
-  // parenthetical:any = {
-  //   key: "parenthetical",
-  //   value:"",
-  //   type:"string"
-  // };
-  // dialogue:any = {
-  //   key: "dialogue",
-  //   value:"",
-  //   type:"textarea"
-  // };
 
   master:any = {
     groups: {
@@ -67,27 +38,27 @@ export class WritingComponent implements OnInit, OnChanges {
     newvalue: '',
     heading: {
       key: "scene",
-      value:"",
+      value: this.lib.deepCopy(this.itemModel.document),
       type:"string"
     },
     body: {
       key: "body",
-      value:"",
+      value: this.lib.deepCopy(this.itemModel.document),
       type:"textarea"
     },
     character: {
       key: "character",
-      value:"",
+      value: this.lib.deepCopy(this.itemModel.document),
       type:"string"
     },
     parenthetical:{
       key: "parenthetical",
-      value:"",
+      value: this.lib.deepCopy(this.itemModel.document),
       type:"string"
     },
     dialogue:{
       key: "dialogue",
-      value:"",
+      value: this.lib.deepCopy(this.itemModel.document),
       type:"textarea"
     }
   }
@@ -95,13 +66,11 @@ export class WritingComponent implements OnInit, OnChanges {
   private el: HTMLInputElement;
 
   constructor(private lib: Library, private service: CoreService, private router: Router, private route: ActivatedRoute) {
-
     route.params.subscribe(
         params =>{
           const id = params['id'];
         }
     );
-
   }
 
   ngOnChanges(changes: SimpleChanges) {}

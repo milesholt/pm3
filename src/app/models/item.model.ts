@@ -15,6 +15,7 @@ export class ItemModel {
    desc:string,
    date_created:string,
    date_updated:string
+   properties:any
  };
 
  collection:{
@@ -62,6 +63,7 @@ export class ItemModel {
       desc: "",
       date_created: "",
       date_updated: "",
+      properties: {}
     }
 
     this.collection = {

@@ -8,6 +8,7 @@ export class SearchPipe implements PipeTransform {
         if (input) {
             input = input.toLowerCase();
             return value.filter(function (el: any) {
+                console.log(el);
                 return el.toLowerCase().indexOf(input) > -1;
             })
         }

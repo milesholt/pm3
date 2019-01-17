@@ -1,5 +1,8 @@
 {{master.markup | json}}
 
+<br />
+<br />
+
 {{ master.groups.character | json}}
 
 <p>Markup</p>
@@ -21,12 +24,12 @@
                  class="markup_text input el_{{el.key}}"
                  type="text"
                  placeholder="{{el.key}}"
-                 [ngModel]="el.value | elformat : el.key : false"
+                 [ngModel]="el.value.name | elformat : el.key : false"
                  [matAutocomplete]="auto"
-                 (ngModelChange)="el.value = $event; updateElement(el,idx,$event)" />
+                 (ngModelChange)="el.value.name = $event; updateElement(el,idx,$event)" />
          <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let n of master.groups[el.key] | search: el.value" [value]="n">
-              {{n}}
+            <mat-option *ngFor="let n of master.groups[el.key]" [value]="n.name">
+              {{n.name}}
             </mat-option>
           </mat-autocomplete>
         <!-- </mat-form-field>

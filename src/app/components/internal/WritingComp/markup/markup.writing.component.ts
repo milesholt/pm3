@@ -41,13 +41,22 @@ export class MarkupWritingComponent implements OnInit, OnChanges {
   updateGroups(){
     Object.keys(this.master.groups).forEach(group=>{
       let g = this.master.groups[group] = [];
+      let vals = [];
       this.master.markup.forEach(el =>{
-        if(el.key == group && g.indexOf(el.value) === -1) g.push(el.value);
+        //if(el.key == group && g.indexOf(el.value) === -1) g.push(el.value);
+        if(el.key == group){
+          if(g.length === 0){
+            g.push(el.value);
+          }else{
+            if(g.map(itm => itm.name).indexOf(el.value.name) === -1) g.push(el.value);
+          }
+        }
       });
     });
   }
 
   updateElement(el,idx,val){
+    console.log(el);
     setTimeout(()=>{
       if(Object.keys(this.master.groups).includes(el.key)) this.updateGroups();
     },2000);
