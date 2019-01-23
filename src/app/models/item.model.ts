@@ -11,6 +11,8 @@ export class ItemModel {
  }
 
  document:{
+   id:number;
+   orderid:number,
    name:string,
    desc:string,
    date_created:string,
@@ -59,6 +61,8 @@ export class ItemModel {
     }
 
     this.document = {
+      id:0,
+      orderid:0,
       name: "",
       desc: "",
       date_created: "",

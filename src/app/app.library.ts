@@ -46,6 +46,14 @@ export class Library{
         return Object.keys(object);
       }
 
+      //merge two objects with matching keys
+      mergeObjs(obj, src) {
+          for (var key in src) {
+              if (src.hasOwnProperty(key)) obj[key] = src[key];
+          }
+          return obj;
+      }
+
       //returns if object is empty, the one above is 10 times slower if there are properties
       isEmpty(obj) {
           for(var prop in obj) {
@@ -120,6 +128,19 @@ export class Library{
       //capitalise
       capitalise(string){
         return string.charAt(0).toUpperCase() + string.slice(1);
+      }
+
+      //get max id
+      //build an array of all the ids
+      //find the highest id
+      //loop through items, if matching id, take highest id and increment
+      updateIds(arr){
+        if(arr.length > 1){
+          let ids =  arr.map(item => item.id);
+          const maxid = Math.max(...ids);
+          let newid = parseInt(arr[arr.length-1].id);
+          if(ids.includes(newid)) arr[arr.length-1].id = (maxid+1);
+        }
       }
 
 

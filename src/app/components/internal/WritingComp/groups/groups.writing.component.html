@@ -14,6 +14,6 @@
   <ion-item *ngFor="let item of items[group]; let idx = index">{{item}}</ion-item>
 </ion-list> -->
 
-<comp-item2 [collection]="group" [items]="items[group]" [connection]="['internal','items']" (callback)="handleCallback($event)"></comp-item2>
+<comp-item2 [collection]="group" [items]="items[group]" [model]="'document'" [connection]="['internal','items']" (callback)="handleCallback($event)"></comp-item2>
 
 </div>

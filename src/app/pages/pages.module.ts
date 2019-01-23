@@ -21,6 +21,7 @@ import { UserAccountPage } from './user/account/account.page';
 import { ItemComponent } from '../components/core/ItemComp/item.component';
 import { ItemComponent2 } from '../components/core/ItemComp2/item.component';
 import { ModalComponent } from '../components/core/ModalComp/modal.component';
+import { FormComponent } from '../components/core/FormComp/form.component';
 
 //Internal components
 import { TemplateComponent } from '../components/internal/TemplateComp/template.component';
@@ -134,6 +135,7 @@ const routes: Routes = [
     ItemComponent,
     ItemComponent2,
     ModalComponent,
+    FormComponent,
     TemplateComponent,
     WritingComponent,
     MarkupWritingComponent,
@@ -144,7 +146,7 @@ const routes: Routes = [
     ElFormatPipe,
     SearchPipe
   ],
-  entryComponents: [ModalComponent],
+  entryComponents: [ModalComponent,FormComponent],
   imports: [
     IonicModule,
     CommonModule,

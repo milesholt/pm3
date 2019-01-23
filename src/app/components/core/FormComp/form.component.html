@@ -1,0 +1,46 @@
+<div class="modal-container">
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="add()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div *ngIf="!editfield" class="list-content">
+      <ion-list>
+      <ion-item-sliding #s *ngFor="let field of fields; let idx = index">
+        <ion-item detail lines="full" (click)="edit(item)">
+          {{field.key}} {{field.value}}
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="primary" (click)="s.close(); edit(idx)">EDIT</ion-item-option>
+          <ion-item-option color="primary" (click)="s.close(); duplicate(item)">COPY</ion-item-option>
+          <ion-item-option color="danger"  (click)="s.close(); delete(idx)">DELETE</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
+
+  <!-- <div [ngSwitch]="params[field].type">
+    <div *ngSwitchCase="'text'">
+       <ion-button (click)="deleteField(idx,field)" *ngIf="lib.isProperty(params[field], 'key')">X</ion-button>
+       <ion-label *ngIf="!lib.isProperty(params[field], 'key')">{{params[field].label}}</ion-label>
+       <ion-input *ngIf="lib.isProperty(params[field], 'key')" type="text" [(ngModel)]="params[field].key" placeholder="{{params[field].label}}"></ion-input>
+       <ion-input type="text" [(ngModel)]="params[field].value"></ion-input>
+     </div>
+  </div> -->
+
+
+  <div *ngIf="editfield" class="field-content">
+    <p> Edit field </p>
+
+    <ion-list *ngFor="let property of lib.keys(selectfield); let idx = index">
+      <ion-item>
+        <ion-label>{{property}}</ion-label>
+        <ion-input type="text" [(ngModel)]="selectfield[property]"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-button (click)="editfield = !editfield">Done</ion-button>
+  </div>
+</div>

@@ -67,7 +67,6 @@ export class MarkupWritingComponent implements OnInit, OnChanges {
       case 'copy': this.master.markup.push(this.lib.deepCopy(el)); break;
       case 'delete': this.lib.delete(idx,this.master.markup);
     }
-    this.updateGroups();
   }
 
   dragElement(event: CdkDragDrop<string[]>) {
