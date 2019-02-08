@@ -19,7 +19,6 @@ import { UserAccountPage } from './user/account/account.page';
 
 //Core components
 import { ItemComponent } from '../components/core/ItemComp/item.component';
-import { ItemComponent2 } from '../components/core/ItemComp2/item.component';
 import { ModalComponent } from '../components/core/ModalComp/modal.component';
 import { FormComponent } from '../components/core/FormComp/form.component';
 
@@ -133,7 +132,6 @@ const routes: Routes = [
     AuthRegisterPage,
     ItemsPage,
     ItemComponent,
-    ItemComponent2,
     ModalComponent,
     FormComponent,
     TemplateComponent,

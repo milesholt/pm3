@@ -30,6 +30,7 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 
 //Core Services
 import { CoreService } from './services/core.service';
+import { CompileService } from './services/compile.service';
 
 //Internal Services
 import { InternalService, ItemsService, ToastService, ModalService, NotificationService } from './services/internal/internal.service';
@@ -70,6 +71,7 @@ import { Library } from './app.library';
     GooglePlus,
     TwitterConnect,
     CoreService,
+    CompileService,
     InternalService,
     ExternalService,
     ItemsService,

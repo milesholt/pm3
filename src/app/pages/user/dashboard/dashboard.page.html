@@ -1,4 +1,19 @@
 <ion-tabs #myTabs class="view_container">
+  <ion-tab label="" href="/dashboard/(home:home)">
+    <ion-router-outlet name="home"></ion-router-outlet>
+  </ion-tab>
+  <ion-tab label="" href="/dashboard/(items:items)">
+    <ion-router-outlet name="items"></ion-router-outlet>
+  </ion-tab>
+  <ion-tab label="" href="/dashboard/(about:about)">
+    <ion-router-outlet name="about"></ion-router-outlet>
+  </ion-tab>
+  <ion-tab label=""  href="/dashboard/(contact:contact)">
+    <ion-router-outlet name="contact"></ion-router-outlet>
+  </ion-tab>
+</ion-tabs>
+
+<!-- <ion-tabs #myTabs class="view_container">
   <ion-tab label="Home" icon="home" href="/dashboard/(home:home)">
     <ion-router-outlet name="home"></ion-router-outlet>
   </ion-tab>
@@ -11,4 +26,4 @@
   <ion-tab label="Contact" icon="contacts" href="/dashboard/(contact:contact)">
     <ion-router-outlet name="contact"></ion-router-outlet>
   </ion-tab>
-</ion-tabs>
+</ion-tabs> -->

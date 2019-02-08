@@ -16,7 +16,7 @@ export class GroupsWritingComponent implements OnInit, OnChanges {
 
   @Input() items: any = {};
   @Output() callback = new EventEmitter();
-  group: string = 'scene'
+  group: string = 's'
 
   constructor(private lib: Library, private service: CoreService) {}
 

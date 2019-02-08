@@ -9,7 +9,10 @@ export var Definitions = {
   "scene":{
     "name": { "label" : "Enter item name", "value": "", "type": "text" }
   },
-  "character":{
+  "c":{
+    "name": { "label" : "Enter item name", "value": "", "type": "text" }
+  },
+  "s":{
     "name": { "label" : "Enter item name", "value": "", "type": "text" }
   }
 };

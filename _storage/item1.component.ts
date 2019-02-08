@@ -5,15 +5,13 @@ import { Library } from '../../../app.library';
 import { CoreService, ModalService } from '../../../services/core.service';
 import { ItemModel } from '../../../models/item.model';
 
-import {CdkDragDrop, moveItemInArray, CdkDragEnd, CdkDragStart} from '@angular/cdk/drag-drop';
-
 @Component({
-  selector: 'comp-item',
-  templateUrl: './item.component.html',
-  styleUrls: ['./item.component.scss'],
+  selector: 'comp-item2',
+  templateUrl: './item2.component.html',
+  styleUrls: ['./item2.component.scss'],
   providers: [CoreService, ModalService, Library]
 })
-export class ItemComponent implements OnInit, OnChanges, DoCheck {
+export class ItemComponent2 implements OnInit, OnChanges, DoCheck {
 
   @Input() collection: any;
   @Input() connection: any = [];
@@ -28,8 +26,6 @@ export class ItemComponent implements OnInit, OnChanges, DoCheck {
   type:string = 'collections';
   layout:string = 'list';
   differ: any;
-  nestindex:number = -1;
-  orderitems:boolean = false;
 
   constructor(private service: CoreService, private lib: Library, differs: IterableDiffers){
     this.def = service.getDefinitions();
@@ -43,6 +39,9 @@ export class ItemComponent implements OnInit, OnChanges, DoCheck {
     if(!this.items) {
       this.items = await this.service.items.ini(this.collection);
     }
+    //watch length of items if obsersable
+    if(isObservable(this.items)) this.items.subscribe((r:any) => { this.itemslength = r.length })
+
   }
 
   ngAfterViewInit(){}
@@ -50,14 +49,10 @@ export class ItemComponent implements OnInit, OnChanges, DoCheck {
   ngOnChanges(changes: SimpleChanges) {}
 
   ngDoCheck(){
-    //watch items and do updates here if any changes
-    if(this.items !== false){
-      if(!isObservable(this.items)){
-        const change = this.differ.diff(this.items);
-        if(change !== null) this.changedItemsUpdates(change);
-      } else {
-        this.items.subscribe((change:any) => { this.changedItemsUpdates(change) });
-      }
+    //if not observable watch here and get length if change
+    if(!isObservable(this.items) && this.items !== false){
+      const itemchange = this.differ.diff(this.items);
+      if(itemchange !== null) this.itemslength = itemchange.length;
     }
   }
 
@@ -65,51 +60,37 @@ export class ItemComponent implements OnInit, OnChanges, DoCheck {
     return isObservable(this.items) ? this.items : of(this.items);
   }
 
-  changedItemsUpdates(items){
-    this.itemslength = items.length;
-  }
-
   async setConnection(connection){
     await this.service.connectTo(connection,'items');
   }
 
   async setItem(data:any = this.lib.deepCopy(this.itemModel[this.model]), isNew : boolean = true){
-    this.item = data;
     let fields = isNew ? data : data.fields;
     let item = isNew ? false : data;
     const params = this.service.compile.prepareData(this.def[this.collection], fields, item);
     const res:any = await this.service.modal.openModal(params);
-    if(!res.data) return false;
     await this.formatItemIds(res.data,isNew);
     item = this.service.compile.compileData(res.data, fields);
     if(res.data) this.service.items.set(item,this.items,isNew);
   }
 
-  async selectItem(item){
-    this.nestindex++;
-    this.item = item;
-    await this.service.items.select(item, this);
-
-  }
-
   async duplicateItem(item){
     let newitem = this.lib.deepCopy(item);
     await this.formatItemIds(newitem,true);
-    await this.service.items.duplicate(newitem, this.items);
-    this.service.items.refresh(this);
+    this.service.items.duplicate(newitem, this.items);
   }
 
   async deleteItem(idx,item){
-    await this.service.items.delete(this.items,idx,item);
-    await this.service.items.refresh(this);
+    this.service.items.delete(this.items,idx,item);
     this.orderItems();
   }
 
-
+  async enterItem(item){
+  }
 
   async formatItemIds(item,isNew:boolean=false){
-    if(isNew) item.orderid = this.itemslength;
-    item.id = !isObservable(this.items) ? this.getNewId() : item.id;
+    if(isNew) item.orderid = this.itemslength > 0 ? this.itemslength : item.orderid;
+    item.id = this.itemslength > 0 && !isObservable(this.items) ? this.getNewId() : item.id;
   }
 
   async orderItems(){
@@ -121,31 +102,5 @@ export class ItemComponent implements OnInit, OnChanges, DoCheck {
     const maxid = Math.max(...ids);
     return (maxid+1);
   }
-
-  async dragItem(event: CdkDragDrop<string[]>) {
-    if(isObservable(this.items)){
-      let itms = await this.service.items.listDocuments(false);
-      this.items = of(itms.value.data);
-      await this.items.subscribe((items:any)=>{
-        moveItemInArray(items, event.previousIndex, event.currentIndex);
-        this.orderItems();
-      });
-    }else{
-      moveItemInArray(this.items, event.previousIndex, event.currentIndex);
-      this.orderItems();
-    }
-    this.service.items.refresh(this);
-  }
-
-  // handleCallback(event){
-  //   let action = event[1];
-  //   let item = event[0];
-  //   console.log(action);
-  //   switch(action){
-  //     case 'enter': this.enterItem(item); break;
-  //     case 'edit': this.setItem(item); break;
-  //     case 'delete': this.deleteItem(item); break;
-  //   }
-  // }
 
 }

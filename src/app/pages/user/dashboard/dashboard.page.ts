@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ViewChild, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { NavController, Platform, MenuController } from '@ionic/angular';
 import { CoreService } from '../../../services/core.service';
 import { Library } from '../../../app.library';
@@ -12,7 +12,8 @@ import { switchMap } from 'rxjs/operators';
   selector: 'app-user-dashboard',
   templateUrl: 'dashboard.page.html',
   styleUrls: ['dashboard.page.scss'],
-  providers: [CoreService, Library]
+  providers: [CoreService, Library],
+  encapsulation: ViewEncapsulation.None
 })
 export class UserDashboardPage implements OnChanges  {
 

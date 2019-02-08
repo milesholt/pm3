@@ -16,22 +16,37 @@ export class ItemsService {
     console.log(collection);
   }
 
-  delete(items:any,idx:number){
+  delete(items:any,idx:number,item:any){
     this.lib.delete(idx,items);
   }
 
-  set(data,item,items,isNew){
-    //update item by merging new values to matching keys
+  duplicate(item, items){
+    items.push(this.lib.deepCopy(item));
+  }
+
+  set(item,items,isNew){
     //if new, create new item
-    this.lib.mergeObjs(item,data);
     if(isNew) this.create(item,items);
   }
 
   create(item,items){
+    console.log(items);
     items.push(item);
+    console.log(items);
   }
 
-  list(){
+  orderIds(items){
+    items.forEach((item,i) => {
+      item.orderid = i;
+    });
+    items = this.lib.deepCopy(items);
+  }
+
+  refresh(_t){
+    _t.items = this.lib.deepCopy(_t.items);
+  }
+
+  select(){
 
   }
 

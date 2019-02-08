@@ -3,7 +3,6 @@
 Items
 </p>
 
-<comp-item [user]="service.user.user" [collection]="'projects'" [connection]="['external','database','firebase']" (callback)="handleCallback($event)"></comp-item>
-
+<comp-item [collection]="'projects'" [items]="false" [model]="'document'" [connection]="['external','database','firebase']" (callback)="handleCallback($event)"></comp-item>
 
 </ion-content>

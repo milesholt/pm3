@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import * as tools from 'firebase-tools';
 
 admin.initializeApp();
 
@@ -74,6 +75,59 @@ exports.newItemNotificationWeb = functions.firestore
     return admin.messaging().send(web_notification)
 
 });
+
+
+/**
+ * Initiate a recursive delete of documents at a given path.
+ *
+ * The calling user must be authenticated and have the custom "admin" attribute
+ * set to true on the auth token.
+ *
+ * This delete is NOT an atomic operation and it's possible
+ * that it may fail after only deleting some documents.
+ *
+ * @param {string} data.path the document or collection path to delete.
+ */
+exports.recursiveDelete = functions
+  .runWith({
+    timeoutSeconds: 540,
+    memory: '2GB'
+  })
+  .https.onCall((data, context) => {
+
+    //TODO: This user should require an auth token
+    // Only allow admin users to execute this function.
+    // if (!(context.auth && context.auth.token && context.auth.token.admin)) {
+    //   throw new functions.https.HttpsError(
+    //     'permission-denied',
+    //     'Must be an administrative user to initiate delete.'
+    //   );
+    // }
+
+    const path = data.path;
+    console.log(
+      `User ${context.auth.uid} has requested to delete path ${path}`
+    );
+
+    // Run a recursive delete on the given document or collection path.
+    // The 'token' must be set in the functions config, and can be generated
+    // at the command line by running 'firebase login:ci'.
+    return tools.firestore
+      .delete(path, {
+        project: process.env.GCLOUD_PROJECT,
+        recursive: true,
+        yes: true,
+        token: '1/iB87UP5VT0vrLL9Re49E7v5w3PNNSrB-3f5ZHAMYYhc'
+        //token: functions.config().fb.token //TODO: This isn't working for some reason
+      })
+      .then(() => {
+        return {
+          path: path
+        };
+      });
+  });
+
+
 
 
 // exports.newItemNotificationNew = functions.firestore

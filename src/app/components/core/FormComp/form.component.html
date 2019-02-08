@@ -6,10 +6,12 @@
     </ion-fab-button>
   </ion-fab>
 
+  {{ fields | json }}
+
   <div *ngIf="!editfield" class="list-content">
       <ion-list>
       <ion-item-sliding #s *ngFor="let field of fields; let idx = index">
-        <ion-item detail lines="full" (click)="edit(item)">
+        <ion-item detail lines="full" (click)="edit(idx)">
           {{field.key}} {{field.value}}
         </ion-item>
         <ion-item-options side="end">
@@ -21,25 +23,29 @@
     </ion-list>
   </div>
 
-  <!-- <div [ngSwitch]="params[field].type">
-    <div *ngSwitchCase="'text'">
-       <ion-button (click)="deleteField(idx,field)" *ngIf="lib.isProperty(params[field], 'key')">X</ion-button>
-       <ion-label *ngIf="!lib.isProperty(params[field], 'key')">{{params[field].label}}</ion-label>
-       <ion-input *ngIf="lib.isProperty(params[field], 'key')" type="text" [(ngModel)]="params[field].key" placeholder="{{params[field].label}}"></ion-input>
-       <ion-input type="text" [(ngModel)]="params[field].value"></ion-input>
-     </div>
-  </div> -->
-
 
   <div *ngIf="editfield" class="field-content">
     <p> Edit field </p>
 
-    <ion-list *ngFor="let property of lib.keys(selectfield); let idx = index">
-      <ion-item>
-        <ion-label>{{property}}</ion-label>
-        <ion-input type="text" [(ngModel)]="selectfield[property]"></ion-input>
-      </ion-item>
-    </ion-list>
+    <ion-label>{{selectfield.label}}</ion-label>
+    <div [ngSwitch]="selectfield.type">
+      <div *ngSwitchCase="'text'">
+        <ion-input type="text" [(ngModel)]="selectfield.value"></ion-input>
+      </div>
+
+      <!--if creating a new field-->
+      <div *ngSwitchCase="'custom'">
+        <ion-item>
+          <ion-label>Key</ion-label>
+          <ion-input type="text" [(ngModel)]="selectfield.key" (ngModelChange)="fieldsChange.emit(fields)"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Value</ion-label>
+          <ion-input type="text" [(ngModel)]="selectfield.value" (ngModelChange)="fieldsChange.emit(fields)"></ion-input>
+        </ion-item>
+      </div>
+
+    </div>
 
     <ion-button (click)="editfield = !editfield">Done</ion-button>
   </div>

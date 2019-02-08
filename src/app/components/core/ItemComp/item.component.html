@@ -7,9 +7,18 @@
 
 <ion-content>
 
-  <!-- {{items | json}} -->
+
+  <ion-item>
+    <ion-label>Order items</ion-label>
+    <ion-toggle [(ngModel)]="orderitems"></ion-toggle>
+  </ion-item>
+
+  {{orderitems}}
+
+ {{fetchItems() | async | json}}
 <!-- items as list-->
 
+<!--
 <div *ngIf="layout == 'list'">
   <ion-list>
       <ion-item-sliding #s *ngFor="let item of items | async">
@@ -23,17 +32,41 @@
         </ion-item-options>
       </ion-item-sliding>
   </ion-list>
+</div> -->
+
+{{itemslength}}
+
+<div *ngIf="layout == 'list'">
+  <!-- <div *ngIf="items.length"> -->
+
+  <ion-list cdkDropList (cdkDropListDropped)="dragItem($event)">
+      <ion-item-sliding cdkDrag [cdkDragDisabled]="!orderitems" #s *ngFor="let item of fetchItems() | async; let idx = index">
+        <ion-item detail lines="full" (click)="selectItem(item)">
+          <ion-icon name="document" slot="start"></ion-icon>
+          {{ item.fields.name.value }}
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="primary" (click)="s.close();setItem(item,false)">EDIT</ion-item-option>
+          <ion-item-option color="primary" (click)="s.close();duplicateItem(item)">COPY</ion-item-option>
+          <ion-item-option color="danger"  (click)="s.close();deleteItem(idx,item)">DELETE</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+  </ion-list>
+
+  <!-- </div> -->
 </div>
 
 
-<!-- items as grid-->
+{{itemsl}}
+
+<!--items as grid-->
 <div *ngIf="layout == 'grid'">
   <ion-grid>
     <ion-row>
-      <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="2.4" #g *ngFor="let item of items | async" (click)="enterItem(item)">
+      <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="2.4" #g *ngFor="let item of items | async" (click)="selectItem(item)">
         <ion-item detail lines="full">
           <ion-icon name="folder" slot="start"></ion-icon>
-          {{item.name}}
+          {{item.fields.name.value}}
         </ion-item>
       </ion-col>
     </ion-row>
@@ -41,8 +74,5 @@
   </ion-grid>
 </div>
 
-<!-- components -->
-<comp-template *ngIf="comp == 'calendar'" [items]="items" (callback)="handleCallback($event)"></comp-template>
-<comp-writing *ngIf="comp == 'work'" [items]="item" (callback)="handleCallback($event)"></comp-writing>
 
 </ion-content>

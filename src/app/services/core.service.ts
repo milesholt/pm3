@@ -11,6 +11,9 @@ import { InternalService, ModalService } from './internal/internal.service';
 //connect to default external services
 import { ExternalService } from './external/external.service';
 
+//import compile service
+import { CompileService } from './compile.service';
+
 @Injectable()
 export class CoreService {
 
@@ -21,7 +24,8 @@ export class CoreService {
     public lib: Library,
     public internal: InternalService,
     public external: ExternalService,
-    public modal: ModalService
+    public modal: ModalService,
+    public compile: CompileService
   ){
     this.items = this.internal.items;
     this.auth = this.external.authFirebase;

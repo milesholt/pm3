@@ -1,29 +1,19 @@
 export class FieldModel {
 
    field:{
-     id:number;
-     orderid:number;
-     key:string
-     value:string
-     type:string
-     type_options:any;
-     label:string
-     placeholder:string
-     desc:string
+     key:string;
+     value:string;
+     type: string,
+     type_options: any
    }
 
   constructor(){
 
     this.field = {
-      id:0,
-      orderid:0,
-      key: 'newfield',
+      key: '',
       value: '',
-      type: 'text',
-      type_options: {},
-      label: '',
-      placeholder: '',
-      desc: ''
+      type: 'custom',
+      type_options: []
     }
 
 

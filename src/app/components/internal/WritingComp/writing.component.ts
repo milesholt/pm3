@@ -30,14 +30,14 @@ export class WritingComponent implements OnInit, OnChanges {
 
   master:any = {
     groups: {
-      'scene' : [],
-      'character':[]
+      's' : [],
+      'c':[]
     },
     markup: [],
     newvalues: {},
     newvalue: '',
     heading: {
-      key: "scene",
+      key: "s",
       value: this.lib.deepCopy(this.itemModel.document),
       type:"string"
     },
@@ -47,7 +47,7 @@ export class WritingComponent implements OnInit, OnChanges {
       type:"textarea"
     },
     character: {
-      key: "character",
+      key: "c",
       value: this.lib.deepCopy(this.itemModel.document),
       type:"string"
     },

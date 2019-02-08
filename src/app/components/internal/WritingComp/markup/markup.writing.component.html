@@ -28,8 +28,8 @@
                  [matAutocomplete]="auto"
                  (ngModelChange)="el.value.name = $event; updateElement(el,idx,$event)" />
          <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let n of master.groups[el.key]" [value]="n.name">
-              {{n.name}}
+            <mat-option *ngFor="let n of master.groups[el.key]" [value]="n.fields">
+              {{n.fields.name.value | json}}
             </mat-option>
           </mat-autocomplete>
         <!-- </mat-form-field>

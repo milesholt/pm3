@@ -11,13 +11,8 @@ export class ItemModel {
  }
 
  document:{
-   id:number;
-   orderid:number,
-   name:string,
-   desc:string,
-   date_created:string,
-   date_updated:string
-   properties:any
+   name: any,
+   desc: any
  };
 
  collection:{
@@ -25,13 +20,13 @@ export class ItemModel {
  }
 
  event:{
-   startdate:string,
-   enddate:string
+   startdate:any,
+   enddate:any
  };
 
  work:{
-   content:string
-   component:string
+   content:any
+   component:any
  };
 
  messageGroup:{
@@ -39,9 +34,10 @@ export class ItemModel {
  };
 
  message:{
-   uid:string,
-   sent:string,
-   content:string
+   uid:any,
+   date_sent:any,
+   date_delivered:any,
+   content:any
  }
 
 
@@ -51,23 +47,18 @@ export class ItemModel {
   constructor(){
 
     this.event = {
-      startdate: "",
-      enddate: ""
+      startdate: { value: "", type: "date" },
+      enddate: { value: "", type: "date" }
     }
 
     this.work = {
-      content: "",
-      component: "work"
+      content: { value: "", type: "textarea" },
+      component: { value: "work", type: "component" },
     }
 
     this.document = {
-      id:0,
-      orderid:0,
-      name: "",
-      desc: "",
-      date_created: "",
-      date_updated: "",
-      properties: {}
+      name: { value: "", type: "text" },
+      desc: { value: "", type: "text" }
     }
 
     this.collection = {
@@ -75,15 +66,15 @@ export class ItemModel {
     }
 
     this.message = {
-      uid: "",
-      sent: "",
-      content: ""
+      uid: { value: "", type: "number" },
+      date_sent: { value: "", type: "date" },
+      date_delivered: { value: "", type: "date" },
+      content: { value: "", type: "textarea" }
     }
 
     this.messageGroup = {
       messages : {
-        "message1": this.message,
-        params: Object.assign({}, this.params, this.collection)
+        "message1": this.message
       }
     }
 

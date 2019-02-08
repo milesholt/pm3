@@ -16,12 +16,18 @@ export class ModalComponent implements OnInit {
   constructor(private modalCtrl:ModalController, private lib: Library) { }
 
   ngOnInit() {
-    this.fields = Object.keys(this.params);
+    this.fields = this.params.fields;
   }
 
   closeModal(d){
+    console.log(this.fields);
+    console.log(d);
     this.modalCtrl.dismiss(d);
   }
+
+  // handleCallback(e){
+  //   console.log(e);
+  // }
 
 
 }
