@@ -7,38 +7,19 @@
 
 <ion-content>
 
+<p>Item component</p>
 
-  <ion-item>
-    <ion-label>Order items</ion-label>
-    <ion-toggle [(ngModel)]="orderitems"></ion-toggle>
-  </ion-item>
+<ion-item>
+  <ion-label>Order items</ion-label>
+  <ion-toggle [(ngModel)]="orderitems"></ion-toggle>
+</ion-item>
 
-  {{orderitems}}
+  <!-- {{orderitems}}
 
- {{fetchItems() | async | json}}
+  {{fetchItems() | async | json}} -->
+
 <!-- items as list-->
-
-<!--
 <div *ngIf="layout == 'list'">
-  <ion-list>
-      <ion-item-sliding #s *ngFor="let item of items | async">
-        <ion-item detail lines="full" (click)="enterItem(item)">
-          <ion-icon name="document" slot="start"></ion-icon>
-          {{item.name}}
-        </ion-item>
-        <ion-item-options side="end">
-          <ion-item-option color="primary" (click)="s.close();setItem(item)">EDIT</ion-item-option>
-          <ion-item-option color="danger"  (click)="s.close();deleteItem(item)">DELETE</ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-  </ion-list>
-</div> -->
-
-{{itemslength}}
-
-<div *ngIf="layout == 'list'">
-  <!-- <div *ngIf="items.length"> -->
-
   <ion-list cdkDropList (cdkDropListDropped)="dragItem($event)">
       <ion-item-sliding cdkDrag [cdkDragDisabled]="!orderitems" #s *ngFor="let item of fetchItems() | async; let idx = index">
         <ion-item detail lines="full" (click)="selectItem(item)">
@@ -52,12 +33,10 @@
         </ion-item-options>
       </ion-item-sliding>
   </ion-list>
-
-  <!-- </div> -->
 </div>
 
 
-{{itemsl}}
+<!-- {{itemsl}} -->
 
 <!--items as grid-->
 <div *ngIf="layout == 'grid'">

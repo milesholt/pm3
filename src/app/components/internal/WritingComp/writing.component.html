@@ -24,7 +24,7 @@
   <!-- Main -->
   <comp-writing-markup *ngSwitchCase="'markup'" [master]="master"></comp-writing-markup>
   <!-- Groups -->
-  <comp-writing-groups *ngSwitchCase="'groups'" [items]="master.groups"></comp-writing-groups>
+  <comp-writing-groups *ngSwitchCase="'groups'" [master]="master" [(items)]="master.groups"></comp-writing-groups>
 
 </div>
 

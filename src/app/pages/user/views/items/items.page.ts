@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { RouterPage } from '../../../../classes/router.class';
 import { CoreService } from '../../../../services/core.service';
 
+import { FormComponent } from '../../../../components/core/FormComp/form.component';
+
 
 @Component({
   selector: 'app-collections',
@@ -12,12 +14,15 @@ import { CoreService } from '../../../../services/core.service';
 })
 export class ItemsPage extends RouterPage implements OnDestroy {
 
+  comp:any;
+
   constructor(private router: Router, private route: ActivatedRoute, public service: CoreService) {
         super(router, route);
     }
 
     onEnter() {
       console.log(this.activeComp.name);
+      this.comp = FormComponent;
     }
 
    onDestroy() {

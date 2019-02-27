@@ -13,6 +13,7 @@ import { ItemModel } from '../../../../models/item.model';
 import { NodeModel } from '../../../../models/node.model';
 
 import { Library } from '../../../../app.library';
+import { Definitions } from '../../../../app.definitions';
 
 @Injectable()
 export class DatabaseServiceFirebase {
@@ -24,8 +25,10 @@ export class DatabaseServiceFirebase {
   user: FirebaseUserModel = new FirebaseUserModel();
   collection:string;
   root:any;
+  def:any;
   modelPosRef:any;
   constructor(private db: AngularFirestore, private userService: UserServiceFirebase, private lib: Library){
+    this.def = Definitions;
   }
 
 
@@ -201,7 +204,6 @@ orderIds(items){
  checkData(obj){
    //if object has paramters property and isCollection property
    let r:any = true;
-   console.log(obj.params);
    console.log(this.lib.isProperty(obj, 'params'));
    if(this.lib.isProperty(obj,'params')){
      console.log('has params');
@@ -246,6 +248,18 @@ orderIds(items){
             console.warn(err);
         });
     }
+ } 
+
+ checkUniqueFields(item,items){
+   items.subscribe(itms =>{
+     console.log(itms.length);
+     console.log(this.collection);
+     Object.keys(this.def[this.collection]).forEach(key =>{
+       if(this.def[this.collection][key].unique){
+         item.fields[key].value = item.fields[key].value.split('__')[0] + '__'+itms.length;
+       }
+     });
+   });
  }
 
 

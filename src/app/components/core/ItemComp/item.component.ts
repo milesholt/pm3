@@ -19,8 +19,12 @@ export class ItemComponent implements OnInit, OnChanges, DoCheck {
   @Input() connection: any = [];
   @Input() user: any = {};
   @Input() model: string = "";
+  @Input() items: any = false;
+  @Input() comp:any = false;
+  @Input() params:any = {};
+
   @Output() callback = new EventEmitter();
-  @Input() items: any = [];
+
   itemslength: number = 0;
   item: Observable<Object[]>;
   itemModel: ItemModel = new ItemModel();
@@ -30,6 +34,7 @@ export class ItemComponent implements OnInit, OnChanges, DoCheck {
   differ: any;
   nestindex:number = -1;
   orderitems:boolean = false;
+  isNew:boolean = true;
 
   constructor(private service: CoreService, private lib: Library, differs: IterableDiffers){
     this.def = service.getDefinitions();
@@ -40,9 +45,7 @@ export class ItemComponent implements OnInit, OnChanges, DoCheck {
     //set connection to service
     await this.setConnection(this.connection);
     //initiate items if none
-    if(!this.items) {
-      this.items = await this.service.items.ini(this.collection);
-    }
+    if(!this.items) this.items = await this.service.items.ini(this.collection);
   }
 
   ngAfterViewInit(){}
@@ -75,37 +78,36 @@ export class ItemComponent implements OnInit, OnChanges, DoCheck {
 
   async setItem(data:any = this.lib.deepCopy(this.itemModel[this.model]), isNew : boolean = true){
     this.item = data;
+    this.isNew = isNew;
     let fields = isNew ? data : data.fields;
     let item = isNew ? false : data;
-    const params = this.service.compile.prepareData(this.def[this.collection], fields, item);
-    const res:any = await this.service.modal.openModal(params);
-    if(!res.data) return false;
-    await this.formatItemIds(res.data,isNew);
-    item = this.service.compile.compileData(res.data, fields);
+    this.params.modalData = this.service.compile.prepareData(this.def[this.collection], fields, item);
+    const res:any = await this.service.modal.openModal(this,this.comp);
+    if(!res.data.modalData) return false;
+    await this.formatItemIds(res.data.modalData,isNew);
+    item = this.service.compile.compileData(res.data.modalData, fields);
     if(res.data) this.service.items.set(item,this.items,isNew);
   }
 
   async selectItem(item){
     this.nestindex++;
     this.item = item;
+    this.callback.emit(item);
     await this.service.items.select(item, this);
 
   }
 
   async duplicateItem(item){
     let newitem = this.lib.deepCopy(item);
+    await this.service.items.checkUniqueFields(newitem, this.items);
     await this.formatItemIds(newitem,true);
     await this.service.items.duplicate(newitem, this.items);
-    this.service.items.refresh(this);
   }
 
   async deleteItem(idx,item){
     await this.service.items.delete(this.items,idx,item);
-    await this.service.items.refresh(this);
-    this.orderItems();
+    await this.orderItems();
   }
-
-
 
   async formatItemIds(item,isNew:boolean=false){
     if(isNew) item.orderid = this.itemslength;
@@ -113,7 +115,7 @@ export class ItemComponent implements OnInit, OnChanges, DoCheck {
   }
 
   async orderItems(){
-    this.service.items.orderIds(this.items);
+    await this.service.items.orderIds(this.items);
   }
 
   getNewId(){
@@ -134,18 +136,10 @@ export class ItemComponent implements OnInit, OnChanges, DoCheck {
       moveItemInArray(this.items, event.previousIndex, event.currentIndex);
       this.orderItems();
     }
-    this.service.items.refresh(this);
   }
 
-  // handleCallback(event){
-  //   let action = event[1];
-  //   let item = event[0];
-  //   console.log(action);
-  //   switch(action){
-  //     case 'enter': this.enterItem(item); break;
-  //     case 'edit': this.setItem(item); break;
-  //     case 'delete': this.deleteItem(item); break;
-  //   }
-  // }
+  handleCallback(e){
+    console.log(e);
+  }
 
 }

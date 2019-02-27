@@ -22,11 +22,9 @@ export class MarkupWritingComponent implements OnInit, OnChanges {
 
   private el: HTMLInputElement;
   private nodeModel: NodeModel = new NodeModel();
+  input:string;
   draft:number = 0;
   markup:any;
-  input:string;
-  selectGidx: number = -1;
-  selectGitm:any;
 
   constructor(private lib: Library, private service: CoreService) {}
 
@@ -44,11 +42,54 @@ export class MarkupWritingComponent implements OnInit, OnChanges {
     this.markup.push(nel);
   }
 
+  updateGroups(){
+    Object.keys(this.master.groups).forEach(group=>{
+      //let g = this.master.groups[group] = [];
+      let g = this.master.groups[group];
+      let vals = [];
+      Object.keys(this.master.markup).forEach(draft=>{
+        this.master.markup[draft].forEach(el =>{
+          if(el.key == group){
+
+            // let newitem = this.lib.deepCopy(this.nodeModel.node);
+            // newitem.fields = el.value;
+            // const isNew = !this.lib.isProperty(el,'gid') ? true : false;
+            // this.service.items.formatItemIds(newitem,isNew,g);
+            // if(!isNew){
+            //   newitem.id = el.gid;
+            // } else {
+            //   el.gid = newitem.id;
+            // }
+            // // g.length === 0 ? g.push(newitem) : g.map(itm => itm.fields.name.value).indexOf(el.value.name.value) === -1 ? g.push(newitem) : null;
+            // console.log(el);
+            // g.length === 0 ? g.push(newitem) : g.filter(itm => itm.id == el.gid).length === 0 ? g.push(newitem) : null;
+
+
+            let item = this.lib.deepCopy(this.nodeModel.node);
+            item.fields = el.value;
+            const isNew = !this.lib.isProperty(el,'gid') || g.map(itm => itm.fields.name.value).indexOf(el.value.name.value) === -1 ? true : false;
+            console.log(isNew);
+            this.service.items.formatItemIds(item,isNew,g);
+            if(isNew){ el.gid = item.id; g.push(item); }
+
+          }
+        });
+      });
+    });
+  }
+
   updateElement(el,idx,val,elpath){
+    //const v = (val !== '' || el.type !== 'text') ? val : eval('el.' + elpath);
     const v = val !== '' ? val : eval('el.' + elpath);
     eval('el.' + elpath + ' = v');
-    this.input = this.lib.deepCopy(v);
-    this.checkGroups(el);
+    this.input = v;
+    setTimeout(()=>{
+      if(Object.keys(this.master.groups).includes(el.key)) this.updateGroups();
+    },2000);
+  }
+
+  test(e){
+    console.log(e);
   }
 
   editElement(action,el,idx){
@@ -56,61 +97,10 @@ export class MarkupWritingComponent implements OnInit, OnChanges {
       case 'copy': this.markup.push(this.lib.deepCopy(el)); break;
       case 'delete': this.lib.delete(idx,this.markup); break;
     }
-    this.checkGroups(el);
   }
 
   dragElement(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.markup, event.previousIndex, event.currentIndex);
-  }
-
-  selectGroupItem(e,i){
-    this.selectGidx = i;
-    this.selectGitm = e;
-  }
-
-  checkGroups(el){
-    setTimeout(()=>{
-      if(Object.keys(this.master.groups).includes(el.key)) {
-        this.updateGroups();
-      }
-    },);
-  }
-
-  updateGroups(){
-    Object.keys(this.master.groups).forEach(group=>{
-      let g = this.master.groups[group];
-      Object.keys(this.master.markup).forEach(draft=>{
-        this.master.markup[draft].forEach(el =>{
-          if(el.key == group){
-            //copy node structure for item, id is false
-            let item = this.lib.deepCopy(this.nodeModel.node);
-            //append default fields
-            item.fields = el.value;
-            //determine if values match
-            let match = g.filter(itm => itm.fields.name.value == el.value.name.value);
-            //if there isn't a match, mark as new item
-            const isNew = !match.length ? true : false;
-            //format ids
-            this.service.items.formatItemIds(item,isNew,g);
-            //update markup element with new or existing gid
-            el.gid = isNew ? item.id : match[0].id;
-            //if selected group item, append custom fields
-            if(this.selectGidx !== -1 && el.gid == this.selectGitm.id) el.value = this.selectGitm.fields;
-            //if new, push item to group
-            if(isNew){ g.push(item); }
-            //reset index
-            this.selectGidx = -1;
-          }
-        });
-      });
-
-      //clear duplicates
-      let arr:any = [];
-      g.forEach((itm,i) =>{
-          const name = itm.fields.name.value;
-          arr.includes(name) ? g.splice(i,1) : arr.push(name);
-       });
-    });
   }
 
   newDraft(){

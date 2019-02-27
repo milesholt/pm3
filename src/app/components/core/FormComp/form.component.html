@@ -30,23 +30,25 @@
     <ion-label>{{selectfield.label}}</ion-label>
     <div [ngSwitch]="selectfield.type">
       <div *ngSwitchCase="'text'">
-        <ion-input type="text" [(ngModel)]="selectfield.value"></ion-input>
+        <ion-input type="text" [(ngModel)]="selectfield.value" (ngModelChange)="handleFieldChange()"></ion-input>
       </div>
 
       <!--if creating a new field-->
       <div *ngSwitchCase="'custom'">
         <ion-item>
           <ion-label>Key</ion-label>
-          <ion-input type="text" [(ngModel)]="selectfield.key" (ngModelChange)="fieldsChange.emit(fields)"></ion-input>
+          <ion-input type="text" [(ngModel)]="selectfield.key" (ngModelChange)="handleFieldChange()"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Value</ion-label>
-          <ion-input type="text" [(ngModel)]="selectfield.value" (ngModelChange)="fieldsChange.emit(fields)"></ion-input>
+          <ion-input type="text" [(ngModel)]="selectfield.value" (ngModelChange)="handleFieldChange()"></ion-input>
         </ion-item>
       </div>
 
     </div>
 
-    <ion-button (click)="editfield = !editfield">Done</ion-button>
+    {{!isUniqueValue ? 'Please use a unique value': ''}}
+
+    <ion-button *ngIf="isUniqueValue" (click)="editfield = !editfield">Done</ion-button>
   </div>
 </div>

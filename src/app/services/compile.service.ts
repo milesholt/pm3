@@ -61,6 +61,7 @@ export class CompileService {
           node.fields[i].type = fields[field].type;
           node.fields[i].type_options = fields[field].type_options ? fields[field].type_options : [];
           node.fields[i].label =  definitions[def].label;
+          node.fields[i].unique = definitions[def].unique;
         }
       });
 

@@ -1,25 +1,10 @@
 <div class="modal-container">
-
-
   <div class="modal-content">
     <ion-button (click)="closeModal(false)">Close</ion-button>
 
-    <!-- <ion-list>
-      <ion-item *ngFor="let field of fields;let idx = index">
-        <div [ngSwitch]="params[field].type">
-           <div *ngSwitchCase="'text'">
-             <ion-button (click)="deleteField(idx,field)" *ngIf="lib.isProperty(params[field], 'key')">X</ion-button>
-             <ion-label *ngIf="!lib.isProperty(params[field], 'key')">{{params[field].label}}</ion-label>
-             <ion-input *ngIf="lib.isProperty(params[field], 'key')" type="text" [(ngModel)]="params[field].key" placeholder="{{params[field].label}}"></ion-input>
-             <ion-input type="text" [(ngModel)]="params[field].value"></ion-input>
-           </div>
-        </div>
-      </ion-item>
-    </ion-list> -->
+      <!-- specific modal component loads here -->
+      <ng-template dynamic-comp></ng-template>
 
-    <comp-form [(fields)]="fields"></comp-form>
-
-
-    <ion-button (click)="closeModal(params)">Submit</ion-button>
+    <ion-button (click)="closeModal(_t.params)">Submit</ion-button>
   </div>
 </div>

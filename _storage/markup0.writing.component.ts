@@ -25,8 +25,7 @@ export class MarkupWritingComponent implements OnInit, OnChanges {
   draft:number = 0;
   markup:any;
   input:string;
-  selectGidx: number = -1;
-  selectGitm:any;
+  selectGidx: number;
 
   constructor(private lib: Library, private service: CoreService) {}
 
@@ -65,51 +64,43 @@ export class MarkupWritingComponent implements OnInit, OnChanges {
 
   selectGroupItem(e,i){
     this.selectGidx = i;
-    this.selectGitm = e;
   }
 
   checkGroups(el){
     setTimeout(()=>{
       if(Object.keys(this.master.groups).includes(el.key)) {
+        //el.value = this.lib.deepCopy(this.master.groups[el.key][this.selectGidx].fields);
         this.updateGroups();
       }
     },);
   }
 
+  updateGroups_0(){
+
+  }
+
   updateGroups(){
     Object.keys(this.master.groups).forEach(group=>{
-      let g = this.master.groups[group];
+      let g = this.master.groups[group] = [];
       Object.keys(this.master.markup).forEach(draft=>{
         this.master.markup[draft].forEach(el =>{
           if(el.key == group){
-            //copy node structure for item, id is false
             let item = this.lib.deepCopy(this.nodeModel.node);
-            //append default fields
             item.fields = el.value;
-            //determine if values match
-            let match = g.filter(itm => itm.fields.name.value == el.value.name.value);
-            //if there isn't a match, mark as new item
-            const isNew = !match.length ? true : false;
-            //format ids
+            item.id = el.gid;
+            //const isNew = !this.lib.isProperty(el,'gid') || g.map(itm => itm.fields.name.value).indexOf(el.value.name.value) === -1 || el.value.name.value !== g.filter(itm => itm.id == el.gid)[0].fields.name.value ? true : false;
+            const isNew = !this.lib.isProperty(el,'gid') || g.map(itm => itm.fields.name.value).indexOf(el.value.name.value) === -1  ? true : false;
+
             this.service.items.formatItemIds(item,isNew,g);
-            //update markup element with new or existing gid
-            el.gid = isNew ? item.id : match[0].id;
-            //if selected group item, append custom fields
-            if(this.selectGidx !== -1 && el.gid == this.selectGitm.id) el.value = this.selectGitm.fields;
-            //if new, push item to group
+
+            let match = g.filter(itm => itm.fields.name.value == el.value.name.value);
+
+            el.gid = match.length ? match[0].id : item.id;
+
             if(isNew){ g.push(item); }
-            //reset index
-            this.selectGidx = -1;
           }
         });
       });
-
-      //clear duplicates
-      let arr:any = [];
-      g.forEach((itm,i) =>{
-          const name = itm.fields.name.value;
-          arr.includes(name) ? g.splice(i,1) : arr.push(name);
-       });
     });
   }
 

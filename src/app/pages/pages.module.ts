@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 
 import { Routes, RouterModule } from '@angular/router';
 import { UserDashboardPage } from './user/dashboard/dashboard.page';
@@ -24,7 +24,7 @@ import { FormComponent } from '../components/core/FormComp/form.component';
 
 //Internal components
 import { TemplateComponent } from '../components/internal/TemplateComp/template.component';
-import { WritingComponent, MarkupWritingComponent, GroupsWritingComponent, ItemsWritingComponent } from '../components/internal/WritingComp/writing.component';
+import { WritingComponent, MarkupWritingComponent, GroupsWritingComponent, GroupsWritingModalComponent } from '../components/internal/WritingComp/writing.component';
 
 //pipes
 import { KeysPipe } from '../pipes/keys.pipe/keys.pipe';
@@ -32,8 +32,12 @@ import { SafeHtmlPipe } from '../pipes/safehtml.pipe/safehtml.pipe';
 import { ElFormatPipe } from '../pipes/elformatter.pipe/elformatter.pipe';
 import { SearchPipe } from '../pipes/search.pipe/search.pipe';
 
+//directives
+import { DynamicCompDirective } from '../directives/dynamiccomp.directive';
+
 
 import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 import {DragDropModule} from '@angular/cdk/drag-drop';
@@ -138,13 +142,14 @@ const routes: Routes = [
     WritingComponent,
     MarkupWritingComponent,
     GroupsWritingComponent,
-    ItemsWritingComponent,
+    GroupsWritingModalComponent,
     KeysPipe,
     SafeHtmlPipe,
     ElFormatPipe,
-    SearchPipe
+    SearchPipe,
+    DynamicCompDirective
   ],
-  entryComponents: [ModalComponent,FormComponent],
+  entryComponents: [ModalComponent,FormComponent,GroupsWritingModalComponent],
   imports: [
     IonicModule,
     CommonModule,
@@ -153,9 +158,10 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MatSelectModule,
     MatAutocompleteModule,
+    MatInputModule,
     DragDropModule
   ],
-  exports: [RouterModule],
+  exports: [RouterModule,FormComponent],
   providers: [ElFormatPipe],
   bootstrap: []
 })

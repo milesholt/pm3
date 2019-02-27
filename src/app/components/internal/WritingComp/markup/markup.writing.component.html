@@ -3,14 +3,18 @@
 <br />
 <br />
 
-{{ master.groups.character | json}}
+{{selectGidx}}
+
+{{ master.groups.c | json}}
+
+{{ master.groups.s | json}}
 
 <p>Markup</p>
 <div class="markup_container">
 
 <!-- Main writing markup -->
 <div cdkDropList class="markup_editor" (CdkDragStart)="$event" (cdkDropListDropped)="dragElement($event)">
-  <div cdkDrag *ngFor="let el of master.markup; let idx = index" class="el_container">
+  <div cdkDrag *ngFor="let el of master.markup[draft]; let idx = index" class="el_container">
     <div class="el_options">
       <ion-button (click)="editElement('copy',el,idx)">C</ion-button>
       <ion-button (click)="editElement('delete',el,idx)">X</ion-button>
@@ -18,31 +22,41 @@
     {{ el.key }}
     <div [ngSwitch]="el.type">
       <ion-item *ngSwitchCase="'string'">
-        <!-- <form class="example-form">
-          <mat-form-field class="example-full-width"> -->
-          <input matInput
-                 class="markup_text input el_{{el.key}}"
-                 type="text"
-                 placeholder="{{el.key}}"
-                 [ngModel]="el.value.name | elformat : el.key : false"
-                 [matAutocomplete]="auto"
-                 (ngModelChange)="el.value.name = $event; updateElement(el,idx,$event)" />
-         <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let n of master.groups[el.key]" [value]="n.fields">
-              {{n.fields.name.value | json}}
-            </mat-option>
-          </mat-autocomplete>
-        <!-- </mat-form-field>
-      </form> -->
+
+        <mat-form-field class="example-full-width">
+               <input matInput
+                     class="markup_text input el_{{el.key}}"
+                     type="text"
+                     placeholder="{{el.key}}"
+                     [ngModel]="el.value.name.value | elformat : el.key : false"
+                     [matAutocomplete]="auto"
+                     (ngModelChange)="updateElement(el,idx,$event,'value.name.value')" />
+
+               <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let n of master.groups[el.key] | search : input : 'fields.name.value'; let idx = index" [value]="n.fields.name.value" (click)="selectGroupItem(n, idx)">
+                    {{n.fields.name.value}}
+                  </mat-option>
+                </mat-autocomplete>
+         </mat-form-field>
+
       </ion-item>
       <ion-item *ngSwitchCase="'textarea'">
+          <!-- <ion-textarea class="markup_textarea input el_{{el.key}}"
+                        contenteditable="true"
+                        autocorrect="on"
+                        rows="10"
+                        [ngModel]="el.value | elformat : el.key : false"
+                        (ngModelChange)="updateElement(el,idx,$event,'value')"
+                        (input)="updateElement(el,idx,$event.target.firstChild.defaultValue,'value')">
+          </ion-textarea> -->
+
           <ion-textarea class="markup_textarea input el_{{el.key}}"
                         contenteditable="true"
                         autocorrect="on"
                         rows="10"
                         [ngModel]="el.value | elformat : el.key : false"
-                        (ngModelChange)="el.value = $event; updateElement(el,idx,$event)"
-                        (input)="updateElement(el,idx)">
+                        (ngModelChange)="updateElement(el,idx,$event,'value')"
+                        >
           </ion-textarea>
       </ion-item>
     </div>
@@ -57,4 +71,13 @@
   <ion-button (click)="createElement('body')">B</ion-button>
   <ion-button (click)="createElement('dialogue')">D</ion-button>
   <ion-button (click)="createElement('parenthetical')">P</ion-button>
+</div>
+
+<div class="tools" style="float:right">
+  <ion-select [(ngModel)]="selectdraft" (ngModelChange)="selectDraft(selectdraft)">
+    <ion-select-option *ngFor="let draft of getDrafts()">{{draft}}</ion-select-option>
+  </ion-select>
+  <ion-button (click)="newDraft()">ND</ion-button>
+  <ion-button (click)="exportMarkup()">EX</ion-button>
+  <ion-button (click)="shareMarkup()">SH</ion-button>
 </div>

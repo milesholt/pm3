@@ -12,7 +12,7 @@ export class ElFormatPipe implements PipeTransform {
     let v:string = value;
 
     switch(format){
-      case 'parenthetical':
+      case 'p':
        v = '(' + value.replace(/[()]/g, '') + ')';
       break;
     }

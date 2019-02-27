@@ -9,12 +9,12 @@ export class ModalService {
   constructor(private modalCtrl:ModalController) {}
 
   //launches Modal Component and passes / returns data
-  async openModal(params)
+  async openModal(_t,comp)
   {
     console.log('modal test');
     const modal = await this.modalCtrl.create({
      component: ModalComponent,
-     componentProps: {"params": params}
+     componentProps: {"_t": _t, "comp": comp}
    });
    await modal.present();
    return await modal.onDidDismiss();

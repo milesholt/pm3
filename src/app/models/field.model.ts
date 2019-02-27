@@ -3,8 +3,9 @@ export class FieldModel {
    field:{
      key:string;
      value:string;
-     type: string,
-     type_options: any
+     type: string;
+     type_options: any;
+     unique:boolean;
    }
 
   constructor(){
@@ -13,7 +14,8 @@ export class FieldModel {
       key: '',
       value: '',
       type: 'custom',
-      type_options: []
+      type_options: [],
+      unique: false
     }
 
 

@@ -7,8 +7,8 @@ import { CoreService } from '../../../services/core.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import {MarkupWritingComponent} from './markup/markup.writing.component';
-import {ItemsWritingComponent} from './items/items.writing.component';
 import {GroupsWritingComponent} from './groups/groups.writing.component';
+import {GroupsWritingModalComponent} from './groups/groups.modal/groups.writing.modal.component';
 
 import { ItemModel } from '../../../models/item.model';
 
@@ -30,36 +30,47 @@ export class WritingComponent implements OnInit, OnChanges {
 
   master:any = {
     groups: {
-      's' : [],
-      'c':[]
+      's' : [{ "id": 0, "orderid": 0, "date_created": "", "date_updated": "", "fields": { "name": { "value": "Custom 1", "type": "text" }, "desc": { "value": "", "type": "text" }, "Prop": { "key": "Prop", "value": "11", "type": "custom", "type_options": [], "unique": false } }, "nest": [], "params": {} } ],
+      'c': [],
+      'p': []
     },
-    markup: [],
+    markup: { 0 : [] },
     newvalues: {},
     newvalue: '',
     heading: {
       key: "s",
       value: this.lib.deepCopy(this.itemModel.document),
-      type:"string"
+      type: "string"
     },
     body: {
       key: "body",
       value: this.lib.deepCopy(this.itemModel.document),
-      type:"textarea"
+      type: "textarea"
     },
     character: {
       key: "c",
       value: this.lib.deepCopy(this.itemModel.document),
-      type:"string"
+      type: "string"
     },
     parenthetical:{
-      key: "parenthetical",
+      key: "p",
       value: this.lib.deepCopy(this.itemModel.document),
-      type:"string"
+      type: "string"
     },
     dialogue:{
       key: "dialogue",
       value: this.lib.deepCopy(this.itemModel.document),
-      type:"textarea"
+      type: "textarea"
+    },
+    templates_preset:{
+      's':[],
+      'c':[],
+      'p':[]
+    },
+    templates_custom:{
+      's':[],
+      'c':[],
+      'p':[]    
     }
   }
 
@@ -97,4 +108,4 @@ export class WritingComponent implements OnInit, OnChanges {
     this.callback.emit(params);
   }
 }
-export { MarkupWritingComponent, GroupsWritingComponent, ItemsWritingComponent }
+export { MarkupWritingComponent, GroupsWritingComponent, GroupsWritingModalComponent }

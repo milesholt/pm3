@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ItemsWritingComponent } from './items.writing.component';
+import { GroupsWritingModalComponent } from './groups.writing.modal.component';
 
-describe('WritingComponent', () => {
-  let component: ItemsWritingComponent;
-  let fixture: ComponentFixture<ItemsWritingComponent>;
+describe('GroupsWritingModalComponent', () => {
+  let component: GroupsWritingModalComponent;
+  let fixture: ComponentFixture<GroupsWritingModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemsWritingComponent ]
+      declarations: [ GroupsWritingModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ItemsWritingComponent);
+    fixture = TestBed.createComponent(GroupsWritingModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

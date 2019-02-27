@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NavController,ModalController } from '@ionic/angular';
 import { Library } from '../../../app.library';
 import { Definitions } from '../../../app.definitions';
-
+import { Observable, BehaviorSubject, of, from, Subject, isObservable } from 'rxjs';
 import { FieldModel } from '../../../models/field.model';
 
 @Component({
@@ -18,6 +18,8 @@ export class FormComponent implements OnInit {
   selectfield:any;
   fieldModel : FieldModel = new FieldModel();
   editfield:boolean = false;
+  isUniqueValue:boolean = true;
+
   tmp_newfield:any;
   @Input() public fields: any;
   @Input() _t: any;
@@ -37,9 +39,7 @@ export class FormComponent implements OnInit {
   }
 
   add(){
-    console.log(this.fieldModel.field);
     this.fields.push(this.lib.deepCopy(this.fieldModel.field));
-    this.updateIds();
     this.selectfield = this.fields[this.fields.length-1];
     this.editfield = true;
   }
@@ -51,7 +51,6 @@ export class FormComponent implements OnInit {
 
   duplicate(idx){
     this.fields.push(this.lib.deepCopy(this.fields[idx]));
-    this.updateIds();
   }
 
   delete(idx){
@@ -63,34 +62,26 @@ export class FormComponent implements OnInit {
     this.fieldsChange.emit(this.fields);
   }
 
-  updateIds(){
-  //   console.log(this.params);
-  //   if(this.fields.length > 1){
-  //     let ids = [] = this.fields.map(field => this.params[field].id);
-  //     const maxid = Math.max(...ids);
-  //     const lastfield = this.params[this.fields[this.fields.length-1]];
-  //     if(ids.includes(lastfield.id)) lastfield.id = (maxid+1);
-  //   }
-  }
-
-  // addField(){
-  //   this.selectfield = this.lib.deepCopy(this.field);
-  //   this.selectfield.id = Object.keys(this.params).length;
-  //   this.params[this.selectfield.key] = this.selectfield;
-  //   this.editfield = true;
-  // }
-  //
-  // updateIds(){
-  //   if(this.fields.length > 1){
-  //     let ids = [] = this.fields.map(field => this.params[field].id);
-  //     const maxid = Math.max(...ids);
-  //     const lastfield = this.params[this.fields[this.fields.length-1]];
-  //     if(ids.includes(lastfield.id)) lastfield.id = (maxid+1);
-  //   }
-  // }
-
   deleteField(idx,field){
     delete this.fields[field];
+  }
+
+  handleFieldChange(){
+    this.isUniqueValue = true;
+    if(isObservable(this._t.items)){
+      this._t.items.subscribe(items=>{
+        items.forEach(item=>{
+          if(item.fields[this.selectfield.key].value === this.selectfield.value && this.selectfield.unique) this.isUniqueValue = false;
+        });
+      });
+    }else{
+      this._t.items.forEach(item=>{
+        if(this.lib.isDefined(item.fields[this.selectfield.key])){
+          if(item.fields[this.selectfield.key].value === this.selectfield.value && this.selectfield.unique) this.isUniqueValue = false;
+        }
+      });
+    }
+    if(this.isUniqueValue) this.fieldsChange.emit(this.fields);
   }
 
 }
