@@ -77,3 +77,61 @@
   --ion-color-light-tint: #f5f6f9;
 
 }
+
+$primary:#3ba439;$secondary:#014c98;$tertiary:#8fa6bf;
+
+
+$colours: (
+  primary: $primary,
+  secondary: $secondary,
+	tertiary: $tertiary,
+	quaternary: #dbdef1,
+  grey: #fafafa,
+	light-grey:#d8d8d8,
+	dark-grey: #111,
+	dark: #777777,
+  white: #ffffff,
+	brown: #533a00,
+  black:#000000
+);
+
+
+$desktopsize: 1200px;
+$tabletsize: 980px;
+$mobilesize: 600px;
+
+@font-face {
+    font-family: 'courier_primeregular';
+    src: url('/assets/fonts/courier_prime/courier_prime.ttf') format('truetype'),
+         url('/assets/fonts/courier_prime/courier_prime-webfont.woff2') format('woff2'),
+         url('/assets/fonts/courier_prime/courier_prime-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal; 
+}
+
+@font-face {
+    font-family: 'courier_primebold';
+    src: url('/assets/fonts/courier_prime/courier_prime_bold.ttf') format('truetype'),
+         url('/assets/fonts/courier_prime/courier_prime_bold-webfont.woff2') format('woff2'),
+         url('/assets/fonts/courier_prime/courier_prime_bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'courier_primeitalic';
+    src: url('/assets/fonts/courier_prime/courier_prime_italic.ttf') format('truetype'),
+         url('/assets/fonts/courier_prime/courier_prime_italic-webfont.woff2') format('woff2'),
+         url('/assets/fonts/courier_prime/courier_prime_italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'courier_primebold_italic';
+    src: url('/assets/fonts/courier_prime/courier_prime_bold_italic.ttf') format('truetype'),
+         url('/assets/fonts/courier_prime/courier_prime_bold_italic-webfont.woff2') format('woff2'),
+         url('/assets/fonts/courier_prime/courier_prime_bold_italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}

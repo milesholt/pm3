@@ -5,8 +5,11 @@ import { Definitions } from '../app.definitions';
 import { Library } from '../app.library';
 import { Platform } from '@ionic/angular';
 
+//connect to default core services
+import { CoreService, ModalService} from './core/core.service';
+
 //connect to default internal services
-import { InternalService, ModalService } from './internal/internal.service';
+import { InternalService } from './internal/internal.service';
 
 //connect to default external services
 import { ExternalService } from './external/external.service';
@@ -15,24 +18,25 @@ import { ExternalService } from './external/external.service';
 import { CompileService } from './compile.service';
 
 @Injectable()
-export class CoreService {
+export class MasterService {
 
   items; auth; user; notification; notificationExt; toast;
 
   constructor(
     private platform: Platform,
     public lib: Library,
+    public core: CoreService,
     public internal: InternalService,
     public external: ExternalService,
     public modal: ModalService,
     public compile: CompileService
   ){
-    this.items = this.internal.items;
+    this.items = this.core.items;
     this.auth = this.external.authFirebase;
     this.user = this.external.userFirebase;
-    this.notification = this.internal.notification;
+    this.notification = this.core.notification;
     this.notificationExt = this.external.notificationFirebase;
-    this.toast = this.internal.toast;
+    this.toast = this.core.toast;
   }
 
   //connects to a service

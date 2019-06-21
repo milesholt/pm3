@@ -1,7 +1,7 @@
 import { OnDestroy, Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RouterPage } from '../../../../classes/router.class';
-import { CoreService } from '../../../../services/core.service';
+import { MasterService } from '../../../../services/master.service';
 
 import { FormComponent } from '../../../../components/core/FormComp/form.component';
 
@@ -10,13 +10,13 @@ import { FormComponent } from '../../../../components/core/FormComp/form.compone
   selector: 'app-collections',
   templateUrl: './items.page.html',
   styleUrls: ['./items.page.scss'],
-  providers: [CoreService]
+  providers: [MasterService]
 })
 export class ItemsPage extends RouterPage implements OnDestroy {
 
   comp:any;
 
-  constructor(private router: Router, private route: ActivatedRoute, public service: CoreService) {
+  constructor(private router: Router, private route: ActivatedRoute, public service: MasterService) {
         super(router, route);
     }
 

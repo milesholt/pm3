@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Library } from '../../../app.library';
-import { CoreService } from '../../../services/core.service';
+import { MasterService } from '../../../services/master.service';
 import { of } from 'rxjs';
 
 @Component({
@@ -25,7 +25,7 @@ export class TemplateComponent implements OnInit {
   //Do function handles action and data before emitting to callback
   do(item,action){
     let params = [item,action];
-    this.emit(params); 
+    this.emit(params);
   }
 
   //Emit requested data back to Item Component

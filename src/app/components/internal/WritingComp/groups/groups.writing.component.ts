@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange
 import { of, Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { Library } from '../../../../app.library';
-import { CoreService } from '../../../../services/core.service';
+import { MasterService } from '../../../../services/master.service';
 
 //import { FormComponent } from '../../../core/FormComp/form.component';
 import { GroupsWritingModalComponent } from './groups.modal/groups.writing.modal.component';
@@ -13,7 +13,7 @@ import { GroupsWritingModalComponent } from './groups.modal/groups.writing.modal
   templateUrl: './groups.writing.component.html',
   styleUrls: ['./groups.writing.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers:[CoreService]
+  providers:[MasterService]
 })
 export class GroupsWritingComponent implements OnInit, OnChanges {
 
@@ -26,7 +26,7 @@ export class GroupsWritingComponent implements OnInit, OnChanges {
   comp:any;
   params:any = {};
 
-  constructor(private lib: Library, private service: CoreService) {}
+  constructor(private lib: Library, private service: MasterService) {}
 
   ngOnChanges(changes: SimpleChanges) {}
   ngOnInit() {

@@ -3,7 +3,7 @@ import { NavController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Library } from '../../../app.library';
-import { CoreService } from '../../../services/core.service';
+import { MasterService } from '../../../services/master.service';
 
 //import { switchMap } from 'rxjs/operators';
 
@@ -11,7 +11,7 @@ import { CoreService } from '../../../services/core.service';
   selector: 'app-auth-login',
   templateUrl: 'login.page.html',
   styleUrls: ['login.page.scss'],
-  providers: [CoreService, Library]
+  providers: [MasterService, Library]
 })
 export class AuthLoginPage {
 
@@ -25,7 +25,7 @@ export class AuthLoginPage {
     public navCtrl: NavController,
     private router: Router,
     private route:ActivatedRoute,
-    public service: CoreService,
+    public service: MasterService,
     public formBuilder: FormBuilder
   ) {}
 

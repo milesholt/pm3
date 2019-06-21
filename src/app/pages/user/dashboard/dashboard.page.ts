@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { NavController, Platform, MenuController } from '@ionic/angular';
-import { CoreService } from '../../../services/core.service';
+import { MasterService } from '../../../services/master.service';
 import { Library } from '../../../app.library';
 //import { ActivatedRoute } from '@angular/router';
 import { Router, NavigationStart, RoutesRecognized, ActivatedRouteSnapshot, ActivatedRoute, ParamMap } from '@angular/router';
@@ -12,7 +12,7 @@ import { switchMap } from 'rxjs/operators';
   selector: 'app-user-dashboard',
   templateUrl: 'dashboard.page.html',
   styleUrls: ['dashboard.page.scss'],
-  providers: [CoreService, Library],
+  providers: [MasterService, Library],
   encapsulation: ViewEncapsulation.None
 })
 export class UserDashboardPage implements OnChanges  {
@@ -23,7 +23,7 @@ export class UserDashboardPage implements OnChanges  {
     private platform: Platform,
     public navCtrl: NavController,
     private menu: MenuController,
-    public service: CoreService,
+    public service: MasterService,
     private route: ActivatedRoute,
     private router: Router
   ) {

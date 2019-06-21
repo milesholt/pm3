@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, RouteReuseStrategy } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 //import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -11,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatMenuModule  } from '@angular/material';
 
 import { environment } from '../environments/environment';
 
@@ -33,17 +34,24 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 //import { FormComponent } from './components/core/FormComp/form.component';
 
 //Core Services
-import { CoreService } from './services/core.service';
+import { MasterService } from './services/master.service';
 import { CompileService } from './services/compile.service';
 
+//Core Services
+import { CoreService, ItemsService, ToastService, ModalService, NotificationService, HttpService } from './services/core/core.service';
+
 //Internal Services
-import { InternalService, ItemsService, ToastService, ModalService, NotificationService } from './services/internal/internal.service';
+import { InternalService, PdfServiceKendo } from './services/internal/internal.service';
 
 //External Services
 import { ExternalService, AuthServiceFirebase, DatabaseServiceFirebase, NotificationServiceFirebase, UserServiceFirebase } from './services/external/external.service';
 
+import { PageDivideService } from './components/internal/WritingComp/services/PageDivideService/pagedivide.service';
+
 //Library Service
 import { Library } from './app.library';
+import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
+
 
 /* Pipes */
 // import { KeysPipe } from './pipes/keys.pipe/keys.pipe';
@@ -58,6 +66,7 @@ import { Library } from './app.library';
   imports: [
     RouterModule,
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -65,7 +74,9 @@ import { Library } from './app.library';
     AngularFirestoreModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatMenuModule,
+    PDFExportModule
   ],
   providers: [
     Library,
@@ -74,18 +85,22 @@ import { Library } from './app.library';
     Facebook,
     GooglePlus,
     TwitterConnect,
+    MasterService,
     CoreService,
     CompileService,
     InternalService,
+    PdfServiceKendo,
     ExternalService,
     ItemsService,
     ToastService,
+    PageDivideService,
     AuthServiceFirebase,
     UserServiceFirebase,
     DatabaseServiceFirebase,
     NotificationServiceFirebase,
     NotificationService,
     ModalService,
+    HttpService,
     AngularFirestore,
     AngularFireMessaging,
     AngularFireFunctions,

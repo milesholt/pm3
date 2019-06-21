@@ -1,29 +1,36 @@
-{{master.markup | json}}
+<!-- {{master.markup | json}} -->
 
-<br />
-<br />
+<!-- <br />
+<br /> -->
 
-{{selectGidx}}
+ <!-- {{selectGidx}}
 
 {{ master.groups.c | json}}
 
-{{ master.groups.s | json}}
+{{ master.groups.s | json}}  -->
 
-<p>Markup</p>
-<div class="markup_container">
+<div class="markup_container {{device}} markup_fontsize_{{markup_options_fontsize}}">
 
 <!-- Main writing markup -->
-<div cdkDropList class="markup_editor" (CdkDragStart)="$event" (cdkDropListDropped)="dragElement($event)">
-  <div cdkDrag *ngFor="let el of master.markup[draft]; let idx = index" class="el_container">
-    <div class="el_options">
+<div [hidden]="pdfPreview" cdkDropList class="markup_editor" [ngClass]="showPageDividers ? 'show-page-dividers': ''" (CdkDragStart)="$event" (cdkDropListDropped)="dragElement($event)">
+  <div class="pagedividers"></div>
+  <div cdkDrag *ngFor="let el of master.markup[draft]; let idx = index" class="el_container {{el.type}} {{el.key}}">
+    <!-- <div class="el_options">
       <ion-button (click)="editElement('copy',el,idx)">C</ion-button>
       <ion-button (click)="editElement('delete',el,idx)">X</ion-button>
-    </div>
-    {{ el.key }}
-    <div [ngSwitch]="el.type">
+    </div> -->
+
+
+    <button mat-button [matMenuTriggerFor]="menu" class="el_options"><ion-icon name="more"></ion-icon></button>
+    <mat-menu #menu="matMenu">
+      <button (click)="editElement('copy',el,idx)" mat-menu-item>Copy</button>
+      <button (click)="editElement('delete',el,idx)" mat-menu-item>Delete</button>
+    </mat-menu>
+
+    <div [ngSwitch]="el.type" class="markup_el_container">
       <ion-item *ngSwitchCase="'string'">
 
-        <mat-form-field class="example-full-width">
+        <!-- <mat-form-field class="example-full-width">
                <input matInput
                      class="markup_text input el_{{el.key}}"
                      type="text"
@@ -37,7 +44,24 @@
                     {{n.fields.name.value}}
                   </mat-option>
                 </mat-autocomplete>
-         </mat-form-field>
+         </mat-form-field> -->
+
+
+
+                <input
+                      class="markup_text input el_{{el.key}}"
+                      type="text"
+                      placeholder="{{el.key}}"
+                      [ngModel]="el.value.name.value | elformat : el.key : false"
+                      [matAutocomplete]="auto"
+                      (ngModelChange)="updateElement(el,idx,$event,'value.name.value')" />
+
+                <mat-autocomplete #auto="matAutocomplete">
+                   <mat-option *ngFor="let n of master.groups[el.key] | search : input : 'fields.name.value'; let idx = index" [value]="n.fields.name.value" (click)="selectGroupItem(n, idx)">
+                     {{n.fields.name.value}}
+                   </mat-option>
+                 </mat-autocomplete>
+
 
       </ion-item>
       <ion-item *ngSwitchCase="'textarea'">
@@ -53,16 +77,22 @@
           <ion-textarea class="markup_textarea input el_{{el.key}}"
                         contenteditable="true"
                         autocorrect="on"
-                        rows="10"
+                        (keyup)="autoGrowTextZone($event.target)"
                         [ngModel]="el.value | elformat : el.key : false"
                         (ngModelChange)="updateElement(el,idx,$event,'value')"
                         >
           </ion-textarea>
       </ion-item>
     </div>
+
+    <div cdkDragHandle class="dragarea"></div>
   </div>
 </div>
 
+</div>
+
+<div [hidden]="!pdfPreview" class="preview_container">
+  <iframe src="" #iframe width="100%" height="1000" frameborder="0" style="border:0;" name="iframe"></iframe>
 </div>
 
 <div class="markup_create">
@@ -74,10 +104,19 @@
 </div>
 
 <div class="tools" style="float:right">
+  <ion-item>
+    <ion-label>PD</ion-label>
+    <ion-toggle [(ngModel)]="showPageDividers"></ion-toggle>
+  </ion-item>
   <ion-select [(ngModel)]="selectdraft" (ngModelChange)="selectDraft(selectdraft)">
     <ion-select-option *ngFor="let draft of getDrafts()">{{draft}}</ion-select-option>
   </ion-select>
   <ion-button (click)="newDraft()">ND</ion-button>
+  <ion-button (click)="previewMarkup()" [ngClass]="pdfPreview ? 'ion-color ion-color-secondary': 'ion-color-primary'">PR</ion-button>
   <ion-button (click)="exportMarkup()">EX</ion-button>
   <ion-button (click)="shareMarkup()">SH</ion-button>
+</div>
+
+<div class="hide_preview">
+  <kendo-pdf-export #pdf forcePageBreak="{{pdf_option_pagebreak}}" paperSize="{{pdf_option_papersize}}" [margin]="pdf_option_margins" id="pdf_export_container" class="pdf_export_container" [innerHTML]="html | safeHtml"></kendo-pdf-export>
 </div>

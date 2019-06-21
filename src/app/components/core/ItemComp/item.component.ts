@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild, OnChanges, SimpleChanges, Output, 
 import { Observable, BehaviorSubject, of, from, Subject, isObservable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Library } from '../../../app.library';
-import { CoreService, ModalService } from '../../../services/core.service';
+import { MasterService, ModalService } from '../../../services/master.service';
 import { ItemModel } from '../../../models/item.model';
 
 import {CdkDragDrop, moveItemInArray, CdkDragEnd, CdkDragStart} from '@angular/cdk/drag-drop';
@@ -11,7 +11,7 @@ import {CdkDragDrop, moveItemInArray, CdkDragEnd, CdkDragStart} from '@angular/c
   selector: 'comp-item',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss'],
-  providers: [CoreService, ModalService, Library]
+  providers: [MasterService, ModalService, Library]
 })
 export class ItemComponent implements OnInit, OnChanges, DoCheck {
 
@@ -36,7 +36,7 @@ export class ItemComponent implements OnInit, OnChanges, DoCheck {
   orderitems:boolean = false;
   isNew:boolean = true;
 
-  constructor(private service: CoreService, private lib: Library, differs: IterableDiffers){
+  constructor(private service: MasterService, private lib: Library, differs: IterableDiffers){
     this.def = service.getDefinitions();
     this.differ = differs.find([]).create(null);
   }

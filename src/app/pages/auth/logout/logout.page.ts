@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Library } from '../../../app.library';
-import { CoreService } from '../../../services/core.service';
+import { MasterService } from '../../../services/master.service';
 
 @Component({
   selector: 'app-auth-logout',
   templateUrl: 'logout.page.html',
   styleUrls: ['logout.page.scss'],
-  providers: [CoreService, Library]
+  providers: [MasterService, Library]
 })
 export class AuthLogoutPage {
 
@@ -18,7 +18,7 @@ export class AuthLogoutPage {
 
   constructor(
     public navCtrl: NavController,
-    public service: CoreService
+    public service: MasterService
   ) {}
 
   ngOnInit() {

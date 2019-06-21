@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Library } from '../../../app.library';
-import { CoreService } from '../../../services/core.service';
+import { MasterService } from '../../../services/master.service';
 
 import { Router, NavigationStart, RoutesRecognized, ActivatedRouteSnapshot, ActivatedRoute, ParamMap } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { Router, NavigationStart, RoutesRecognized, ActivatedRouteSnapshot, Acti
   selector: 'app-auth-register',
   templateUrl: 'register.page.html',
   styleUrls: ['register.page.scss'],
-  providers: [CoreService, Library]
+  providers: [MasterService, Library]
 })
 export class AuthRegisterPage {
 
@@ -20,7 +20,7 @@ export class AuthRegisterPage {
 
   constructor(
     public navCtrl: NavController,
-    public service: CoreService,
+    public service: MasterService,
     public formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router

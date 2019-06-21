@@ -17,10 +17,10 @@
     </ion-segment>
   </ion-toolbar>
 
-{{section}}
+<!-- {{section}} -->
 
 
-<div [ngSwitch]="section">
+<div [ngSwitch]="section" class="sections">
   <!-- Main -->
   <comp-writing-markup *ngSwitchCase="'markup'" [master]="master"></comp-writing-markup>
   <!-- Groups -->

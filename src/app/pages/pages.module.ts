@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+
+// import { BrowserModule }    from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 
 import { Routes, RouterModule } from '@angular/router';
@@ -34,13 +36,13 @@ import { SearchPipe } from '../pipes/search.pipe/search.pipe';
 
 //directives
 import { DynamicCompDirective } from '../directives/dynamiccomp.directive';
-
-
-import {MatSelectModule} from '@angular/material/select';
-import {MatInputModule} from '@angular/material/input';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
 
 const routes: Routes = [
    {
@@ -49,78 +51,78 @@ const routes: Routes = [
     data: { title: 'Home' },
     children: [
       {
-        path: '',
-        redirectTo: '/dashboard/(home:home)',
-        pathMatch: 'full',
-        data: { title: 'Home' }
-      },
-      {
         path: 'home',
-        outlet: 'home',
-        component: HomePage,
-        data: { title: 'Home' }
+        data: { title: 'Home' },
+        children: [{ path: '', component: HomePage }]
       },
       {
         path: 'items',
-        outlet: 'items',
-        component: ItemsPage,
         data: { title: 'Items' },
+        children: [{ path: '', component: ItemsPage }],
       },
       {
         path: 'about',
-        outlet: 'about',
-        component: AboutPage,
-        data: { title: 'About' }
+        data: { title: 'About' },
+        children: [{ path: '', component: AboutPage }],
       },
       {
         path: 'contact',
-        outlet: 'contact',
-        component: ContactPage,
-        data: { title: 'Contact' }
+        data: { title: 'Contact' },
+        children: [{ path: '', component: ContactPage }],
       },
       {
         path: 'work',
         redirectTo: '/dashboard/work',
         pathMatch: 'full',
         data: { title: 'Work' }
-      }
+      },
+      {
+        path: '',
+        redirectTo: '/dashboard/home',
+        pathMatch: 'full'
+       }
     ]
-  },
-  {
-    path: 'account',
-    component: UserAccountPage,
-    data: { title: 'Account' }
-  },
-  {
-    path: 'settings',
-    component: UserSettingsPage,
-    data: { title: 'Settings' }
-  },
-  {
-    path: 'register',
-    component: AuthRegisterPage,
-    data: { title: 'Register' }
-  },
-  {
-    path: 'login',
-    component: AuthLoginPage,
-    data: { title: 'Login' }
-  },
-  {
-    path: 'logout',
-    component: AuthLogoutPage,
-    data: { title: 'Logout' }
-  },
-  {
-    path: '',
-    redirectTo: '/login',
-    pathMatch: 'full'
-  },
-  {
-    path: 'dashboard/work/:id',
-    component: WritingComponent,
-    data: { title: 'Work' },
-  }
+   },
+   {
+     path: 'account',
+     component: UserAccountPage,
+     data: { title: 'Account' }
+   },
+   {
+     path: 'settings',
+     component: UserSettingsPage,
+     data: { title: 'Settings' }
+   },
+   {
+     path: 'register',
+     component: AuthRegisterPage,
+     data: { title: 'Register' }
+   },
+   {
+     path: 'login',
+     component: AuthLoginPage,
+     data: { title: 'Login' }
+   },
+   {
+     path: 'logout',
+     component: AuthLogoutPage,
+     data: { title: 'Logout' }
+   },
+   {
+     path: '',
+     redirectTo: '/login',
+     pathMatch: 'full'
+   },
+   {
+     path: 'dashboard/work/:id',
+     component: WritingComponent,
+     data: { title: 'Work' },
+   },
+   {
+     path: '',
+     redirectTo: '/dashboard/home',
+     pathMatch: 'full'
+   }
 ];
 
 @NgModule({
@@ -135,6 +137,7 @@ const routes: Routes = [
     AuthLogoutPage,
     AuthRegisterPage,
     ItemsPage,
+    UserDashboardPage,
     ItemComponent,
     ModalComponent,
     FormComponent,
@@ -159,7 +162,10 @@ const routes: Routes = [
     MatSelectModule,
     MatAutocompleteModule,
     MatInputModule,
-    DragDropModule
+    MatMenuModule,
+    MatIconModule,
+    DragDropModule,
+    PDFExportModule
   ],
   exports: [RouterModule,FormComponent],
   providers: [ElFormatPipe],
