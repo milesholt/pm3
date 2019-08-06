@@ -30,7 +30,7 @@
     "@ionic-native/splash-screen": "5.2.0",
     "@ionic-native/status-bar": "5.2.0",
     "@ionic-native/twitter-connect": "^5.2.0",
-    "@ionic/angular": "^4.0.2",
+    "@ionic/angular": "^4.7.1",
     "@progress/kendo-angular-pdf-export": "^1.2.0",
     "@progress/kendo-drawing": "^1.5.8",
     "@progress/kendo-theme-default": "latest",
@@ -57,6 +57,7 @@
     "tns-core-modules": "^5.2.2",
     "tslib": "^1.9.3",
     "twitter-connect-plugin": "0.6.0",
+    "xml2js": "^0.4.19",
     "zone.js": "^0.8.29"
   },
   "devDependencies": {

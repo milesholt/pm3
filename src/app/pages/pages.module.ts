@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 
@@ -26,7 +26,7 @@ import { FormComponent } from '../components/core/FormComp/form.component';
 
 //Internal components
 import { TemplateComponent } from '../components/internal/TemplateComp/template.component';
-import { WritingComponent, MarkupWritingComponent, GroupsWritingComponent, GroupsWritingModalComponent } from '../components/internal/WritingComp/writing.component';
+import { WritingComponent, MarkupWritingComponent, EditorWritingComponent, GroupsWritingComponent, GroupsWritingModalComponent } from '../components/internal/WritingComp/writing.component';
 
 //pipes
 import { KeysPipe } from '../pipes/keys.pipe/keys.pipe';
@@ -144,6 +144,7 @@ const routes: Routes = [
     TemplateComponent,
     WritingComponent,
     MarkupWritingComponent,
+    EditorWritingComponent,
     GroupsWritingComponent,
     GroupsWritingModalComponent,
     KeysPipe,
@@ -167,6 +168,7 @@ const routes: Routes = [
     DragDropModule,
     PDFExportModule
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   exports: [RouterModule,FormComponent],
   providers: [ElFormatPipe],
   bootstrap: []

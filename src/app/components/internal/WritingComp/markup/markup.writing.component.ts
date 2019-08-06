@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, ViewEncapsulation, ViewChild, ElementRef, IterableDiffers, DoCheck, HostListener, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, QueryList, ViewEncapsulation, ViewChild, ViewChildren, ElementRef, IterableDiffers, DoCheck, HostListener, ChangeDetectionStrategy } from '@angular/core';
+import { IonInput, IonTextarea } from '@ionic/angular';
 import { of, Observable, isObservable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { Library } from '../../../../app.library';
@@ -7,6 +8,7 @@ import { MasterService } from '../../../../services/master.service';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 import { NodeModel } from '../../../../models/node.model';
+import { ItemModel } from '../../../../models/item.model';
 
 import { PageDivideService } from '../services/PageDivideService/pagedivide.service';
 
@@ -25,6 +27,15 @@ export class MarkupWritingComponent implements OnInit, OnChanges, DoCheck {
   @Output() callback = new EventEmitter();
   @ViewChild('pdf') pdf: any;
   @ViewChild('iframe') previewFrame: ElementRef;
+  //@ViewChildren('elinput')  inputElements: QueryList<IonInput>;
+  @ViewChildren('elinput') inputElements: QueryList<ElementRef>;
+  @ViewChildren('eltextarea')  textElements: QueryList<IonTextarea>;
+
+  //disable default Tab key functionality
+  @HostListener('document:keydown.tab', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    event.preventDefault();
+    this.changeEl();
+  }
 
   @HostListener('window:resize', ['$event'])
   onWindowResize(e){
@@ -40,6 +51,7 @@ export class MarkupWritingComponent implements OnInit, OnChanges, DoCheck {
 
   private el: HTMLInputElement;
   private nodeModel: NodeModel = new NodeModel();
+  private itemModel: ItemModel = new ItemModel();
   draft:number = 0;
   markup:any;
   html:string;
@@ -51,6 +63,10 @@ export class MarkupWritingComponent implements OnInit, OnChanges, DoCheck {
   differ: any;
   device:string = 'desktop';
   resizeTimeout:any;
+
+  //markup and elements
+  lastidx = 0;
+  currentel:any;
 
   //page divider defaults
   markup_options_fontsize = 12;
@@ -87,6 +103,7 @@ export class MarkupWritingComponent implements OnInit, OnChanges, DoCheck {
     this.markup = this.master.markup[this.draft];
     let markup =  <HTMLElement>document.querySelectorAll('.markup_editor')[0];
     this.markup_height =  markup.clientHeight;
+    this.readyMarkup();
   }
 
   /* On Resize */
@@ -99,12 +116,45 @@ export class MarkupWritingComponent implements OnInit, OnChanges, DoCheck {
 
   /* Specific component functions */
 
+  readyMarkup(){
+    if ((this.markup.length-1) < 0) this.createElement('s');
+    this.lastidx = (this.markup.length-1);
+    console.log(this.lastidx);
+    //focus last element
+    setTimeout(()=>{
+      let element = <HTMLElement>document.querySelectorAll('.el-'+this.lastidx)[0].children[2].children[0].children[0];
+      //if(element.nodeName == 'ION-INPUT') this.inputElements.last.setFocus(); //to look at introducing
+      if(element.nodeName == 'ION-TEXTAREA') this.textElements.last.setFocus();
+      if(element.nodeName == 'INPUT') setTimeout(()=>{ this.inputElements.last.nativeElement.focus(); },300);
+    });
+  }
+
   //Elements
+  changeEl(){
+    let list = this.lib.deepCopy(this.master.elements);
+    let listarr = Object.keys(list);
+    let pos =  listarr.indexOf(this.currentel.key);
+    let newpos = pos++ >= (listarr.length-1) ? 0 : pos++;
+    let val = this.lib.isProperty(this.currentel.value, 'name') ? this.currentel.value.name.value : this.currentel.value;
+    this.currentel.key = list[listarr[newpos]].key;
+    this.currentel.type = list[listarr[newpos]].type;
+    if(this.currentel.type == 'textarea') this.currentel.value = val;
+    if(this.currentel.type !== 'textarea') {
+      this.currentel.value = this.lib.deepCopy(this.itemModel.document);
+      this.currentel.value.name.value = val;
+    }
+  }
+
+  selectEl(idx){
+    this.currentel = this.markup[idx];
+  }
 
   createElement(el:string){
-    let nel = this.lib.deepCopy(this.master[el]);
+    let nel = this.lib.deepCopy(this.master.elements[el]);
     nel.id = this.service.items.getNewId(this.markup);
     this.markup.push(nel);
+    this.lastidx = (this.markup.length-1);
+    this.selectEl(this.lastidx);
   }
 
   updateElement(el,idx,val,elpath){
@@ -112,6 +162,7 @@ export class MarkupWritingComponent implements OnInit, OnChanges, DoCheck {
     eval('el.' + elpath + ' = v');
     this.input = this.lib.deepCopy(v);
     this.checkGroups(el);
+    this.selectEl(idx);
   }
 
   editElement(action,el,idx){
@@ -215,6 +266,12 @@ export class MarkupWritingComponent implements OnInit, OnChanges, DoCheck {
   getDrafts(){
     return Object.keys(this.master.markup);
   }
+
+
+  //Import
+
+  //FDX - Final Draft
+
 
   //Export
 

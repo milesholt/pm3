@@ -14,7 +14,7 @@
 <!-- Main writing markup -->
 <div [hidden]="pdfPreview" cdkDropList class="markup_editor" [ngClass]="showPageDividers ? 'show-page-dividers': ''" (CdkDragStart)="$event" (cdkDropListDropped)="dragElement($event)">
   <div class="pagedividers"></div>
-  <div cdkDrag *ngFor="let el of master.markup[draft]; let idx = index" class="el_container {{el.type}} {{el.key}}">
+  <div cdkDrag *ngFor="let el of master.markup[draft]; let idx = index" class="el_container element el-{{idx}} {{el.type}} {{el.key}}">
     <!-- <div class="el_options">
       <ion-button (click)="editElement('copy',el,idx)">C</ion-button>
       <ion-button (click)="editElement('delete',el,idx)">X</ion-button>
@@ -48,13 +48,14 @@
 
 
 
-                <input
+                <input #elinput
                       class="markup_text input el_{{el.key}}"
                       type="text"
                       placeholder="{{el.key}}"
                       [ngModel]="el.value.name.value | elformat : el.key : false"
                       [matAutocomplete]="auto"
-                      (ngModelChange)="updateElement(el,idx,$event,'value.name.value')" />
+                      (click)="selectEl(idx)"
+                      (ngModelChange)="updateElement(el,idx,$event,'value.name.value')"/>
 
                 <mat-autocomplete #auto="matAutocomplete">
                    <mat-option *ngFor="let n of master.groups[el.key] | search : input : 'fields.name.value'; let idx = index" [value]="n.fields.name.value" (click)="selectGroupItem(n, idx)">
@@ -74,9 +75,10 @@
                         (input)="updateElement(el,idx,$event.target.firstChild.defaultValue,'value')">
           </ion-textarea> -->
 
-          <ion-textarea class="markup_textarea input el_{{el.key}}"
+          <ion-textarea  #eltextarea class="markup_textarea input el_{{el.key}}"
                         contenteditable="true"
                         autocorrect="on"
+                        (click)="selectEl(idx)"
                         (keyup)="autoGrowTextZone($event.target)"
                         [ngModel]="el.value | elformat : el.key : false"
                         (ngModelChange)="updateElement(el,idx,$event,'value')"
@@ -96,11 +98,11 @@
 </div>
 
 <div class="markup_create">
-  <ion-button (click)="createElement('heading')">H</ion-button>
-  <ion-button (click)="createElement('character')">C</ion-button>
+  <ion-button (click)="createElement('s')">H</ion-button>
+  <ion-button (click)="createElement('c')">C</ion-button>
   <ion-button (click)="createElement('body')">B</ion-button>
-  <ion-button (click)="createElement('dialogue')">D</ion-button>
-  <ion-button (click)="createElement('parenthetical')">P</ion-button>
+  <ion-button (click)="createElement('d')">D</ion-button>
+  <ion-button (click)="createElement('p')">P</ion-button>
 </div>
 
 <div class="tools" style="float:right">

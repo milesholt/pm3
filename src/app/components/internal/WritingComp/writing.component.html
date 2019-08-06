@@ -6,6 +6,10 @@
         <!-- <ion-icon name="camera"></ion-icon> -->
         Markup
       </ion-segment-button>
+      <ion-segment-button value="editor">
+        <!-- <ion-icon name="camera"></ion-icon> -->
+        Editor
+      </ion-segment-button>
       <ion-segment-button value="groups">
         <!-- <ion-icon name="bookmark"></ion-icon> -->
         Groups
@@ -21,8 +25,10 @@
 
 
 <div [ngSwitch]="section" class="sections">
-  <!-- Main -->
+  <!-- Markup -->
   <comp-writing-markup *ngSwitchCase="'markup'" [master]="master"></comp-writing-markup>
+  <!-- Editor -->
+  <comp-writing-editor *ngSwitchCase="'editor'" [master]="master"></comp-writing-editor>
   <!-- Groups -->
   <comp-writing-groups *ngSwitchCase="'groups'" [master]="master" [(items)]="master.groups"></comp-writing-groups>
 
