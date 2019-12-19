@@ -1,0 +1,41 @@
+<div class="component_container" padding>
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="section" (ionChange)="changeSection($event)">
+      <ion-segment-button value="markup">
+        <!-- <ion-icon name="camera"></ion-icon> -->
+        Markup
+      </ion-segment-button>
+      <ion-segment-button value="editor">
+        <!-- <ion-icon name="camera"></ion-icon> -->
+        Editor
+      </ion-segment-button>
+      <ion-segment-button value="groups">
+        <!-- <ion-icon name="bookmark"></ion-icon> -->
+        Groups
+      </ion-segment-button>
+      <!-- <ion-segment-button value="items">
+        <ion-icon name="bookmark"></ion-icon>
+        Items
+      </ion-segment-button> -->
+    </ion-segment>
+  </ion-toolbar>
+
+<!-- {{section}} -->
+
+
+<div [ngSwitch]="section" class="sections">
+  <!-- Markup -->
+  <comp-writing-markup *ngSwitchCase="'markup'" [master]="master"></comp-writing-markup>
+  <!-- Editor -->
+  <comp-writing-editor *ngSwitchCase="'editor'" [master]="master"></comp-writing-editor>
+  <!-- Groups -->
+  <comp-writing-groups *ngSwitchCase="'groups'" [master]="master" [(items)]="master.groups"></comp-writing-groups>
+
+</div>
+
+
+
+
+
+</div>

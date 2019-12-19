@@ -26,7 +26,7 @@ import { FormComponent } from '../components/core/FormComp/form.component';
 
 //Internal components
 import { TemplateComponent } from '../components/internal/TemplateComp/template.component';
-import { WritingComponent, MarkupWritingComponent, EditorWritingComponent, GroupsWritingComponent, GroupsWritingModalComponent } from '../components/internal/WritingComp/writing.component';
+import { WritingComponent, MarkupWritingComponent, EditorWritingComponent, GroupsWritingComponent, GroupsWritingModalComponent , SegmentsWritingModalComponent } from '../components/internal/WritingComp/writing.component';
 
 //pipes
 import { KeysPipe } from '../pipes/keys.pipe/keys.pipe';
@@ -147,13 +147,14 @@ const routes: Routes = [
     EditorWritingComponent,
     GroupsWritingComponent,
     GroupsWritingModalComponent,
+    SegmentsWritingModalComponent,
     KeysPipe,
     SafeHtmlPipe,
     ElFormatPipe,
     SearchPipe,
     DynamicCompDirective
   ],
-  entryComponents: [ModalComponent,FormComponent,GroupsWritingModalComponent],
+  entryComponents: [ModalComponent,FormComponent,GroupsWritingModalComponent,SegmentsWritingModalComponent],
   imports: [
     IonicModule,
     CommonModule,

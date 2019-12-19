@@ -1,0 +1,14 @@
+<p>
+  Segment Modal Component
+  </p>
+
+{{segments | json}}
+
+<ion-list>
+  <ion-item *ngFor="let segment of segments; let idx = index">
+     {{segment.fields.name.value}}
+     <button ion-button (click)="selectSegment(segment.id)">
+       Select
+     </button>
+  </ion-item>
+</ion-list>

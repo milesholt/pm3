@@ -53,8 +53,12 @@ export class CompileService {
       node.orderid = item.orderid;
     }
     Object.keys(fields).forEach((field, i) => {
+      console.log(field);
+      console.log(definitions);
       Object.keys(definitions).forEach(def => {
+        console.log(def);
         if(field == def){
+          console.log('match field with def');
           node.fields.push(this.lib.deepCopy(this.fieldModel.field));
           node.fields[i].key = field;
           node.fields[i].value = fields[field].value;

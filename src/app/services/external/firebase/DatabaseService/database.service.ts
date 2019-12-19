@@ -72,9 +72,11 @@ export class DatabaseServiceFirebase {
    } else{
      itms = await this.listDocuments(item);
    }
-   _t.items = of(itms.value.data);
-   _t.type = itms.value.type;
-   _t.layout = itms.value.layout;
+   itms.subscribe(itm =>{
+     _t.items = of(itm.data);
+     _t.type = itm.type;
+     _t.layout = itm.layout;
+   });
  }
 
  async listCollections(item){
@@ -93,6 +95,7 @@ export class DatabaseServiceFirebase {
      }
    });
    let res = { "data":cols, "type":"collections", "layout": "grid" }
+   console.log(res);
    return of(res);
  }
 
@@ -248,7 +251,7 @@ orderIds(items){
             console.warn(err);
         });
     }
- } 
+ }
 
  checkUniqueFields(item,items){
    items.subscribe(itms =>{

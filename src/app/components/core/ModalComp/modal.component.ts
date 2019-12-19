@@ -15,7 +15,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   data:any;
   @Input() _t: any;
   @Input() comp:any = false;
-  @ViewChild(DynamicCompDirective) dynamicComp: DynamicCompDirective;
+  @ViewChild(DynamicCompDirective, {static: true}) dynamicComp: DynamicCompDirective;
 
   constructor(private modalCtrl:ModalController, private lib: Library, private componentFactoryResolver: ComponentFactoryResolver) { }
 
@@ -38,6 +38,10 @@ export class ModalComponent implements OnInit, OnDestroy {
     let componentRef = viewContainerRef.createComponent(componentFactory);
     (<any>componentRef.instance).fields = this.data.fields ? this.data.fields : [];
     (<any>componentRef.instance)._t = this._t;
+  }
+
+  handleCallback(e){
+    console.log(e);
   }
 
 }

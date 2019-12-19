@@ -29,6 +29,11 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
+
+    window.addEventListener('filePluginIsReady', function(){
+        console.log('File plugin is ready');
+    }, false);
+
     this.statusBar.styleDefault();
     this.splashScreen.hide();
     this.detectRoutes();

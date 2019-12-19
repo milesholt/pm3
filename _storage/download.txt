@@ -1,0 +1,339 @@
+downloadBlob1(blob,name,format){
+  let mime:string = 'text/plain';
+  let namefull = name + '.' + format;
+  this.service.file.downloadBlob(namefull, blob, mime, format);
+}
+
+downloadBlob1_2(blob,name,format){
+
+  const file = 'assets/fountain/test.fountain';
+  const fileTransfer: FileTransferObject = this.transfer.create();
+  const path = this.file.dataDirectory;
+  const tar_path = 'assets/downloads';
+
+  // If downloaded by Web Browser
+  let link = document.createElement("a");
+  link.download = name + '.fountain';
+  //link.href = file;
+  link.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(file));
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  link = null;
+
+  // if (this.platform.is('cordova')) {
+  //
+  // this.file.checkDir(path, tar_path)
+  //     .then(
+  //       // Directory exists, check for file with the same name
+  //       _ => this.file.checkFile(path, tar_path  + name + '.fountain')
+  //       .then(_ => {
+  //         console.log("A file with the same name already exists!");
+  //         console.log(path);
+  //       })
+  //       // File does not exist yet, we can save normally
+  //       .catch(err =>
+  //         fileTransfer.download(file, path + '/' + tar_path + '/' + name + '.fountain').then((entry) => {
+  //             console.log('File saved in:  ');
+  //             console.log(entry);
+  //           })
+  //           .catch((err) =>{
+  //             console.log('Error saving file: ' + err.message);
+  //           })
+  //       ))
+  //     .catch(
+  //       // Directory does not exists, create a new one
+  //       err => this.file.createDir(path, tar_path , false)
+  //       .then(response => {
+  //             console.log('New folder created:  ' + response.fullPath);
+  //           fileTransfer.download(file, path + '/' + tar_path  + '/' + name + '.fountain').then((entry) => {
+  //             console.log('File saved');
+  //             console.log(entry);
+  //           })
+  //           .catch((err) =>{
+  //             console.log('Error saving file:  ' + err.message);
+  //           });
+  //
+  //       }).catch(err => {
+  //         console.log('It was not possible to create the dir "downloads".');
+  //         console.log(err);
+  //       })
+  //     );
+  //
+  //     } else {
+  //         // If downloaded by Web Browser
+  //         let link = document.createElement("a");
+  //         link.download = name + '.fountain';
+  //         //link.href = file;
+  //         link.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(file));
+  //         document.body.appendChild(link);
+  //         link.click();
+  //         document.body.removeChild(link);
+  //         link = null;
+  //     }
+}
+
+downloadBlob2(blob,name,format) {
+
+const fileTransfer: FileTransferObject = this.transfer.create();
+const url = 'assets/fountain/test.fountain';
+console.log(this.file.dataDirectory);
+
+let _t = this;
+
+setTimeout(function(){
+
+    console.log(cordova.file);
+    console.log(_t);
+    //console.log('filePluginIsReady: ' + window.isFilePluginReadyRaised());
+
+    //window.requestFileSystem = window.requestFileSystem ?  window.requestFileSystem : window.webkitRequestFileSystem;  // Others
+
+    //window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, , fail);
+
+    // _t.file.resolveLocalFilesystemUrl( 'filesystem:' + _t.file.dataDirectory + 'file.pdf').then((fileEntry) => {
+    //   fileTransfer.download(url, fileEntry.name ).then((entry) => {
+    //     console.log('download complete: ' + entry.toURL());
+    //   }, (error) => {
+    //     // handle error
+    //     //Each URL is in the form file:///path/to/spot/, and can be converted to a DirectoryEntry using
+    //     //window.resolveLocalFileSystemURL()
+    //     //for chrome
+    //     //Chrome requires --allow-file-access-from-files run argument to support API via file:/// protocol.
+    //     //resolveLocalFileSystemURL method requires the inbound url to have filesystem prefix. For example, url parameter for resolveLocalFileSystemURL should be in the form filesystem:file:///persistent/somefile.txt as opposed to the form file:///persistent/somefile.txt in Android.
+    //     console.log(error);
+    //   });
+    // });
+
+
+    //CURRENTLY LOOKING AT THIS:
+    //cordova file error code 5 - ENCODE_ERR
+    //https://github.com/apache/cordova-plugin-file/issues/289
+    //https://github.com/apache/cordova-plugin-file/issues/333
+
+
+    // _t.file.resolveLocalFilesystemUrl( 'filesystem:' + _t.file.dataDirectory + 'file.pdf').then((fileEntry) => {
+    //   fileTransfer.download(url, fileEntry.fullPath).then((entry) => {
+    //     window.open(encodeURI(entry.fullPath),"_blank","location=no,enableViewportScale=yes")
+    //     console.log("download complete: " + entry.fullPath);
+    //   }, (error) => {
+    //     console.log("download error source " + error.source);
+    //     console.log("download error target " + error.target);
+    //     console.log("upload error code" + error.code);
+    //   });
+    // });
+    console.log('resolving local file system url');
+
+    const localurl = 'http://localhost:8000/assets/fountain/test.fountain';
+    const dataurl = 'filesystem:' + _t.file.dataDirectory + 'file.pdf';
+
+
+    // _t.file.resolveLocalFilesystemUrl(localurl).then((fileEntry) => {
+    //   console.log(fileEntry);
+    //   console.log(url);
+    //
+    //   fileTransfer.download(url, fileEntry.fullPath).then((entry) => {
+    //     window.open(encodeURI(entry.fullPath),"_blank","location=no,enableViewportScale=yes")
+    //     console.log("download complete: " + entry.fullPath);
+    //   }, (error) => {
+    //     console.log("download error source " + error.source);
+    //     console.log("download error target " + error.target);
+    //     console.log("upload error code" + error.code);
+    //   });
+    //
+    // }, (error) => {
+    //   console.log('failed resolving local url');
+    //   console.log(error);
+    // });
+
+    const url = 'http://localhost:8000/assets/fountain/test.fountain';
+    const target_url = _t.file.applicationDirectory + 'assets/fountain/test-targ.fountain';
+    const data_url = _t.file.dataDirectory + 'file.pdf';
+    // fileTransfer.download(url, data_url).then((entry) => {
+    //
+    //
+    //     window.open(encodeURI(entry.fullPath),"_blank","location=no,enableViewportScale=yes");
+    //     console.log('download complete: ' + entry.toURL());
+    //     //     console.log("download complete: " + entry.fullPath);
+    //   }, (error) => {
+    //     // handle error
+    // });
+
+    fileTransfer.download(encodeURI(url), data_url).then((entry) => {
+
+
+        window.open(encodeURI(entry.fullPath),"_blank","location=no,enableViewportScale=yes");
+        console.log('download complete: ' + entry.toURL());
+        //     console.log("download complete: " + entry.fullPath);
+      }, (error) => {
+        // handle error
+    });
+
+
+
+}, 5000);
+
+
+// window.addEventListener('filePluginIsReady', function(){
+//   console.log('File plugin is ready');
+//
+//   fileTransfer.download(url, this.file.dataDirectory + 'file.pdf').then((entry) => {
+//     console.log('download complete: ' + entry.toURL());
+//   }, (error) => {
+//     // handle error
+//     //Each URL is in the form file:///path/to/spot/, and can be converted to a DirectoryEntry using
+//     //window.resolveLocalFileSystemURL()
+//     //for chrome
+//     //Chrome requires --allow-file-access-from-files run argument to support API via file:/// protocol.
+//     //resolveLocalFileSystemURL method requires the inbound url to have filesystem prefix. For example, url parameter for resolveLocalFileSystemURL should be in the form filesystem:file:///persistent/somefile.txt as opposed to the form file:///persistent/somefile.txt in Android.
+//     console.log('error downloading file');
+//   });
+//
+// }, false);
+
+
+
+
+
+
+//   window.requestFileSystem(window.TEMPORARY, 5 * 1024 * 1024, function (fs) {
+//
+//   console.log('file system open: ' + fs.name);
+//   //getSampleFile(fs.root);
+//
+// }, this.onErrorLoadFs);
+
+
+//console.log('file system open: ' + fs);
+
+  //this.saveFile(dirEntry, blob, "test2.fountain");
+
+  // var xhr = new XMLHttpRequest();
+  // xhr.open('GET', 'http://cordova.apache.org/static/img/cordova_bot.png', true);
+  // xhr.responseType = 'blob';
+  //
+  // xhr.onload = function() {
+  //     if (this.status == 200) {
+  //
+  //         var blob = new Blob([this.response], { type: 'image/png' });
+  //         this.saveFile(dirEntry, blob, "downloadedImage.png");
+  //     }
+  // };
+  // xhr.send();
+}
+
+fail(error) {
+  console.log(error)
+}
+
+gotFS(fileSystem) {
+ fileSystem.root.getDirectory("data", {create: true, exclusive: false}, this.gotDir, this.fail);
+}
+
+gotDir(dirEntry) {
+  dirEntry.getFile("unixtoolbox.pdf", {create: true, exclusive: false}, this.gotFile, this.fail);
+}
+
+gotFile(fileEntry) {
+  // Start FileTransfer here...
+
+  const fileTransfer: FileTransferObject = this.transfer.create();
+  const url = 'assets/fountain/test.fountain';
+  console.log(this.file.dataDirectory);
+
+  //var fileTransfer = new FileTransfer();
+  const uri = encodeURI("http://cb.vu/unixtoolbox.pdf");
+
+  // fileTransfer.download(
+  //     uri,
+  //     fileEntry.fullPath,
+  //     function(entry) {
+  //         //window.plugins.webintent.startActivity({
+  //         //    action: WebIntent.ACTION_VIEW,
+  //         //    url: encodeURI(entry.fullPath),
+  //         //}, function () {}, function (error) {
+  //         //   console.log(error);
+  //         //});
+  //         window.open(encodeURI(entry.fullPath),"_blank","location=no,enableViewportScale=yes")
+  //         console.log("download complete: " + entry.fullPath);
+  //     },
+  //     function(error) {
+  //         console.log("download error source " + error.source);
+  //         console.log("download error target " + error.target);
+  //         console.log("upload error code" + error.code);
+  //     }
+  // );
+
+
+
+  fileTransfer.download(uri, fileEntry.fullPath).then((entry) => {
+    window.open(encodeURI(entry.fullPath),"_blank","location=no,enableViewportScale=yes")
+    console.log("download complete: " + entry.fullPath);
+  }, (error) => {
+    console.log("download error source " + error.source);
+    console.log("download error target " + error.target);
+    console.log("upload error code" + error.code);
+  });
+
+}
+
+onErrorLoadFs(){
+console.log('no fs');
+}
+
+saveFile(dirEntry, fileData, fileName) {
+
+  dirEntry.getFile(fileName, { create: true, exclusive: false }, function (fileEntry) {
+
+      this.writeFile(fileEntry, fileData);
+
+  }, this.onErrorCreateFile);
+}
+
+onErrorCreateFile(){
+console.log('error creating file');
+}
+
+writeFile(fileEntry, dataObj, isAppend) {
+
+  // Create a FileWriter object for our FileEntry (log.txt).
+  fileEntry.createWriter(function (fileWriter) {
+
+      fileWriter.onwriteend = function() {
+          console.log("Successful file write...");
+          // if (dataObj.type == "image/png") {
+          //     readBinaryFile(fileEntry);
+          // }
+          // else {
+          //     readFile(fileEntry);
+          // }
+      };
+
+      fileWriter.onerror = function(e) {
+          console.log("Failed file write: " + e.toString());
+      };
+
+      fileWriter.write(dataObj);
+  });
+}
+
+downloadBlob(blob,filename,format){
+//var blobURL= document.getElementById('myblob').getAttribute('href');
+
+    const fileTransfer: FileTransferObject = this.transfer.create();
+    //fileTransfer.download(blob, filename + '.' + format).then((entry) =>
+    //const uri = encodeURIComponent(blob);
+    var uri = encodeURI('assets/fountain/test.fountain');
+    console.log(this.file.dataDirectory);
+
+    // this.file.checkDir(this.file.dataDirectory, 'mydir').then(_ => console.log('Directory exists'))
+    // .catch(err => console.log('Directory doesnt exist'));
+
+    fileTransfer.download(uri, this.file.dataDirectory + 'test1.fountain').then((entry) =>
+    {
+      alert(entry.toURL());
+      console.log('download complete: ' + entry.toURL());
+    }, (error) => {
+      alert('error '+JSON.stringify(error));
+    });
+}

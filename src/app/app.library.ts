@@ -143,5 +143,17 @@ export class Library{
         }
       }
 
+      //removes three types of line breaks from string, replaces with space
+      removeLineBreaks(string){
+        return string.toString().replace(/(\r\n|\n|\r)/gm," ");
+      }
+
+
+      //filter list
+      filterList(arr,v){
+        let list = arr.filter(item => item.id === v);
+        return list;
+      }
+
 
 }

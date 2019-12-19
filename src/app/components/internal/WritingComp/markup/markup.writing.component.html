@@ -1,94 +1,137 @@
-<!-- {{master.markup | json}} -->
+{{markup | json}}
 
 <!-- <br />
 <br /> -->
 
  <!-- {{selectGidx}}
 
+
+
 {{ master.groups.c | json}}
 
 {{ master.groups.s | json}}  -->
 
+<div *ngIf="isBeginSegment">
+    Select end of segment, then click Create. {{newsegment.selection | json}}
+    <ion-button *ngIf="selection.length > 1" (click)="saveSegment()">Create</ion-button>
+    <ion-button (click)="resetSegment()">Cancel</ion-button>
+</div>
+
+
 <div class="markup_container {{device}} markup_fontsize_{{markup_options_fontsize}}">
 
 <!-- Main writing markup -->
-<div [hidden]="pdfPreview" cdkDropList class="markup_editor" [ngClass]="showPageDividers ? 'show-page-dividers': ''" (CdkDragStart)="$event" (cdkDropListDropped)="dragElement($event)">
+<div [hidden]="pdfPreview" cdkDropList class="markup_editor" [ngClass]="showPageDividers ? 'show-page-dividers': ''" (CdkDragStart)="$event" (cdkDropListDropped)="dragSegmentGroup($event)">
   <div class="pagedividers"></div>
-  <div cdkDrag *ngFor="let el of master.markup[draft]; let idx = index" class="el_container element el-{{idx}} {{el.type}} {{el.key}}">
-    <!-- <div class="el_options">
-      <ion-button (click)="editElement('copy',el,idx)">C</ion-button>
-      <ion-button (click)="editElement('delete',el,idx)">X</ion-button>
-    </div> -->
+
+  <div cdkDrag *ngFor="let segmentgroup of markup; let sgidx = index" class="segmentgroup sgidx-{{sgidx}}">
+    <div *ngFor="let segment of lib.filterList(segmentgroup.segments,segmentgroup.params.sid); let sidx = index" class="segment sidx-{{sidx}}">
+ {{segmentgroup.segments.length}}
+      <!--Segment Control -->
+      <div *ngIf="segmentgroup.segments[0].elements.length > 1" id="segment_control">
+          <button mat-button [matMenuTriggerFor]="segmenu" class="el_options"><ion-icon name="more"></ion-icon></button>
+          <div cdkDragHandle class="dragsegment"><ion-icon name="move"></ion-icon></div>
+          <mat-menu #segmenu="matMenu">
+            <button (click)="newSegment()" mat-menu-item>New Segment</button>
+            <button (click)="duplicateSegment(sgidx,sidx)" mat-menu-item>Duplicate Segment</button>
+            <button *ngIf="segmentgroup.segments.length > 1" (click)="deleteSegment(sgidx,sidx)" mat-menu-item>Delete Segment</button>
+            <button *ngIf="segmentgroup.segments.length > 1" (click)="changeSegment(sgidx)" mat-menu-item>Change Segment</button>
+          </mat-menu>
+      </div>
+
+      <div cdkDropList class="el_list" (CdkDragStart)="$event" (cdkDropListDropped)="dragElement(sgidx, sidx, $event)">
+      <!-- Elements -->
+      <div cdkDrag *ngFor="let el of segment.elements; let eidx = index" [cdkDragDisabled]="segment.elements.length === 1" class="el_container element el-{{eidx}} {{el.type}} {{el.key}}">
+
+        <button mat-button [matMenuTriggerFor]="menu" class="el_options"><ion-icon name="more"></ion-icon></button>
+        <mat-menu #menu="matMenu">
+          <button *ngIf="selection.length == 0" (click)="editElement('copy',el,eidx,sgidx)" mat-menu-item>Copy</button>
+          <button *ngIf="selection.length == 0" (click)="editElement('delete',el,eidx,sgidx)" mat-menu-item>Delete</button>
+          <button *ngIf="!isBeginSegment && selection.length == 0"  (click)="beginSegment(eidx,sidx,sgidx)" mat-menu-item>Begin Segment</button>
+          <button *ngIf="isBeginSegment && selection.length < 2" (click)="endSegment(eidx,sidx,sgidx)" mat-menu-item>End Segment</button>
+        </mat-menu>
+
+        <div [ngSwitch]="el.type" class="markup_el_container">
+          <ion-item *ngSwitchCase="'string'">
+
+            <!-- <mat-form-field class="example-full-width">
+                   <input matInput
+                         class="markup_text input el_{{el.key}}"
+                         type="text"
+                         placeholder="{{el.key}}"
+                         [ngModel]="el.value.name.value | elformat : el.key : false"
+                         [matAutocomplete]="auto"
+                         (ngModelChange)="updateElement(el,idx,$event,'value.name.value')" />
+
+                   <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option *ngFor="let n of master.groups[el.key] | search : input : 'fields.name.value'; let idx = index" [value]="n.fields.name.value" (click)="selectGroupItem(n, idx)">
+                        {{n.fields.name.value}}
+                      </mat-option>
+                    </mat-autocomplete>
+             </mat-form-field> -->
 
 
-    <button mat-button [matMenuTriggerFor]="menu" class="el_options"><ion-icon name="more"></ion-icon></button>
-    <mat-menu #menu="matMenu">
-      <button (click)="editElement('copy',el,idx)" mat-menu-item>Copy</button>
-      <button (click)="editElement('delete',el,idx)" mat-menu-item>Delete</button>
-    </mat-menu>
 
-    <div [ngSwitch]="el.type" class="markup_el_container">
-      <ion-item *ngSwitchCase="'string'">
+                    <input #elinput
+                          class="markup_text input el_{{el.key}}"
+                          type="text"
+                          autocorrect="on"
+                          spellcheck="true"
+                          placeholder="{{el.key}}"
+                          [ngModel]="el.value.name.value | elformat : el.key : false"
+                          [matAutocomplete]="auto"
+                          (click)="selectItem(sgidx,sidx,eidx)"
+                          (ngModelChange)="updateElement(el,eidx,$event,'value.name.value')"/>
 
-        <!-- <mat-form-field class="example-full-width">
-               <input matInput
-                     class="markup_text input el_{{el.key}}"
-                     type="text"
-                     placeholder="{{el.key}}"
-                     [ngModel]="el.value.name.value | elformat : el.key : false"
-                     [matAutocomplete]="auto"
-                     (ngModelChange)="updateElement(el,idx,$event,'value.name.value')" />
-
-               <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option *ngFor="let n of master.groups[el.key] | search : input : 'fields.name.value'; let idx = index" [value]="n.fields.name.value" (click)="selectGroupItem(n, idx)">
-                    {{n.fields.name.value}}
-                  </mat-option>
-                </mat-autocomplete>
-         </mat-form-field> -->
+                    <mat-autocomplete #auto="matAutocomplete">
+                       <mat-option *ngFor="let n of master.groups[el.key] | search : input : 'fields.name.value'; let idx = index" [value]="n.fields.name.value" (click)="selectGroupItem(n, idx)">
+                         {{n.fields.name.value}}
+                       </mat-option>
+                     </mat-autocomplete>
 
 
+          </ion-item>
+          <ion-item *ngSwitchCase="'textarea'">
+              <!-- <ion-textarea class="markup_textarea input el_{{el.key}}"
+                            contenteditable="true"
+                            autocorrect="on"
+                            rows="10"
+                            [ngModel]="el.value | elformat : el.key : false"
+                            (ngModelChange)="updateElement(el,idx,$event,'value')"
+                            (input)="updateElement(el,idx,$event.target.firstChild.defaultValue,'value')">
+              </ion-textarea> -->
 
-                <input #elinput
-                      class="markup_text input el_{{el.key}}"
-                      type="text"
-                      placeholder="{{el.key}}"
-                      [ngModel]="el.value.name.value | elformat : el.key : false"
-                      [matAutocomplete]="auto"
-                      (click)="selectEl(idx)"
-                      (ngModelChange)="updateElement(el,idx,$event,'value.name.value')"/>
+              <ion-textarea  #eltextarea class="markup_textarea input sgidx-{{sgidx}} sidx-{{sidx}} eidx-{{eidx}} el_{{el.key}}"
+                            contenteditable="true"
+                            autocorrect="on"
+                            spellcheck="true"
+                            (click)="selectItem(sgidx,sidx,eidx)"
+                            (keyup)="autoGrowTextZone($event.target)"
+                            [ngModel]="el.value | elformat : el.key : false"
+                            (ngModelChange)="updateElement(el,eidx,$event,'value')"
+                            >
+              </ion-textarea>
+          </ion-item>
+        </div>
 
-                <mat-autocomplete #auto="matAutocomplete">
-                   <mat-option *ngFor="let n of master.groups[el.key] | search : input : 'fields.name.value'; let idx = index" [value]="n.fields.name.value" (click)="selectGroupItem(n, idx)">
-                     {{n.fields.name.value}}
-                   </mat-option>
-                 </mat-autocomplete>
+        <!-- <div cdkDragHandle class="dragarea" (mousedown)="mousedown()" (mouseup)="mouseup()" (mouseleave)="mouseup()" (click)="selectArea(idx)"></div> -->
+        <div cdkDragHandle class="dragarea"></div>
 
+        <button mat-button [matMenuTriggerFor]="menu2" class="el_options"><ion-icon name="more"></ion-icon></button>
+        <mat-menu #menu2="matMenu">
+          <button (click)="selectEl(idx); changeElement('s')" mat-menu-item>H</button>
+          <button (click)="selectEl(idx); changeElement('body')" mat-menu-item>A</button>
+          <button (click)="selectEl(idx); changeElement('c')" mat-menu-item>C</button>
+          <button (click)="selectEl(idx); changeElement('p')" mat-menu-item>P</button>
+          <button (click)="selectEl(idx); changeElement('d')" mat-menu-item>D</button>
+        </mat-menu>
 
-      </ion-item>
-      <ion-item *ngSwitchCase="'textarea'">
-          <!-- <ion-textarea class="markup_textarea input el_{{el.key}}"
-                        contenteditable="true"
-                        autocorrect="on"
-                        rows="10"
-                        [ngModel]="el.value | elformat : el.key : false"
-                        (ngModelChange)="updateElement(el,idx,$event,'value')"
-                        (input)="updateElement(el,idx,$event.target.firstChild.defaultValue,'value')">
-          </ion-textarea> -->
-
-          <ion-textarea  #eltextarea class="markup_textarea input el_{{el.key}}"
-                        contenteditable="true"
-                        autocorrect="on"
-                        (click)="selectEl(idx)"
-                        (keyup)="autoGrowTextZone($event.target)"
-                        [ngModel]="el.value | elformat : el.key : false"
-                        (ngModelChange)="updateElement(el,idx,$event,'value')"
-                        >
-          </ion-textarea>
-      </ion-item>
+      </div>
+      <!--end of Element -->
+    </div> <!--end of Elements list -->
     </div>
 
-    <div cdkDragHandle class="dragarea"></div>
-  </div>
+  </div> <!-- end of Segment List -->
 </div>
 
 </div>
@@ -114,8 +157,15 @@
     <ion-select-option *ngFor="let draft of getDrafts()">{{draft}}</ion-select-option>
   </ion-select>
   <ion-button (click)="newDraft()">ND</ion-button>
-  <ion-button (click)="previewMarkup()" [ngClass]="pdfPreview ? 'ion-color ion-color-secondary': 'ion-color-primary'">PR</ion-button>
-  <ion-button (click)="exportMarkup()">EX</ion-button>
+  <ion-button (click)="previewMarkup_PDF()" [ngClass]="pdfPreview ? 'ion-color ion-color-secondary': 'ion-color-primary'">PR_PDF</ion-button>
+  <ion-button (click)="importMarkup_PDF()">IM_PDF</ion-button>
+  <ion-button (click)="exportMarkup_PDF()">EX_PDF</ion-button>
+
+  <ion-button (click)="importMarkup_FDX()">IM_FDX</ion-button>
+  <ion-button (click)="exportMarkup_FDX()">EX_FDX</ion-button>
+
+  <ion-button (click)="importMarkup_Fountain()">IM_FTN</ion-button>
+  <ion-button (click)="exportMarkup_Fountain()">EX_FTN</ion-button>
   <ion-button (click)="shareMarkup()">SH</ion-button>
 </div>
 

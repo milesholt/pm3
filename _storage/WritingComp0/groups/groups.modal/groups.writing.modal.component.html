@@ -1,0 +1,49 @@
+<div class="groups_modal_container">
+
+  <p>Groups Modal container</p>
+
+  <!-- New item -->
+  <div *ngIf="_t.isNew">
+
+    <!-- Step 0 - Select group -->
+    <!-- <div *ngIf="step == 0" id="step0">
+      <h2>Select a group</h2>
+      <ion-list>
+        <ion-item *ngFor="let group of groups | keys : [] : change; let idx = index" (click)="selectGroup(group.key)"> {{ group.key }}</ion-item>
+      </ion-list>
+    </div> -->
+
+    <!-- Step 1 -  Select template -->
+    <div *ngIf="step == 1" id="step1">
+      <h2>Select a template</h2>
+      <ion-toolbar>
+        <ion-segment [(ngModel)]="template">
+          <ion-segment-button value="preset">
+            Preset Templates
+          </ion-segment-button>
+          <ion-segment-button value="custom">
+            Custom Templates
+          </ion-segment-button>
+        </ion-segment>
+      </ion-toolbar>
+      <div [ngSwitch]="template">
+          <comp-item *ngSwitchCase="'preset'" [collection]="group" [(items)]="templates_preset[group]" [model]="model" [connection]="['internal','items']" (callback)="selectTemplate($event)" [comp]="comp" class="comp"></comp-item>
+          <comp-item *ngSwitchCase="'custom'" [collection]="group" [(items)]="templates_custom[group]" [model]="model" [connection]="['internal','items']" (callback)="selectTemplate($event)" [comp]="comp" class="comp"></comp-item>
+      </div>
+    </div>
+
+    <!-- Step 2 - Create template -->
+    <div *ngIf="step == 2" id="step2">
+      <comp-form [(fields)]="fields" [_t]="_t"></comp-form>
+      <ion-button (click)="step=1">Go back</ion-button>
+    </div>
+
+  </div>
+
+  <!-- Edit item -->
+  <div *ngIf="!_t.isNew">
+    <h2>Edit template</h2>
+    <comp-form [(fields)]="fields" [_t]="_t"></comp-form>
+  </div>
+
+</div>

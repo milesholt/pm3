@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<FinalDraft DocumentType="Script" Template="No" Version="1">
+
+  <Content>
+    <Paragraph Type="General">
+      <Text AdornmentStyle="0" Background="#FFFFFFFFFFFF" Color="#000000000000" Font="Courier" RevisionID="0" Size="12" Style="Bold">FADE IN</Text>
+    </Paragraph>
+    <Paragraph Number="1" Type="Scene Heading">
+      <SceneProperties Length="5/8" Page="1" Title=""/>
+      <Text>A RIVER.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>We’re underwater, watching a fat catfish swim along.  </Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>This is The Beast.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>edward (v.O.)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>There are some fish that cannot be caught.  It’s not that they’re faster or stronger than other fish.  They’re just touched by something extra.  Call it luck.  Call it grace.  One such fish was The Beast.  </Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>The Beast’s journey takes it past a dangling fish hook, baited with worms.  Past a tempting lure, sparkling in the sun.  Past a swiping bear claw.  The Beast isn’t worried.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>edward (V.O.)</Text>
+      <Text AdornmentStyle="0" Background="#FFFFFFFFFFFF" Color="#000000000000" Font="Courier" RevisionID="0" Size="12" Style="">(cont’d</Text>
+      <Text>)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>By the time I was born, he was already a legend.  He’d taken more hundred-dollar lures than any fish in Alabama. Some said that fish was the ghost of Henry Walls, a thief who’d drowned in that river 60 years before.   Others claimed he was a lesser dinosaur, left over from the Cretaceous period.</Text>
+    </Paragraph>
+    <Paragraph Number="2" Type="Scene Heading">
+      <SceneProperties Length="3/8" Page="1" Title=""/>
+      <Text>int.  WILL’s bedroom - night (1973)</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>WILL BLOOM, AGE 3, listens wide-eyed as his father EDWARD BLOOM, </Text>
+      <Text AdornmentStyle="-1" Background="#FFFFFFFFFFFF" Color="#000000000000" Font="Courier" RevisionID="0" Size="12" Style="">40’s</Text>
+      <Text> and handsome, tells the story.  In every gesture, Edward is bigger than life, describing each detail with absolute conviction.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>EDWARD</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>I didn't put any stock into such speculation or superstition.  All I knew was I’d been trying to catch that fish since I was a boy no bigger than you.  </Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(closer)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>And on the day you were born, that was the day I finally caught him.</Text>
+    </Paragraph>
+    <Paragraph Number="3" Type="Scene Heading">
+      <SceneProperties Length="5/8" Page="1" Title=""/>
+      <Text>ext.  campfire - night (1977)</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>A few years later, and Will sits with the other INDIAN GUIDES as Edward continues telling the story to the tribe.  </Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>eDWARD</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Now, I’d tried everything on it:  worms, lures, peanut butter, peanut butter-and-cheese.  But on that day I had a revelation:  if that fish was the ghost of a thief, the usual bait wasn’t going to work.  I would have to use something he truly desired. </Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Edward points to his wedding band, glinting in the firelight.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>little brave</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(confused)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Your finger?</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Edward slips his ring off.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>EdWARD</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Gold.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>While the other boys are rapt with attention, Will looks bored.  He’s heard this story before.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>edWARD</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>I tied my ring to the strongest line they made -- strong enough to hold up a bridge, they said, if just for a few minutes -- and I cast upriver.</Text>
+    </Paragraph>
+    <Paragraph Number="4" Type="Scene Heading">
+      <SceneProperties Length="1" Page="2" Title=""/>
+      <Text>int.  bloom front hall - night (1987)</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Edward is chatting up Will’s pretty DATE to the homecoming dance.  She is enjoying the story, but also the force of Edward’s charisma.  He’s hypnotizing.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>EdWARD</Text>
+      <Text AdornmentStyle="0" Background="#FFFFFFFFFFFF" Color="#000000000000" Font="Courier" RevisionID="0" Size="12" Style=""> (cont’d</Text>
+      <Text>)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>The Beast jumped up and grabbed it before the ring even hit the water.  And just as fast, he snapped clean through that line.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>WILL, now 17 with braces, is fuming and ready to leave.  His mother SANDRA -- from whom he gets his good looks and practicality -- stands with him at the door.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>edward</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>You can see my predicament.  My wedding ring, the symbol of fidelity to my wife, soon to be the mother of my child, was now lost in the gut of an uncatchable fish.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text AdornmentStyle="0" Background="#FFFFFFFFFFFF" Color="#000000000000" Font="Courier" RevisionID="0" Size="12" Style="Bold"></Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>ON WILL AND SANDRA</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>will</Text>
+    </Paragraph>
+    <Paragraph Type="Parenthetical">
+      <Text>(low but insistent)</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>Make him stop.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>His mother pats him sympathetically, then adjusts his tie.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>will’s date</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>What did you do?</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>EdWARD</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>I followed that fish up-river and down-river for three days and three nights, until I finally had him boxed in.</Text>
+    </Paragraph>
+    <Paragraph Type="Action">
+      <Text>Will regards his father with exasperated contempt.</Text>
+    </Paragraph>
+    <Paragraph Type="Character">
+      <Text>eDWARD</Text>
+    </Paragraph>
+    <Paragraph Type="Dialogue">
+      <Text>With these two hands, I reached in and snatched that fish out of the river.  I looked him straight in the eye.  And I made a remarkable discovery. </Text>
+    </Paragraph>
+  </Content>
+
+</FinalDraft>

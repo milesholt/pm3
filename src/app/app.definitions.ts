@@ -17,5 +17,9 @@ export var Definitions = {
   },
   "p":{
     "name": { "label" : "Enter item name", "value": "", "type": "text", "unique": true }
+  },
+  "segment":{
+    "name": { "label" : "Enter segment name", "value": "", "type": "text", "unique": true },
+    "tags": { "label" : "Enter segment tags", "value": [], "type": "array" }
   }
 };

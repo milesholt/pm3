@@ -32,9 +32,11 @@ export class ItemsPage extends RouterPage implements OnDestroy {
    handleCallback(e){
      const action = e.action;
      let item = e.item;
-     console.log(item);
+     console.log(e);
+     console.log(e.action);
      switch(action){
        case 'component':
+        console.log('routing');
         this.router.navigateByUrl(`/dashboard/${item.data.component}/${item.id}`)
        break;
      }

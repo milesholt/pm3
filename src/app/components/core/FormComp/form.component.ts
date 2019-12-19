@@ -68,18 +68,21 @@ export class FormComponent implements OnInit {
 
   handleFieldChange(){
     this.isUniqueValue = true;
-    if(isObservable(this._t.items)){
-      this._t.items.subscribe(items=>{
-        items.forEach(item=>{
-          if(item.fields[this.selectfield.key].value === this.selectfield.value && this.selectfield.unique) this.isUniqueValue = false;
+    //if we are comparing values against item model
+    if(this.lib.isDefined(this._t.items)){
+      if(isObservable(this._t.items)){ 
+        this._t.items.subscribe(items=>{
+          items.forEach(item=>{
+            if(item.fields[this.selectfield.key].value === this.selectfield.value && this.selectfield.unique) this.isUniqueValue = false;
+          });
         });
-      });
-    }else{
-      this._t.items.forEach(item=>{
-        if(this.lib.isDefined(item.fields[this.selectfield.key])){
-          if(item.fields[this.selectfield.key].value === this.selectfield.value && this.selectfield.unique) this.isUniqueValue = false;
-        }
-      });
+      }else{
+        this._t.items.forEach(item=>{
+          if(this.lib.isDefined(item.fields[this.selectfield.key])){
+            if(item.fields[this.selectfield.key].value === this.selectfield.value && this.selectfield.unique) this.isUniqueValue = false;
+          }
+        });
+      }
     }
     if(this.isUniqueValue) this.fieldsChange.emit(this.fields);
   }

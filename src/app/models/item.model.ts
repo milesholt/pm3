@@ -40,6 +40,11 @@ export class ItemModel {
    content:any
  }
 
+ segment:{
+   name:any,
+   tags:any
+ }
+
 
  params:{}
 
@@ -59,6 +64,11 @@ export class ItemModel {
     this.document = {
       name: { value: "", type: "text" },
       desc: { value: "", type: "text" }
+    }
+
+    this.segment = {
+      name: { value: "", type: "text" },
+      tags: { value : [], type: "array" }
     }
 
     this.collection = {

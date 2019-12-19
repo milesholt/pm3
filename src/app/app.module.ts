@@ -23,9 +23,9 @@ import { TwitterConnect } from '@ionic-native/twitter-connect/ngx';
 
 //BaaS provider imports
 import { Firebase } from '@ionic-native/firebase/ngx';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireModule } from '@angular/fire/';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { AngularFireFunctions } from '@angular/fire/functions';
@@ -38,7 +38,7 @@ import { MasterService } from './services/master.service';
 import { CompileService } from './services/compile.service';
 
 //Core Services
-import { CoreService, ItemsService, ToastService, ModalService, NotificationService, HttpService } from './services/core/core.service';
+import { CoreService, ItemsService, ToastService, ModalService, NotificationService, HttpService, FileService } from './services/core/core.service';
 
 //Internal Services
 import { InternalService, PdfServiceKendo } from './services/internal/internal.service';
@@ -58,7 +58,11 @@ import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
 // import { SafeHtmlPipe } from './pipes/safehtml.pipe/safehtml.pipe';
 //import { TestPipe } from './test.pipe';
 
+import { File } from '@ionic-native/file/ngx';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
 
+import { PdfjsModule } from '@hhangular/pdfjs';
 
 @NgModule({
   declarations: [AppComponent],
@@ -76,7 +80,8 @@ import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
     MatButtonModule,
     MatCheckboxModule,
     MatMenuModule,
-    PDFExportModule
+    PDFExportModule,
+    PdfjsModule.config({workerSrc: 'assets/pdf.worker.js'})
   ],
   providers: [
     Library,
@@ -87,6 +92,7 @@ import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
     TwitterConnect,
     MasterService,
     CoreService,
+    FileService,
     CompileService,
     InternalService,
     PdfServiceKendo,
@@ -105,6 +111,10 @@ import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
     AngularFireMessaging,
     AngularFireFunctions,
     Firebase,
+    File,
+    FileTransfer,
+    FileOpener,
+    FileTransferObject,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

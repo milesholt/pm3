@@ -21,6 +21,11 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
+              {
+                "glob": "pdf.worker.js",
+                "input": "./node_modules/pdfjs-dist/build",
+                "output": "/assets"
+              },
               "src/firebase-messaging-sw.js",
               {
                 "glob": "**/*",
@@ -44,7 +49,9 @@
                 "input": "src/global.scss"
               }
             ],
-            "scripts": []
+            "scripts": [
+              "src/app/components/internal/WritingComp/services/FountainParseService/fountainparse.js"
+            ]
           },
           "configurations": {
             "production": {

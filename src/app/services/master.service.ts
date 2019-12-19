@@ -20,7 +20,7 @@ import { CompileService } from './compile.service';
 @Injectable()
 export class MasterService {
 
-  items; auth; user; notification; notificationExt; toast;
+  items; auth; user; notification; notificationExt; toast; file;
 
   constructor(
     private platform: Platform,
@@ -32,6 +32,7 @@ export class MasterService {
     public compile: CompileService
   ){
     this.items = this.core.items;
+    this.file = this.core.file;
     this.auth = this.external.authFirebase;
     this.user = this.external.userFirebase;
     this.notification = this.core.notification;

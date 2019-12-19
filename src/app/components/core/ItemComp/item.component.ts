@@ -90,10 +90,25 @@ export class ItemComponent implements OnInit, OnChanges, DoCheck {
   }
 
   async selectItem(item){
+    console.log(item);
     this.nestindex++;
     this.item = item;
-    this.callback.emit(item);
+
+
+    //temporary adjustment to get routing to work for accessing item component, this is being worked on
+    if(item.fields.component){
+      item.data = {};
+      switch(item.fields.component.value){
+        case 'work':
+        item.data.component = 'work';
+        item.id = item.fields.name.value;
+        item = { item : item, action : 'component' };
+        break;
+      }
+    }
+    console.log(item);
     await this.service.items.select(item, this);
+    this.callback.emit(item);
 
   }
 
